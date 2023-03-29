@@ -10,6 +10,8 @@ package dao;
  */
 
 import java.sql.*;
+import java.util.*;
+
 public class UserDAO {
     public static Connection openConnection(){
         String driver = "com.mysql.jdbc.Driver";
@@ -40,5 +42,26 @@ public class UserDAO {
         } catch (Exception e) {
         }
         return false;
+    }
+    
+    public static ArrayList<String> getMessages(String receiver){
+        
+        ArrayList<String> arr = new ArrayList<>();
+        
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM message WHERE to_ = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, receiver);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String sender = rs.getString("from_");
+                String content = rs.getString("content");
+                arr.add(sender + ": "+content);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return arr;
     }
 }
