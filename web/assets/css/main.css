@@ -57,6 +57,14 @@ html{
     color: inherit; 
 }
 
+.fa-power-off{
+    transform: translateX(600%); 
+    color: red;
+}
+.fa-power-off:hover{
+    opacity: 0.6;
+}
+
 .header-wrapper__icon  a > .fa-brands{
     margin-right: 1rem;
     cursor: pointer;
@@ -74,6 +82,8 @@ html{
     color: #333E63;
     position: relative;
     background-color: white;
+    display: flex;
+    z-index: 10;
 }
 
 .main-menu .main-menu__items{
@@ -86,7 +96,48 @@ html{
     height: inherit;
     justify-content: space-evenly;
     align-items: center;
-    animation: mainMenuItem ease-in 1s;
+    /* animation: mainMenuItem ease-in 0.8s; */
+    /* padding-right: 23%; */
+}
+
+.search-login{
+    width: 23%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+  
+
+.search-login input{
+    height: 40%;
+    width: 50%;
+    border-radius: 100px;
+    border: 2px solid #333e63;
+    font-size: 11.5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.fa-magnifying-glass{
+    font-size: 20px;
+}
+
+.fa-magnifying-glass:hover{
+    color:rgb(179, 197, 145)
+}
+.search-login div{
+    font-size: 15px;
+    padding: 5px 10px;
+    border: 2px solid #333e63;
+    border-radius: 30px;
+    /* text-transform: uppercase; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(179, 197, 145);
+    text-shadow: -0.1px 0 black, 0 0.1px black, 0.1px 0 black, 0 -0.1px black;  
+    /* background-color: #9aa4cb; */
+}
+
+.search-login div:hover{
+    background-color: #333E63;
 }
 
 .none-animation{
@@ -106,6 +157,8 @@ html{
     cursor: pointer;
     line-height: 7.2rem; 
     text-transform: uppercase;
+    color: #333E63;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     
 }
 .main-menu__item a{
@@ -122,13 +175,17 @@ html{
     color: black;
 }
 
+.main-menu__items__img{
+    width: 25%;
+}
 .main-menu__items img{
-    width: 10%; height: 90%;
-    transform: translateX(-70%);
+    width: 50%; height: 90%;
+    /* transform: translateX(-70%); */
     /* box-shadow: 5px 5px 5px lightblue ; */
+    
 }
 
-.item--career{
+/* .item--career{
     transform: translateX(-176%) !important;
 }
 
@@ -138,7 +195,7 @@ html{
 
 .item--comunity{
     transform: translateX(-410%) !important;
-}
+} */
 
 /* Slider */
 
@@ -209,3 +266,6 @@ html{
     right: 48.5%;
 }
 
+.login-btn{
+    cursor: pointer;
+}

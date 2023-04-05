@@ -44,6 +44,47 @@ public class UserDAO {
         return false;
     }
     
+    public static boolean checkUserNameExists(String userName) {
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_idol where user_name = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, userName);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+    public static boolean changeIdol(String userName, String idol) {
+        try (Connection c = openConnection()){
+            String update = "UPDATE user_idol SET idol = ? WHERE user_name = ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            
+            ps.setString(1, idol);
+            ps.setString(2, userName);
+            
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+    public static boolean insertIdol(String userName, String idol) {
+        try (Connection c = openConnection()){
+            String insert = "INSERT INTO user_idol VALUES (?, ?)";
+            PreparedStatement ps = c.prepareStatement(insert);
+            ps.setString(1, userName);
+            ps.setString(2, idol);
+            
+            return ps.execute();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
     public static ArrayList<String> getMessages(String receiver){
         
         ArrayList<String> arr = new ArrayList<>();
@@ -63,5 +104,24 @@ public class UserDAO {
             e.printStackTrace();
         }
         return arr;
+    }
+    
+    public static HashMap<String, Long> getNumberOfVotes(){
+        HashMap<String, Long> hm = new HashMap<>();
+        try (Connection c = openConnection()){
+            String select = "SELECT idol, COUNT(*) as cnt FROM user_idol GROUP BY idol;";
+            PreparedStatement ps = c.prepareStatement(select);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String idol = rs.getString("idol");
+                Long cnt = rs.getLong("cnt");
+                hm.put(idol, cnt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return hm;
     }
 }

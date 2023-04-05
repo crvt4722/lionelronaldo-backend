@@ -20,9 +20,17 @@
             <param-value>04072002</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessReceiveVote</servlet-name>
+        <servlet-class>controller.ProcessReceiveVote</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSendMessage</servlet-name>
         <url-pattern>/ProcessSendMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessReceiveVote</servlet-name>
+        <url-pattern>/ProcessReceiveVote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

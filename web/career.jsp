@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./assets/css/footer.css">
         <link rel="stylesheet" href="./assets/css/career.css">
         <link rel="stylesheet" href="./assets/css/modal.css">
+        
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/base.css">
         <link rel="stylesheet" type="text/css"  type="text/css"href="./assets/css/main.css">
@@ -38,14 +39,22 @@
         </div>
         <div class="main-menu">
             <div class="main-menu__items">
-                <img  src="./assets/img/web_name.jpg">
-                <div class="main-menu__item"><a href="index.jsp">home</a></div>
-                <div class="main-menu__item item--career">
-                    <a href="career.jsp">career</a>
-                    
+                <div class="main-menu__items__img">
+                    <img  src="./assets/img/web_name.jpg">
                 </div>
-                <div class="main-menu__item item--auction"><a href="vote.jsp">auction</a></div>
-                <div class="main-menu__item item--comunity"><a href="comunity.jsp">comunity</a></div>
+                <div class="main-menu__item"><a href="index.html">Home</a></div>
+                <div class="main-menu__item item--career">
+                    <a href="career.jsp">player info</a>
+                </div>
+                <div class="main-menu__item item--auction"><a href="vote.jsp">Who's the best</a></div>
+                <div class="main-menu__item item--comunity"><a href="comunity.jsp">Comunity</a></div>
+                
+            </div>
+
+            <div class="search-login">
+                <input type="text" name="" id="" placeholder='Track your order by username...'>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="login-btn" style="cursor: pointer">Login</div>
             </div>
         </div>    
     </div>
@@ -64,71 +73,82 @@
         <div class="career__shirts nation__shirts"></div>
     </div> 
 
-
-    <div class="modal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <i class="modal-close fa-solid fa-xmark"></i>
-                <div class="modal__web-name">
-                    
-                    <h3>    <span class="modal-header__span1">Lionel</span><span class="modal-header__span2">Ronaldo</span></h3>
-                    <p>Be served you is our honor!</p>
-                </div>
-                
-            </div>
-
-            <div class="modal-content">
-
-                <div class="label-container">
-                    <label for="modal__full-name" class="modal-label" >
-                        <i class="fa-sharp fa-solid fa-signature"></i> Full Name: 
-                    </label>
-    
-                    <label for="modal__phone" class="modal-label">
-                        <i class="fa-sharp fa-solid fa-phone"></i> Phone: 
-                    </label>
-    
-                    <label for="modal__address" class="modal-label">
-                        <i class="fa-sharp fa-solid fa-location-dot"></i> Address:
-                    </label>
-    
-                    <label for="" class="modal-label">
-                        <i class="fa-sharp fa-solid fa-shirt"></i> Size:
-                    </label>
-                    
-                    <label for="" class="modal-label" style="transform:translateY(-3px)">
-                        <i class="fa-sharp fa-solid fa-cart-plus"></i> Quantity:
-                    </label> 
-                </div>
-
-                <div class="input-container">
-                    <input id='modal__full-name' type="text" required>
-                    <input id='modal__phone' type='tel' required>
-                    <input id='modal__address' type='text' required>
-
-                    <div class="input-container__radio">
-                        <input type="radio" class="modal__radio-btn" id ='s' value="S" name = 'shirt-size'> <label for="s">S</label>
-                        <input type="radio" class="modal__radio-btn" id ='m' value="M" name = 'shirt-size'> <label for="m">M</label>
-                        <input type="radio" class="modal__radio-btn" id ='l' value="L" name = 'shirt-size'> <label for="l">L</label>
-                        <input type="radio" class="modal__radio-btn" id ='xl' value="XL" name = 'shirt-size'> <label for="xl">XL</label>
-                        <input type="radio" class="modal__radio-btn" id ='2xl' value="2XL" name = 'shirt-size'> <label for="2xl">2XL</label>
-                        <input type="radio" class="modal__radio-btn" id ='3xl' value="3XL" name = 'shirt-size'> <label for="3xl">3XL</label>
-                    </div>
-
-                    <input type="number" name="" id="" min = "1" max = '100' value="1" class="input-container__quantity">
-                </div>    
-                <button type="submit" class="modal-submit-btn">submit <i class="fa-sharp fa-solid fa-circle-check"></i></button>
-            </div>
-        </div>
-    </div>
+    <div w3-include-html="./includes/modal.html"></div>
 </body>
     
 
-   <script type="text/babel" src="./js/career-content-react.js">
-    </script>
+   <script type="text/babel" src="./js/career-content-react.js"></script>
 
     <script src="./js/career.js"></script>
+    <script>
+        function addModalJs(){
+            const modal = document.querySelector('.modal')
+            const modalLogin = document.querySelector('.modal.login')
+            const modalSignup = document.querySelector('.modal.signup')
+
+            const modalContainer = document.querySelector('.modal-container')
+            const modalContainerLogin = document.querySelector('.modal-container__login')
+            const modalContainerSignup = document.querySelector('.modal-container__signup')
+
+            const modalClose = document.querySelector('.modal-close')
+            const modalCloseLogin = document.querySelector('.modal-close__login')
+            const modalCloseSignup = document.querySelector('.modal-close__signup')
+
+
+            const loginBtn = document.querySelector('.login-btn')
+
+            function showModal(modal){
+                modal.classList.add('open')
+            }
+
+            function hideModal(modal){
+                modal.classList.remove('open')
+            }
+
+            loginBtn.addEventListener('click', showModal.bind(this, modalLogin))
+            modalCloseLogin.addEventListener('click', hideModal.bind(this, modalLogin))
+
+            modalCloseSignup.addEventListener('click', hideModal.bind(this, modalSignup))
+
+            modalClose.addEventListener('click', hideModal.bind(this, modal))
+
+
+            modalSignup.addEventListener('click', hideModal.bind(this,modalSignup))
+            modalLogin.addEventListener('click', hideModal.bind(this,modalLogin))
+            modal.addEventListener('click', hideModal.bind(this,modal))
+
+
+            modalContainer.addEventListener('click', (e) => e.stopPropagation())
+            modalContainerLogin.addEventListener('click', (e) => e.stopPropagation())
+            modalContainerSignup.addEventListener('click', (e) => e.stopPropagation())
+
+            const loginLabels = document.querySelectorAll('.login-label')
+            const signupLabels = document.querySelectorAll('.signup-label')
+
+            function transfromToLogin(modalLogin, modalSignup){
+                modalSignup.classList.remove('open')
+                modalLogin.classList.add('open')
+            }
+
+            function transfromToSignup(modalLogin, modalSignup){
+                modalSignup.classList.add('open')
+                modalLogin.classList.remove('open')
+            }
+
+            for (let loginLabel of loginLabels){
+                loginLabel.addEventListener('click', transfromToLogin.bind(this, modalLogin, modalSignup))
+            }
+
+            for(let signupLabel of signupLabels){
+                signupLabel.addEventListener('click', transfromToSignup.bind(this, modalLogin, modalSignup))
+            }
+        }
+        includeHTML();
+        setTimeout(addModalJs, 2000);
+    </script>
 
 <body>
 </html>
+
+
 

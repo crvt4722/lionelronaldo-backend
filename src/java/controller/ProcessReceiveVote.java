@@ -4,7 +4,9 @@
  */
 package controller;
 
-import com.mysql.cj.xdevapi.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,19 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import dao.UserDAO;
-import java.io.BufferedReader;
-import java.util.*;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.annotation.WebServlet;
+import java.util.HashMap;
+import java.util.Map;
 import util.Validate;
 
 /**
  *
  * @author DELL
  */
-
-@WebServlet (urlPatterns = {"/get-old-messages"})
-public class ProcessSendMessage extends HttpServlet {
+public class ProcessReceiveVote extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,49 +38,38 @@ public class ProcessSendMessage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        ArrayList<String> messages = UserDAO.getMessages("everyone");
-        
-        String messagesString = "";
-        for (String x : messages) {
-            messagesString += "<li>" + x + "</li>";
-        }
-        
-        response.getWriter().write(messagesString);
-        
-    /*  String nameShown = request.getParameter("name-shown");
-        String message = request.getParameter("message");
-        
         BufferedReader reader = request.getReader();
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line);
         }
-        System.out.println(sb.toString());
         
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
+        String userName = jsonObject.get("userName").getAsString();
+        String idol = jsonObject.get("idol").getAsString();
         
+        if(Validate.controlUserInput(userName) && Validate.controlUserInput(idol)){
+            if(UserDAO.checkUserNameExists(userName)){
+                UserDAO.changeIdol(userName, idol);
+            }
+            else UserDAO.insertIdol(userName, idol);
+        }
         
+        HashMap<String, Long> hm = UserDAO.getNumberOfVotes();
         
-        PrintWriter out = response.getWriter();
-
-        try {
-            // Delay 5 giây trước khi gửi dữ liệu mới
+        String responseText = "{";
+        for (Map.Entry<String, Long> x : hm.entrySet()){
+            System.out.println(x.getKey() + ": "+ x.getValue());
             
-            TimeUnit.MILLISECONDS.sleep(1000);
-
-            // Gửi dữ liệu mới cho client
-            out.write(messagesString);
-            out.flush();
-        } catch (InterruptedException e) {
-            // Xử lý lỗi
-//            Time.sleep(1000);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            System.out.println("Error occurred while long polling");
-            out.flush();
-        } finally {
-            out.close();
-        } 
-        */
+            responseText += "\"" + x.getKey()+ "\"" +": "+ x.getValue() +",";
+        }
+        
+        responseText = responseText.substring(0, responseText.length() - 1);
+        responseText += "}";
+        
+        response.getWriter().write(responseText);
         
     }
 
@@ -98,7 +85,6 @@ public class ProcessSendMessage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
     }
 
@@ -115,7 +101,6 @@ public class ProcessSendMessage extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
 
     /**
      * Returns a short description of the servlet.

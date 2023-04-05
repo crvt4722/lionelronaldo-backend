@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/css/footer.css">
     <link rel="stylesheet" href="./assets/css/vote.css">
     <link rel="stylesheet" href="./assets/css/comunity.css">
+    <link rel="stylesheet" href="./assets/css/modal.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/base.css">
@@ -34,41 +35,87 @@
         </div>
 
         <div class="items">
-            <div class="control prev"><i class="fa-sharp fa-solid fa-chevron-left"></i></i></div>
-            <div class="item first">
-                <img src="./assets/img/career/2008-2009/head-avatar.jpg" alt="">
-                <input type="radio" name="player" id="first-section" value="Cristiano Ronaldo">
-                <label for="first-section">Cristiano Ronaldo</label>
-            </div>
-    
-            <div class="item second">
-                <img src="./assets/img/career/2017-2018/head-avatar.jpg" alt="">
-                <input type="radio" name="player" id ="second-section" style="font-size: 20px;">
-                <label for="second-section">Cristiano Ronaldo</label>
-            </div>
-    
-            <div class="item third">
-                <img src="./assets/img/career/2022-2023/head-avatar.jpg" alt="">
-                <input type="radio" name="player" id = "third-section">
-                <label for="third-section">Cristiano Ronaldo</label>
-            </div>
-            <div class="control next"><i class="fa-sharp fa-solid fa-chevron-right"></i></div>
+            
         </div>
 
-        <button>Statistics</button>
+        <div class="btn">
+            <button onclick = renderSlider()>Back</button>
+            <button onclick = submitSection()>Submit</button>
+            <button onclick = analysChart()>Statistics</button>
+        </div>
     </div>
 
     <footer class="footer-distributed" w3-include-html="./includes/footer.html"> </footer>
+    <div w3-include-html="./includes/modal.html"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/babel" src="js/vote-react.js"> </script>
+    
     <script>
-        const messageForm = document.querySelector('.message-form')
-        messageForm.addEventListener('submit', (e) =>{
-            e.preventDefault()
-            const messageBox = document.querySelector('.message-box')
-            messageBox.scrollTop = messageBox.scrollHeight
-        })
-    </script>
-    <script>
+        function addModalJs(){
+            const modal = document.querySelector('.modal')
+            const modalLogin = document.querySelector('.modal.login')
+            const modalSignup = document.querySelector('.modal.signup')
+
+            const modalContainer = document.querySelector('.modal-container')
+            const modalContainerLogin = document.querySelector('.modal-container__login')
+            const modalContainerSignup = document.querySelector('.modal-container__signup')
+
+            const modalClose = document.querySelector('.modal-close')
+            const modalCloseLogin = document.querySelector('.modal-close__login')
+            const modalCloseSignup = document.querySelector('.modal-close__signup')
+
+
+            const loginBtn = document.querySelector('.login-btn')
+
+            function showModal(modal){
+                modal.classList.add('open')
+            }
+
+            function hideModal(modal){
+                modal.classList.remove('open')
+            }
+
+            loginBtn.addEventListener('click', showModal.bind(this, modalLogin))
+            modalCloseLogin.addEventListener('click', hideModal.bind(this, modalLogin))
+
+            modalCloseSignup.addEventListener('click', hideModal.bind(this, modalSignup))
+
+            modalClose.addEventListener('click', hideModal.bind(this, modal))
+
+
+            modalSignup.addEventListener('click', hideModal.bind(this,modalSignup))
+            modalLogin.addEventListener('click', hideModal.bind(this,modalLogin))
+            modal.addEventListener('click', hideModal.bind(this,modal))
+
+
+            modalContainer.addEventListener('click', (e) => e.stopPropagation())
+            modalContainerLogin.addEventListener('click', (e) => e.stopPropagation())
+            modalContainerSignup.addEventListener('click', (e) => e.stopPropagation())
+
+            const loginLabels = document.querySelectorAll('.login-label')
+            const signupLabels = document.querySelectorAll('.signup-label')
+
+            function transfromToLogin(modalLogin, modalSignup){
+                modalSignup.classList.remove('open')
+                modalLogin.classList.add('open')
+            }
+
+            function transfromToSignup(modalLogin, modalSignup){
+                modalSignup.classList.add('open')
+                modalLogin.classList.remove('open')
+            }
+
+            for (let loginLabel of loginLabels){
+                loginLabel.addEventListener('click', transfromToLogin.bind(this, modalLogin, modalSignup))
+            }
+
+            for(let signupLabel of signupLabels){
+                signupLabel.addEventListener('click', transfromToSignup.bind(this, modalLogin, modalSignup))
+            }
+        }
         includeHTML();
+        setTimeout(addModalJs, 2000);
     </script>
 </body>
 </html>
