@@ -10,7 +10,9 @@
             
         </div>
 
-        <div class="modal-content">
+        <div class="alert-danger">Invalid email. Try again!</div>
+
+        <form class="modal-content">
 
             <div class="label-container">
                 <label for="modal__full-name" class="modal-label" >
@@ -51,7 +53,7 @@
                 <input type="number" name="" id="" min = "1" max = '100' value="1" class="input-container__quantity">
             </div>    
             <button type="submit" class="modal-submit-btn">submit <i class="fa-sharp fa-solid fa-circle-check"></i></button>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -71,7 +73,10 @@
             <label for="" class="login-label">Sign in</label>
             <label for="" class="signup-label">Sign up</label>
         </div>
-        <div class="modal-content">
+
+        <div class="alert-danger__login">Invalid email. Try again!</div>
+
+        <form class="modal-content">
             
             <div class="label-container">
                 <label for="email__login" class="modal-label">
@@ -86,13 +91,13 @@
             </div>
 
             <div class="input-container">
-                <input id='email__login' type="text" required placeholder="">
-                <input id='password__login' type='text' required>
+                <input id='email__login' name= 'email__login' type="email" required placeholder="">
+                <input id='password__login' name = 'password__login' type="password" required>
                 
             </div>    
             <button type="submit" class="modal-submit-btn">Sign in</button>
             
-        </div>
+        </form>
 
         <div class="modal-or">
             <div></div>
@@ -130,7 +135,10 @@
             <label for="" class="login-label">Sign in</label>
             <label for="" class="signup-label">Sign up</label>
         </div>
-        <div class="modal-content">
+
+        <div class="alert-danger__signup">Invalid email. Try again!</div>
+
+        <form class="modal-content"method = "post">
             
             <div class="label-container">
                 
@@ -148,21 +156,19 @@
                 <label for="repassword__signup" class="modal-label">
                     <i class="fa-solid fa-key"></i> Re-password: 
                 </label>
-
-
                 
             </div>
 
             <div class="input-container">
-                <input id='fullname__signup' type="text" required placeholder="">
-                <input id='email__signup' type='text' required>
-                <input id='password__signup' type='text' required>
-                <input id='repassword__signup' type='text' required>
+                <input id='fullname__signup' name = 'fullname__signup' type="text" required placeholder="">
+                <input id='email__signup' name = 'email__signup' type='email' required>
+                <input id='password__signup' name = 'password__signup' type='password' required>
+                <input id='repassword__signup' name = 'repassword__signup' type='password' required>
                 
             </div>    
             <button type="submit" class="modal-submit-btn">Sign up</button>
             
-        </div>
+        </form>
 
         <div class="modal-or">
             <div></div>

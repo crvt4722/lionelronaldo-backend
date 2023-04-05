@@ -1,9 +1,16 @@
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="util.Validate"%>
 
     <div class="header-wrapper">
+        
         <div class="slogan">We ride together we die together</div>
+        <div class="user-email"><%= Validate.StringUtil((String) session.getAttribute("lastName"))%></div>
+        
         <div class="header-wrapper__icon">
-            <i class="fa-solid fa-power-off"></i>
+            <span class="profile-name">
+                <%= Validate.StringUtil((String) session.getAttribute("lastName"))%> <i class="fa-solid fa-power-off"></i>
+            </span>
+            
             <a href="#"><i class="fa-brands fa-facebook"></i></a>
             <a href="#"><i class="fa-brands fa-instagram"></i></a>
             <a href="#"><i class="fa-brands fa-youtube"></i></a>

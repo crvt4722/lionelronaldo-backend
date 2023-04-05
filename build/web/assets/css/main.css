@@ -57,12 +57,17 @@ html{
     color: inherit; 
 }
 
+.profile-name{
+    color: rgb(203, 214, 139); 
+    transform: translateX(70px);
+}
+
 .fa-power-off{
-    transform: translateX(600%); 
     color: red;
 }
 .fa-power-off:hover{
     opacity: 0.6;
+    color:yellow;
 }
 
 .header-wrapper__icon  a > .fa-brands{

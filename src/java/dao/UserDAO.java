@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
-
-/**
- *
- * @author DELL
- */
 
 import java.sql.*;
 import java.util.*;
+import model.UserProfile;
 
 public class UserDAO {
     public static Connection openConnection(){
@@ -123,5 +115,61 @@ public class UserDAO {
         }
         
         return hm;
+    }
+    
+    public static boolean isDuplicateEmail(String email){
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_profile WHERE email = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, email);
+            return ps.executeQuery().next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean insertUserProfile(String fullname, String email, String password ){
+        try (Connection c = openConnection()){
+            String insert = "INSERT INTO user_profile VALUES (?, ?, ?)";
+            PreparedStatement ps = c.prepareStatement(insert);
+            ps.setString(1, fullname);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.execute();
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean checkLogin(String email, String password){
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_profile WHERE email = ? AND password = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            return ps.executeQuery().next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static String getFullname(String email){
+        String result = "";
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_profile WHERE email = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, email);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getString("fullname");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

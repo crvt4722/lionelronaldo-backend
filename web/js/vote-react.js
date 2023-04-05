@@ -132,7 +132,7 @@ function renderSlider(){
     root.render(<Slider/>)
 }
 
-let userInput = prompt('Type your username: ')
+let userInput = document.querySelector(".user-email").textContent
 function submitSection(){
 //    root.render(<Slider/>)
 //    let userInput = prompt('Type your username: ')

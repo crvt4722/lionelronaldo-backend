@@ -6,25 +6,27 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dao.UserDAO;
-import java.util.HashMap;
-import java.util.Map;
+import util.PasswordEncoder;
 import util.Validate;
-
-
+import dao.UserDAO;
+import java.io.BufferedReader;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-public class ProcessReceiveVote extends HttpServlet {
+public class ProcessLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +38,7 @@ public class ProcessReceiveVote extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
@@ -49,30 +51,46 @@ public class ProcessReceiveVote extends HttpServlet {
         
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
-        String userName = jsonObject.get("userName").getAsString();
-        String idol = jsonObject.get("idol").getAsString();
         
-        if(Validate.controlUserInput(userName) && Validate.controlUserInput(idol)){
-            if(UserDAO.checkUserNameExists(userName)){
-                UserDAO.changeIdol(userName, idol);
-            }
-            else UserDAO.insertIdol(userName, idol);
+        String email = jsonObject.get("email").getAsString();
+        String password = jsonObject.get("password").getAsString();
+        
+        
+        System.out.println(email);
+        String errorMessage = "";
+        
+        if(!Validate.checkEmail(email)){
+            errorMessage = "Invalid email!";
         }
-        
-        HashMap<String, Long> hm = UserDAO.getNumberOfVotes();
-        
-        String responseText = "{";
-        for (Map.Entry<String, Long> x : hm.entrySet()){
-            System.out.println(x.getKey() + ": "+ x.getValue());
+        else if(!Validate.checkPassword(password)){
+            errorMessage = "Invalid password!";
+        }
+        else if(!UserDAO.isDuplicateEmail(email)){
+            errorMessage = "The email does not exist!";
+        }
+        else if (!UserDAO.checkLogin(email, PasswordEncoder.encode(password))){
+            errorMessage = "Incorrect password!";
+        }
+        else{
+            String fullname = UserDAO.getFullname(email);
+            errorMessage = fullname+ " has logined successfully!";
             
-            responseText += "\"" + x.getKey()+ "\"" +": "+ x.getValue() +",";
+            String [] arrStrings =fullname.trim().split("\\s+");
+            String lastName  =arrStrings[arrStrings.length - 1];
+
+            
+            HttpSession session = request.getSession();
+            
+            session.setAttribute("lastName", arrStrings[arrStrings.length - 1]);
+            session.setAttribute("fullname", fullname);
+            session.setAttribute("email", email);
+            
+//            String responseJson = "{\"error-message\":" + errorMessage + ",\"last-name\": "+fullname+"}";
+//            System.out.println(responseJson);
+            
+            
         }
-        
-        responseText = responseText.substring(0, responseText.length() - 1);
-        responseText += "}";
-        
-        response.getWriter().write(responseText);
-        
+        response.getWriter().write(errorMessage);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,7 +105,11 @@ public class ProcessReceiveVote extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ProcessSignup.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -101,7 +123,11 @@ public class ProcessReceiveVote extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ProcessSignup.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

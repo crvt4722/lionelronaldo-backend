@@ -233,3 +233,11 @@
 .modal-social__google{
     background-image: linear-gradient(to bottom, #dd4e41, #c9453a);
 }
+
+.alert-danger, .alert-danger__login, .alert-danger__signup{
+    padding-top: 5px;
+    color:red;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}

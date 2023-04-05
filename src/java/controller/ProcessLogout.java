@@ -4,27 +4,19 @@
  */
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dao.UserDAO;
-import java.util.HashMap;
-import java.util.Map;
-import util.Validate;
-
-
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-public class ProcessReceiveVote extends HttpServlet {
+public class ProcessLogout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +30,15 @@ public class ProcessReceiveVote extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+        System.out.println(1);
+        session.removeAttribute("lastName");
+        session.removeAttribute("fullname");
+        session.removeAttribute("email");
         
-        BufferedReader reader = request.getReader();
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
-        
-        Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
-        String userName = jsonObject.get("userName").getAsString();
-        String idol = jsonObject.get("idol").getAsString();
-        
-        if(Validate.controlUserInput(userName) && Validate.controlUserInput(idol)){
-            if(UserDAO.checkUserNameExists(userName)){
-                UserDAO.changeIdol(userName, idol);
-            }
-            else UserDAO.insertIdol(userName, idol);
-        }
-        
-        HashMap<String, Long> hm = UserDAO.getNumberOfVotes();
-        
-        String responseText = "{";
-        for (Map.Entry<String, Long> x : hm.entrySet()){
-            System.out.println(x.getKey() + ": "+ x.getValue());
-            
-            responseText += "\"" + x.getKey()+ "\"" +": "+ x.getValue() +",";
-        }
-        
-        responseText = responseText.substring(0, responseText.length() - 1);
-        responseText += "}";
-        
-        response.getWriter().write(responseText);
-        
+        System.out.println(session.getAttribute("lastName"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

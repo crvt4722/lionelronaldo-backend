@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DELL/Documents/LeoCris/web/comunity.jsp</file>
-            <file>file:/C:/Users/DELL/Documents/LeoCris/web/includes/header.html</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/src/java/controller/ProcessReceiveVote.java</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/web/includes/modal.html</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/src/java/controller/ProcessSignup.java</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/web/js/handle-modal.js</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/web/js/vote-react.js</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/web/index.jsp</file>
             <file>file:/C:/Users/DELL/Documents/LeoCris/web/includes/include.js</file>
-            <file>file:/C:/Users/DELL/Documents/LeoCris/web/vote.jsp</file>
-            <file>file:/C:/Users/DELL/Documents/LeoCris/web/career.jsp</file>
+            <file>file:/C:/Users/DELL/Documents/LeoCris/src/java/dao/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>
