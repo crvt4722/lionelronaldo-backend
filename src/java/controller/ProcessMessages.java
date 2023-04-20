@@ -43,8 +43,9 @@ public class ProcessMessages extends HttpServlet {
         if (jsonObject != null){
             String nameShown = jsonObject.get("nameShown").getAsString();
             String messageContent = jsonObject.get("messageContent").getAsString();
+            String receiver = jsonObject.get("receiver").getAsString();
             
-            if (UserDAO.insertMessage(nameShown, "everyone", messageContent)){
+            if (UserDAO.insertMessage(nameShown, receiver, messageContent)){
                 System.out.println("Insert message successfully!");
             }
             else{

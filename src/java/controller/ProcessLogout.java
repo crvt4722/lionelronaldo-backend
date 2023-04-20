@@ -4,13 +4,16 @@
  */
 package controller;
 
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.UserOrder;
 
 /**
  *
@@ -33,12 +36,15 @@ public class ProcessLogout extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        System.out.println(1);
+        System.out.println("Logout");
         session.removeAttribute("lastName");
         session.removeAttribute("fullname");
-        session.removeAttribute("email");
         
-        System.out.println(session.getAttribute("lastName"));
+        
+        
+//        System.out.println(responseString);
+        
+        session.removeAttribute("email");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

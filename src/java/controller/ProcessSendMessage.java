@@ -4,6 +4,8 @@
  */
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mysql.cj.xdevapi.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,7 +42,19 @@ public class ProcessSendMessage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        ArrayList<String> messages = UserDAO.getMessages("everyone");
+        BufferedReader reader = request.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
+        
+        String receiver = jsonObject.get("receiver").getAsString();
+        
+        ArrayList<String> messages = UserDAO.getMessages(receiver);
         
         String messagesString = "";
         for (String x : messages) {
@@ -49,40 +63,6 @@ public class ProcessSendMessage extends HttpServlet {
         
         response.getWriter().write(messagesString);
         
-    /*  String nameShown = request.getParameter("name-shown");
-        String message = request.getParameter("message");
-        
-        BufferedReader reader = request.getReader();
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
-        System.out.println(sb.toString());
-        
-        
-        
-        
-        PrintWriter out = response.getWriter();
-
-        try {
-            // Delay 5 giây trước khi gửi dữ liệu mới
-            
-            TimeUnit.MILLISECONDS.sleep(1000);
-
-            // Gửi dữ liệu mới cho client
-            out.write(messagesString);
-            out.flush();
-        } catch (InterruptedException e) {
-            // Xử lý lỗi
-//            Time.sleep(1000);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            System.out.println("Error occurred while long polling");
-            out.flush();
-        } finally {
-            out.close();
-        } 
-        */
         
     }
 

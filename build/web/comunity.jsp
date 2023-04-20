@@ -36,12 +36,10 @@
             <!-- <label for="">Send to: </label> -->
             <div class="receiver-section">
                 <label for="">Gửi tới: </label>
-                <select>
+                <select class="receiver-option"onchange=renderMessages()>
                     <option value="everyone">Everyone</option>
-                    <option value="ronaldo">Ronaldo</option>
-                    <option value="messi">Messi</option>
-                    <option value="benzema">Benzema</option>
-                    <option value="neymar">Neymar</option>
+                    <option value="ronaldo">Ronaldo Comunity</option>
+                    <option value="messi">Messi Comunity</option>
                 </select>
             </div>
 
@@ -285,11 +283,22 @@
         messageForm.addEventListener('submit', (e)=>{
             e.preventDefault()
         })
+        
+        var userInput = ''
+        setTimeout(()=>{
+            userInput = document.querySelector(".user-email").textContent
+            }, 1000)
+            
         function sendMessageToServer(){
+            if(!userInput) alert('Please login first!')
             let nameShown = document.getElementById("name").value;
             let messageContent = document.getElementById("message-content").value;
-            let message = JSON.stringify({"nameShown": nameShown, "messageContent":messageContent})
-            if(nameShown && messageContent)
+            let message = JSON.stringify({
+                "nameShown": nameShown, 
+                "messageContent":messageContent,
+                "receiver": document.querySelector('.receiver-option').value
+            })
+            if(nameShown && messageContent &&userInput)
             {
                 ws.send(message);
             }
@@ -298,14 +307,23 @@
     </script>
     
     <script>
-        
-        $(document).ready(()=>{
-            setTimeout(()=>{
-                $.post('http://localhost:8080/LeoCris/get-old-messages', (data) =>{
-                    document.querySelector(".message-box").innerHTML = data
+        function renderMessages(){
+            let data = JSON.stringify({"receiver": document.querySelector('.receiver-option').value})
+            let xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://localhost:8080/LeoCris/get-old-messages', true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    // Xử lý phản hồi từ server.
+                    document.querySelector(".message-box").innerHTML = xhr.responseText
+                    console.log(111)
                     updateScroll()
-                })
-            }, 100)
+                    }
+                };
+            xhr.send(data)
+        }
+        $(document).ready(()=>{
+            setTimeout(renderMessages, 100)
         })
     </script>    
     

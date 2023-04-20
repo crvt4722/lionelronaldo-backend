@@ -39,9 +39,9 @@
         </div>
 
         <div class="btn">
-            <button onclick = renderSlider()>Back</button>
-            <button onclick = submitSection()>Submit</button>
-            <button onclick = analysChart()>Statistics</button>
+            <button onclick = renderSlider() style='cursor: pointer'>Back</button>
+            <button onclick = submitSection() style='cursor: pointer'>Submit</button>
+            <button onclick = analysChart() style='cursor: pointer'>Statistics</button>
         </div>
     </div>
 

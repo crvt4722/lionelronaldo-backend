@@ -36,6 +36,18 @@
         <servlet-name>ProcessLogout</servlet-name>
         <servlet-class>controller.ProcessLogout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessOrder</servlet-name>
+        <servlet-class>controller.ProcessOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessGetUserOrder</servlet-name>
+        <servlet-class>controller.ProcessGetUserOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessCancelOrder</servlet-name>
+        <servlet-class>controller.ProcessCancelOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSendMessage</servlet-name>
         <url-pattern>/ProcessSendMessage</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>ProcessLogout</servlet-name>
         <url-pattern>/ProcessLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrder</servlet-name>
+        <url-pattern>/ProcessOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessGetUserOrder</servlet-name>
+        <url-pattern>/ProcessGetUserOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessCancelOrder</servlet-name>
+        <url-pattern>/ProcessCancelOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

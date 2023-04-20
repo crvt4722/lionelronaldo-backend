@@ -11,6 +11,10 @@ public class Validate {
         return true;
     }
     
+    public static boolean checkPhone(String phone) {
+        return phone.matches("\\d{9,11}");
+    }
+    
     public static boolean checkName(String name) {
         return name.matches("[\\p{L}\\s]{2,50}");
     }
@@ -19,7 +23,12 @@ public class Validate {
             return false;
         return true;
     }
+    
     public static boolean checkPassword(String password) {
         return password.matches("\\w{4,30}");
+    }
+    
+    public static boolean checkAddress(String address) {
+        return address.matches("[\\p{L},.\\s]{10,100}");
     }
 }

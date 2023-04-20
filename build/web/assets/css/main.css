@@ -122,11 +122,11 @@ html{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.fa-magnifying-glass{
+.fa-user{
     font-size: 20px;
 }
 
-.fa-magnifying-glass:hover{
+.fa-user:hover{
     color:rgb(179, 197, 145)
 }
 .search-login div{

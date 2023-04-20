@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
+import model.UserOrder;
 import model.UserProfile;
 
 public class UserDAO {
@@ -171,5 +172,96 @@ public class UserDAO {
             e.printStackTrace();
         }
         return result;
+    }
+    
+    public static boolean insertUserOrder(String phone, String email,String address, String orderTime
+            ,String size, String quantity, String paymentMethod, String season, 
+            String orderShirtType, String clubOrNation, String player){
+        
+        try (Connection c = openConnection()){
+            String insert = "INSERT INTO user_order VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = c.prepareStatement(insert);
+            ps.setString(1, email);
+            ps.setString(2, orderShirtType);
+            ps.setString(3, season);
+            ps.setString(4, orderTime);
+            ps.setString(5, phone);
+            ps.setString(6, address);
+            ps.setString(7, size);
+            ps.setString(8, quantity);
+            ps.setString(9, paymentMethod);
+            ps.setString(10, clubOrNation);
+            ps.setString(11, player);
+            ps.setString(12, "Wait for the confirmation");
+            ps.execute();
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static ArrayList<UserOrder> getUserOrder(String email){
+        ArrayList<UserOrder> res = new ArrayList<UserOrder>();
+        try (Connection c = openConnection()){
+            String select = "";
+            if(!email.equals("admin@lionelronaldo.com")) select = "SELECT * FROM user_order WHERE email = ?";
+            else select = "SELECT * FROM user_order";
+            PreparedStatement ps = c.prepareStatement(select);
+            if(!email.equals("admin@lionelronaldo.com")) ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+//            System.out.println("chayok");
+            while(rs.next()){
+//                System.out.println("chuanbitim");
+                String season = rs.getString("season");
+                String []arrSeason = season.split("/");
+                season = arrSeason[0] + "-20" +arrSeason[1];
+                
+                res.add(new UserOrder(rs.getString("shirt_type"), season, 
+                        rs.getString("order_time"), rs.getString("phone"), rs.getString("address"), 
+                        rs.getString("size"), rs.getString("payment_method"), Integer.parseInt(rs.getString("quantity")),
+                        rs.getString("club_or_nation"), rs.getString("player"),rs.getString("delivery_status"), rs.getString("email")
+                ));
+//                System.out.println("timok");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
+    public static boolean cancelOrder(String email, String orderTime){
+        try (Connection c = openConnection()){
+            String delete = "DELETE FROM user_order WHERE email = ? AND order_time = ? AND delivery_status = ?";
+            PreparedStatement ps = c.prepareStatement(delete);
+            
+            ps.setString(1, email);
+            ps.setString(2, orderTime);
+            ps.setString(3, "Wait for the confirmation");
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean shipOrder(String email, String orderTime){
+        try (Connection c = openConnection()){
+            
+            String update = "UPDATE user_order SET delivery_status = ? WHERE email = ? AND order_time = ? ";
+            PreparedStatement ps = c.prepareStatement(update);
+            
+            ps.setString(1, "In transit");
+            ps.setString(2, email);
+            ps.setString(3, orderTime);
+            
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

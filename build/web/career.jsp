@@ -34,7 +34,7 @@
         <div class="slogan">We ride together we die together</div>
         <div class="user-email"><%= Validate.StringUtil((String) session.getAttribute("lastName"))%></div>
         <div class="header-wrapper__icon">
-            <span class="profile-name">
+            <span class="profile-name" style = "background-color: black; font-weight: 500; border-radius: 10px; padding: 5px 5px;">
                 <%= Validate.StringUtil((String) session.getAttribute("lastName"))%> <i class="fa-solid fa-power-off"></i>
             </span>
             
@@ -50,15 +50,15 @@
             </div>
             <div class="main-menu__item"><a href="index.jsp">Home</a></div>
             <div class="main-menu__item item--career">
-                <a href="career.jsp">player info</a>
+                <a href="career.jsp">Stats and jerseys</a>
             </div>
             <div class="main-menu__item item--auction"><a href="vote.jsp">Who's the best</a></div>
             <div class="main-menu__item item--comunity"><a href="comunity.jsp">Comunity</a></div>
         </div>
 
         <div class="search-login">
-            <input type="text" placeholder="Track your order by username...">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <!--<input type="text" placeholder="Track your order by username...">-->
+            <a href="order.jsp"><i class="fa-solid fa-user"></i></a>
             <div class="login-btn">Login</div>
         </div>
 
@@ -92,14 +92,11 @@
             
         </div>
 
-        <div class="alert-danger">Invalid email. Try again!</div>
+        <div class="alert-danger"></div>
 
-        <form class="modal-content">
+        <form class="modal-content" method="post">
 
             <div class="label-container">
-                <label for="modal__full-name" class="modal-label" >
-                    <i class="fa-sharp fa-solid fa-signature"></i> Full Name: 
-                </label>
 
                 <label for="modal__phone" class="modal-label">
                     <i class="fa-sharp fa-solid fa-phone"></i> Phone: 
@@ -113,16 +110,19 @@
                     <i class="fa-sharp fa-solid fa-shirt"></i> Size:
                 </label>
                 
-                <label for="" class="modal-label" style="transform:translateY(-3px)">
+                <label for="modal__quantity" class="modal-label" style="transform:translateY(-3px)">
                     <i class="fa-sharp fa-solid fa-cart-plus"></i> Quantity:
                 </label> 
+
+                <label for="modal__payment-method" class="modal-label" >
+                    <i class="fa-solid fa-money-check-dollar"></i> Payment method: 
+                </label>
             </div>
 
             <div class="input-container">
-                <input id='modal__full-name' type="text" required>
                 <input id='modal__phone' type='tel' required>
                 <input id='modal__address' type='text' required>
-
+                
                 <div class="input-container__radio">
                     <input type="radio" class="modal__radio-btn" id ='s' value="S" name = 'shirt-size'> <label for="s">S</label>
                     <input type="radio" class="modal__radio-btn" id ='m' value="M" name = 'shirt-size'> <label for="m">M</label>
@@ -131,8 +131,14 @@
                     <input type="radio" class="modal__radio-btn" id ='2xl' value="2XL" name = 'shirt-size'> <label for="2xl">2XL</label>
                     <input type="radio" class="modal__radio-btn" id ='3xl' value="3XL" name = 'shirt-size'> <label for="3xl">3XL</label>
                 </div>
-
-                <input type="number" name="" id="" min = "1" max = '100' value="1" class="input-container__quantity">
+                
+                <input type="number" name="" id="modal__quantity" min = "1" max = '100' value="1" class="input-container__quantity">
+                
+                <select name="modal__payment-method" id="modal__payment-method">
+                    <option value="LionelRonaldoPay">LionelRonaldoPay</option>
+                    <option value="Payment on delivery">Payment on delivery</option>
+                    <option value="Mobile Banking">Mobile Banking</option>
+                </select>
             </div>    
             <button type="submit" class="modal-submit-btn">submit <i class="fa-sharp fa-solid fa-circle-check"></i></button>
         </form>
@@ -391,7 +397,7 @@
             })
         }, 1000)
     </script>
-
+    
 <body>
 </html>
 

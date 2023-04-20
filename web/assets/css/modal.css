@@ -18,7 +18,11 @@
 .modal-container{
     background-color: white;
     width: 40%;
-    min-height: 390px;
+    min-height: 400px;
+}
+
+.order-info .modal-container{
+    min-height: 460px !important;
 }
 
 .modal-container__login, .modal-container__signup{
@@ -26,6 +30,7 @@
     width: 30%;
     min-height: 500px;
 }
+
 
 .modal-header{
     position: relative;
@@ -46,10 +51,16 @@
     font-weight: 900;
 }
 
-.modal-close,.modal-close__login:hover{
+.modal-close:hover{
     background-color: red;
     color:white;
 }
+
+.modal-close__login:hover{
+    background-color: red;
+    color:white;
+}
+
 .modal-close__signup:hover{
     background-color: red;
     color:white;
@@ -154,15 +165,21 @@
     margin: 5px 0;
 }
 
+.order-info .label-container label{
+    padding: 4.7px 0;
+    margin: 5px 0;
+}
+
 .modal-content .input-container{
     width: 65%;
 }
 
-.modal-content .input-container input{
+.modal-content .input-container input, .modal-content .input-container select,.order-info .input-container label{
     padding: 3px 0;
-    margin: 5px 0;
+    margin: 5.5px 0;
     border-radius: 10px;
     border: 2px solid #ccc;
+    overflow: auto;
 }
 
 .input-container .modal__radio-btn{
