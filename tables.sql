@@ -12,19 +12,22 @@ CREATE TABLE user_idol(
 CREATE TABLE user_profile(
 	fullname varchar(50),
 	email varchar(50) primary key,
-    password varchar(50)
+    password varchar(200)
 );
 
 CREATE TABLE user_order(
 	email varchar(50),
-    club_or_country text,
-    shirt_type text,
-    season text,
+    shirt_type varchar(50),
+    season varchar(50),
     order_time datetime,
-    phone int,
-    address text,
+    phone varchar(20),
+    address varchar(100),
     size varchar(10),
     quantity int,
-    payment_method varchar(50)
+    payment_method varchar(50),
+    club_or_nation varchar(50),
+    player varchar(50),
+    delivery_status varchar(50)
 )
+
 
