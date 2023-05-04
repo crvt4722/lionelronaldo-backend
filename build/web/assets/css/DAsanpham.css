@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 26, 2023, 11:09:39 AM
+    Author     : FPTSHOP
+*/
+.con{
+    width: 100%;
+    margin-top: 25px;
+}
+.khunganh{
+    width: 50%;
+    height: 500px;
+    float: left;
+    
+}
+.ten{
+    width: 50%;
+    height: 100px;
+    float: left;
+    
+    margin-top: 30px;
+}
+.gia{
+    width: 50%;
+    height: 100px;
+    float: left;
+    margin-top: 30px;
+}
+.mota{
+    width: 50%;
+    height: 100px;
+    float: left;
+    
+    margin-top: 30px;
+}
+.mua{
+    width: 50%;
+    height: 100px;
+    float: left;
+    
+    margin-top: 30px;
+}
+.mid{
+    width: 60%;
+    height: 100%;
+    background-color: rgb(214, 242, 184);
+}
