@@ -14,7 +14,19 @@
     <body>
         <h1>Dash Board</h1>
          <div class="head">
-        <img class = "full" src="assets/img/product/head.png" alt="" srcset="">
-    </div>
+            <img class = "full" src="assets/img/product/head.png" alt="" srcset="">
+        </div>
+        <div class="content">
+            <div class="board">
+                 
+            </div>
+            <div class="board">
+                 
+            </div>
+            <div class="board">
+                 
+            </div>
+        </div>
+        
     </body>
 </html>
