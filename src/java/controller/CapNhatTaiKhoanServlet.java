@@ -22,6 +22,7 @@ public class CapNhatTaiKhoanServlet extends HttpServlet {
             
             HttpSession session = request.getSession();
             String name = ((String) session.getAttribute("name")).trim();
+            
             TaiKhoan taikhoan = TaiKhoan.GetTaiKhoan(name);
             session.setAttribute("TaiKhoan", taikhoan);
             response.sendRedirect("capnhattaikhoan.jsp");
