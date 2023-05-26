@@ -305,8 +305,7 @@
         const modalContainer = document.querySelector('.order-info .modal-container')
         function hideModal(){
             document.querySelector('.order-info .alert-danger').textContent = ""   
-            orderInfoModal.classList.remove('open')
-            
+            orderInfoModal.classList.remove('open')            
         }
         const modalClose = document.querySelector('.order-info .modal-close')
         modalClose.addEventListener('click', hideModal)

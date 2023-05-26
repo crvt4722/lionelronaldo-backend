@@ -241,7 +241,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/babel" src="js/vote-react.js"> </script>
-    
+    <script src="./js/header.js"> </script>
     <script src="./js/handle-modal.js"> </script>
     <script>
         function addModalJs(){

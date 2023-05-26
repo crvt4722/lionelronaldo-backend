@@ -4,85 +4,63 @@
  */
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserProfile;
 import util.PasswordEncoder;
 import util.Validate;
-import dao.UserDAO;
-import java.io.BufferedReader;
-import model.UserProfile;
 
 /**
  *
  * @author DELL
  */
-public class ProcessSignup extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class ProcessSignupCTV extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        BufferedReader reader = request.getReader();
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
-        
-        Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
-        
-        String email = jsonObject.get("email").getAsString();
-        String fullname = jsonObject.get("fullname").getAsString();
-        String password = jsonObject.get("password").getAsString();
-        String rePassword = jsonObject.get("repassword").getAsString();
+        String fullname = request.getParameter("fullname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String rePassword = request.getParameter("repassword");
         
         System.out.println(email);
         String errorMessage = "";
         if (!Validate.checkName(fullname)){
-            errorMessage = "Invalid name! Try again";
+            errorMessage = "Tên không hợp lệ. Hãy thử lại!";
         }
         else if(!Validate.checkEmail(email)){
-            errorMessage = "Invalid email! Try again";
+            errorMessage = "Email không hợp lệ. Hãy thử lại!";
         }
         else if (UserDAO.isDuplicateEmail(email)){
-            errorMessage = "Email is duplicate! Try again";
+            errorMessage = "Email đã bị trùng. Hãy thử lại!";
         }
         else if (!Validate.checkPassword(password) || !Validate.checkPassword(rePassword)){
-            errorMessage = "Invalid password! Try again";
+            errorMessage = "Mật khẩu không hợp lệ. Hãy thử lại!";
         }
         else if(password.equals(rePassword)==false){
-            errorMessage = "Passwords are not the same! Try again";
+            errorMessage = "Mật khẩu không khớp. Hãy thử lại!";
         }
         else{
             password = PasswordEncoder.encode(password);
             
-            UserProfile userProfile = new UserProfile(fullname, email, password);
-            userProfile.addUser();
-            
-            errorMessage = "Sign up successfully!";
+            UserDAO.insertUserProfile(fullname, email, password, "ctv");
+            errorMessage = "Đăng ký thành công!";
         }
+        request.setAttribute("error2", errorMessage);
         
-        response.getWriter().write(errorMessage);
+        RequestDispatcher dis = request.getRequestDispatcher("authorization.jsp");
+        dis.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

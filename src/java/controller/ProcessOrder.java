@@ -18,6 +18,7 @@ import util.Validate;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 import javax.servlet.http.HttpSession;
+import model.UserOrder;
 
 /**
  *
@@ -82,6 +83,7 @@ public class ProcessOrder extends HttpServlet {
         }
         else{
             String clubOrNation = orderShirtType.startsWith("nation")? nation:club;
+            UserOrder userOrder = new UserOrder(orderShirtType, season, orderTime, phone, address, size, paymentMethod, 0, clubOrNation, player, clubOrNation, email);
             UserDAO.insertUserOrder(phone, email, address, orderTime, size, quantity, paymentMethod, season, orderShirtType, clubOrNation, player);
             errorMessage = "Successfully!";
         }

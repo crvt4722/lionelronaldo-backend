@@ -4,28 +4,20 @@
  */
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import dao.UserDAO;
-import java.util.HashMap;
-import java.util.Map;
-import model.UserIdol;
-import util.Validate;
-
-
 
 /**
  *
  * @author DELL
  */
-public class ProcessReceiveVote extends HttpServlet {
+public class ProcessAuthorization extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,41 +33,10 @@ public class ProcessReceiveVote extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        BufferedReader reader = request.getReader();
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
+        HttpSession session = request.getSession();
         
-        Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
-        String userName = jsonObject.get("userName").getAsString();
-        String idol = jsonObject.get("idol").getAsString();
-        
-        UserIdol userIdol = new UserIdol(userName, idol);
-        
-        if(Validate.controlUserInput(userName) && Validate.controlUserInput(idol)){
-            if(UserDAO.checkUserNameExists(userName)){
-                userIdol.change();
-            }
-            else userIdol.insert();
-        }
-        
-        HashMap<String, Long> hm = UserDAO.getNumberOfVotes();
-        
-        String responseText = "{";
-        for (Map.Entry<String, Long> x : hm.entrySet()){
-            System.out.println(x.getKey() + ": "+ x.getValue());
-            
-            responseText += "\"" + x.getKey()+ "\"" +": "+ x.getValue() +",";
-        }
-        
-        responseText = responseText.substring(0, responseText.length() - 1);
-        responseText += "}";
-        
-        response.getWriter().write(responseText);
-        
+        String email = (String) session.getAttribute("email");
+        response.getWriter().write(UserDAO.getRole(email));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

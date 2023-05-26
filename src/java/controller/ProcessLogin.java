@@ -19,8 +19,13 @@ import util.PasswordEncoder;
 import util.Validate;
 import dao.UserDAO;
 import java.io.BufferedReader;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
+import model.UserProfile;
+import util.AccessToken;
+
 
 /**
  *
@@ -54,40 +59,49 @@ public class ProcessLogin extends HttpServlet {
         
         String email = jsonObject.get("email").getAsString();
         String password = jsonObject.get("password").getAsString();
+        password = PasswordEncoder.encode(password);
         
+        String fullname = UserDAO.getFullname(email);
+        UserProfile user = new UserProfile(fullname, email, password);
         
         System.out.println(email);
         String errorMessage = "";
         
+        
         if(!Validate.checkEmail(email)){
             errorMessage = "Invalid email!";
         }
-        else if(!Validate.checkPassword(password)){
-            errorMessage = "Invalid password!";
-        }
+//        else if(!Validate.checkPassword(password)){
+//            errorMessage = "Invalid password!";
+//        }
         else if(!UserDAO.isDuplicateEmail(email)){
             errorMessage = "The email does not exist!";
         }
-        else if (!UserDAO.checkLogin(email, PasswordEncoder.encode(password))){
+        else if (!user.login()){
             errorMessage = "Incorrect password!";
         }
         else{
-            String fullname = UserDAO.getFullname(email);
+            
             errorMessage = fullname+ " has logined successfully!";
             
-            String [] arrStrings =fullname.trim().split("\\s+");
-            String lastName  =arrStrings[arrStrings.length - 1];
+            String lastName = user.getLastName();
 
             
             HttpSession session = request.getSession();
             
-            session.setAttribute("lastName", arrStrings[arrStrings.length - 1]);
+            if (email.equals("admin@lionelronaldo.com")){
+                ArrayList<UserProfile> result = UserDAO.getCTVList();
+                session.setAttribute("ctvlist", result);
+            }
+            
+            session.setAttribute("lastName", lastName);
             session.setAttribute("fullname", fullname);
             session.setAttribute("email", email);
             
-//            String responseJson = "{\"error-message\":" + errorMessage + ",\"last-name\": "+fullname+"}";
-//            System.out.println(responseJson);
-            
+            Cookie cookie = new Cookie("access_token", AccessToken.generateToken(email));
+            response.addCookie(cookie);
+            response.setStatus(HttpServletResponse.SC_OK);
+            System.out.println(AccessToken.generateToken(email));
             
         }
         response.getWriter().write(errorMessage);

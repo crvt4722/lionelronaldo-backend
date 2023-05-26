@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.*;
 import model.UserOrder;
 import model.UserProfile;
+import model.Message;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;   
 
 public class UserDAO {
     public static Connection openConnection(){
@@ -30,6 +33,20 @@ public class UserDAO {
             ps.setString(1, nameShown);
             ps.setString(2, receiver);
             ps.setString(3, message);
+            
+            return ps.execute();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+    public static boolean insertJersey(String clubOrCountry, String season, int restQuantity) {
+        try (Connection c = openConnection()){
+            String insert = "INSERT INTO jersey VALUES (?, ?, ?)";
+            PreparedStatement ps = c.prepareStatement(insert);
+            ps.setString(1, clubOrCountry);
+            ps.setString(2, season);
+            ps.setInt(3, restQuantity);
             
             return ps.execute();
         } catch (Exception e) {
@@ -118,6 +135,24 @@ public class UserDAO {
         return hm;
     }
     
+    public static  ArrayList<UserProfile> getCTVList(){
+        ArrayList<UserProfile> result = new ArrayList<UserProfile>();
+        try (Connection c = openConnection()){
+            
+            String select = "SELECT * FROM user_profile WHERE role = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, "ctv");
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                result.add(new UserProfile(rs.getString("fullname"), rs.getString("email"), "1"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     public static boolean isDuplicateEmail(String email){
         try (Connection c = openConnection()){
             String select = "SELECT * FROM user_profile WHERE email = ?";
@@ -130,13 +165,26 @@ public class UserDAO {
         return false;
     }
     
-    public static boolean insertUserProfile(String fullname, String email, String password ){
+    public static boolean checkEmailExists(String email){
         try (Connection c = openConnection()){
-            String insert = "INSERT INTO user_profile VALUES (?, ?, ?)";
+            String select = "SELECT * FROM user_profile WHERE email = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, email);
+            return ps.executeQuery().next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean insertUserProfile(String fullname, String email, String password , String role){
+        try (Connection c = openConnection()){
+            String insert = "INSERT INTO user_profile(fullname, email, password, role) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = c.prepareStatement(insert);
             ps.setString(1, fullname);
             ps.setString(2, email);
             ps.setString(3, password);
+            ps.setString(4, role);
             ps.execute();
             
             return true;
@@ -146,6 +194,21 @@ public class UserDAO {
         return false;
     }
     
+    public static String getRole(String email) {
+        String result = "";
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_profile WHERE email = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, email);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getString("role");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     public static boolean checkLogin(String email, String password){
         try (Connection c = openConnection()){
             String select = "SELECT * FROM user_profile WHERE email = ? AND password = ?";
@@ -153,6 +216,25 @@ public class UserDAO {
             ps.setString(1, email);
             ps.setString(2, password);
             return ps.executeQuery().next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean updateRole(String email, String option){
+        try (Connection c = openConnection()){
+            String role = "";
+            if (option.equals("add")) role = "ctv";
+            else role = "user";
+            
+            String update = "UPDATE user_profile SET  role = ? WHERE email = ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            ps.setString(1, role);
+            ps.setString(2, email);
+            
+            ps.execute();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

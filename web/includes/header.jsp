@@ -23,15 +23,20 @@
             </div>
             <div class="main-menu__item"><a href="index.jsp">Home</a></div>
             <div class="main-menu__item item--career">
-                <a href="career.jsp">stats and jerseys</a>
+                <a href="career.jsp">stats</a>
             </div>
             <div class="main-menu__item item--auction"><a href="vote.jsp">Who's the best</a></div>
             <div class="main-menu__item item--comunity"><a href="comunity.jsp">Comunity</a></div>
+            <div class="main-menu__item item--shopping"><a href="shopping.jsp">Shopping</a></div>
+            <div class="main-menu__item item--management"><a href="management.jsp">Management</a></div>
+            <div class="main-menu__item item--authorization"><a href="authorization.jsp">Authorization</a></div>
+            <div class="main-menu__item item--dashboard"><a href="dashboard.jsp">Dashboard</a></div>
+            
         </div>
 
         <div class="search-login">
-            <!--<input type="text" placeholder="Track your order by username...">-->
-            <a href="order.jsp"><i class="fa-solid fa-user"></i></a>
+            <input type="text" placeholder="Track your order by username...">
+            <!--<a href="order.jsp"><i class="fa-solid fa-user"></i></a>-->
             <div class="login-btn">Login</div>
         </div>
 
