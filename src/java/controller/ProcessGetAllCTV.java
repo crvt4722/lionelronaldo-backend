@@ -4,28 +4,23 @@
  */
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import java.io.BufferedReader;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dao.UserDAO;
-import java.util.HashMap;
-import java.util.Map;
-import model.UserIdol;
-import util.Validate;
-
-
+import model.UserProfile;
+import java.util.*;
 
 /**
  *
  * @author DELL
  */
-public class ProcessReceiveVote extends HttpServlet {
+@WebServlet(name = "ProcessGetAllCTV", urlPatterns = {"/ProcessGetAllCTV"})
+public class ProcessGetAllCTV extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,40 +36,10 @@ public class ProcessReceiveVote extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        BufferedReader reader = request.getReader();
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
+        ArrayList<UserProfile> result = UserDAO.getCTVList();
+//        System.out.println("1");
         
-        Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
-        String userName = jsonObject.get("userName").getAsString();
-        String idol = jsonObject.get("idol").getAsString();
-        
-        UserIdol userIdol = new UserIdol(userName, idol);
-        
-        if(Validate.controlUserInput(userName) && Validate.controlUserInput(idol)){
-            if(UserDAO.checkUserNameExists(userName)){
-                userIdol.change();
-            }
-            else userIdol.insert();
-        }
-        
-        HashMap<String, Long> hm = UserDAO.getNumberOfVotes();
-        
-        String responseText = "{";
-        for (Map.Entry<String, Long> x : hm.entrySet()){
-            System.out.println(x.getKey() + ": "+ x.getValue());
-            
-            responseText += "\"" + x.getKey()+ "\"" +": "+ x.getValue() +",";
-        }
-        
-        responseText = responseText.substring(0, responseText.length() - 1);
-        responseText += "}";
-        
-        response.getWriter().write(responseText);
+        request.setAttribute("ctvlist", result);
         
     }
 

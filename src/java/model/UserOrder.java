@@ -1,5 +1,7 @@
 package model;
 
+import dao.UserDAO;
+
 public class UserOrder {
     private String shirtType, season, orderTime, phone, address, size, paymentMethod, clubOrNation, player, deliveryStatus, email;
     private int quantity;
@@ -68,5 +70,7 @@ public class UserOrder {
         return email;
     }
     
-    
+    public boolean insert(){
+        return UserDAO.insertUserOrder(phone, email, address, orderTime, size,Integer.toString(quantity), paymentMethod, season, shirtType, clubOrNation, player);
+    }
 }

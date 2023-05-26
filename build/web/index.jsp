@@ -151,7 +151,7 @@
 
         <div class="alert-danger__login"></div>
 
-        <form class="modal-content">
+        <form class="modal-content" action="ProcessLogin">
             
             <div class="label-container">
                 <label for="email__login" class="modal-label">
@@ -213,7 +213,7 @@
 
         <div class="alert-danger__signup"></div>
 
-        <form class="modal-content" method = "post">
+        <form class="modal-content" method = "post" action="ProcessSignup">
             
             <div class="label-container">
                 
@@ -266,6 +266,7 @@
 </div>
     <script src="./js/main.js"> </script>
     <script src="./js/handle-modal.js"> </script>
+    <script src="./js/header.js"> </script>
     <script>
         function addModalJs(){
             const modal = document.querySelector('.modal')

@@ -1,5 +1,6 @@
 package model;
 
+import dao.UserDAO;
 public class Message {
     private String sender, receiver ,content;
 
@@ -21,5 +22,16 @@ public class Message {
         return content;
     }
     
+    public boolean insert(){
+        return UserDAO.insertMessage(sender, receiver, content);
+    }
     
+    public boolean addMessage(){
+        return UserDAO.insertMessage(sender, receiver, content);
+    }
+    
+    public String getMessage(){
+        String result = sender+": " + receiver;
+        return result;
+    }
 }

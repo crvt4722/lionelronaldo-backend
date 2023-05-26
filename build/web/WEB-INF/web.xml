@@ -48,6 +48,22 @@
         <servlet-name>ProcessCancelOrder</servlet-name>
         <servlet-class>controller.ProcessCancelOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessAuthorization</servlet-name>
+        <servlet-class>controller.ProcessAuthorization</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessSignupCTV</servlet-name>
+        <servlet-class>controller.ProcessSignupCTV</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessAddPermission</servlet-name>
+        <servlet-class>controller.ProcessAddPermission</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessUpdatePermission</servlet-name>
+        <servlet-class>controller.ProcessUpdatePermission</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSendMessage</servlet-name>
         <url-pattern>/ProcessSendMessage</url-pattern>
@@ -79,6 +95,26 @@
     <servlet-mapping>
         <servlet-name>ProcessCancelOrder</servlet-name>
         <url-pattern>/ProcessCancelOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessAuthorization</servlet-name>
+        <url-pattern>/ProcessAuthorization</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessSignupCTV</servlet-name>
+        <url-pattern>/ProcessSignupCTV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessAddPermission</servlet-name>
+        <url-pattern>/ProcessAddPermission</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessUpdatePermission</servlet-name>
+        <url-pattern>/ProcessUpdatePermission</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessGetAllCTV</servlet-name>
+        <url-pattern>/ProcessGetAllCTV</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

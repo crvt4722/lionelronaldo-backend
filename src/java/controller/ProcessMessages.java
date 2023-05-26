@@ -17,7 +17,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.*;
 import com.google.gson.*;
 import dao.UserDAO;
-
+import model.Message;
 
 @ServerEndpoint("/chat")
 public class ProcessMessages extends HttpServlet {
@@ -45,7 +45,9 @@ public class ProcessMessages extends HttpServlet {
             String messageContent = jsonObject.get("messageContent").getAsString();
             String receiver = jsonObject.get("receiver").getAsString();
             
-            if (UserDAO.insertMessage(nameShown, receiver, messageContent)){
+            
+            Message messageModel = new Message(nameShown, receiver, messageContent);
+            if (messageModel.insert()){
                 System.out.println("Insert message successfully!");
             }
             else{

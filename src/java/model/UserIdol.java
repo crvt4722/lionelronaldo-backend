@@ -1,5 +1,7 @@
 package model;
 
+import dao.UserDAO;
+
 public class UserIdol {
     private String email, idol;
 
@@ -15,5 +17,11 @@ public class UserIdol {
     public String getIdol() {
         return idol;
     }
+    public boolean insert(){
+        return UserDAO.insertIdol(email, idol);
+    }
     
+    public boolean change(){
+        return UserDAO.changeIdol(email, idol);
+    }
 }
