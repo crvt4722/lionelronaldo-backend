@@ -106,6 +106,7 @@ public class ProcessGetUserOrder extends HttpServlet {
         
         if((String)session.getAttribute("email") != null) response.getWriter().write(responseString);
         else response.getWriter().write("no email");
+        // akakskskska
         
 //        System.out.println(responseString);
     }
