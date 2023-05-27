@@ -1,0 +1,129 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:root {
+    --mau-bg: #f5f5f5;
+}
+
+.mt60 {
+    margin-top: 60px;
+}
+
+.mt90 {
+    margin-top: 90px;
+}
+
+.df {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.tieu-de {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.pb-20 {
+    padding-bottom: 20px;
+}
+
+.san-pham-header {
+    height: 600px;
+    background-image: url(https://i.ytimg.com/vi/pQZ0Y-2vrxQ/maxresdefault.jpg);
+}
+
+.san-pham-body {
+    background-color: var(--mau-bg);
+    min-height: 500px;
+}
+
+.trang {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.cat-anh-san-pham {
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+}
+
+.cat-anh-san-pham img {
+    width: 170px;
+}
+
+.khung {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+
+.san-pham-ban-chay-item {
+    height: 270px;
+    width: 232px;
+    border: 0.5px solid #ccc;
+    text-align: center;
+}
+
+.san-pham-ban-chay-item-img {
+    height: 200px;
+    width: 170px;
+    margin: 0 auto;
+}
+
+.san-pham-ban-chay-item-ten {
+    height: 120px;
+    margin-top: 10px;
+    padding: 0 20px;
+    padding-bottom: 20px;
+}
+
+
+.khung {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+
+.danh-muc-item {
+    height: 150px;
+    width: 125px;
+    border: 0.5px solid #ccc;
+    text-align: center;
+}
+
+.danh-muc-item-img {
+    height: 85px;
+    width: 85px;
+    margin: 0 auto;
+}
+
+.danh-muc-item-ten {
+    height: 100px;
+    margin-top: 10px;
+}
+
+.cat-anh-danh-muc {
+    width: 85px;
+    height: 85px;
+    overflow: hidden;
+}
+
+.cat-anh-danh-muc img {
+    width: 85px;
+}

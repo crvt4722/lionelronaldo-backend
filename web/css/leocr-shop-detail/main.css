@@ -1,0 +1,284 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+:root {
+    --mau-bg: #f5f5f5;
+    --mau-chinh: #43d5b0;
+}
+
+.mt60 {
+    margin-top: 60px;
+}
+
+.mt90 {
+    margin-top: 90px;
+}
+
+.df {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.f1 {
+    flex: 1
+}
+
+.f2 {
+    flex: 2
+}
+
+.tieu-de {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.pb-20 {
+    padding-bottom: 20px;
+}
+
+.khung {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.danh-muc-header {
+    padding: 20px
+}
+
+
+.banner {
+    height: 300px;
+    background-image: url(https://i.ytimg.com/vi/pQZ0Y-2vrxQ/maxresdefault.jpg);
+}
+
+.fa-star-half-stroke,
+.fa-star {
+    color: orange;
+    opacity: 0.7;
+}
+
+.nut {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.tim-kiem-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 999;
+}
+.thanh-tim-kiem {
+    border: 2px solid var(--mau-chinh);
+    width: 100%;
+    margin-top: 10px;
+}
+
+.thanh-tim-kiem input {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.nut-chinh {
+    color: white;
+    background-color: var(--mau-chinh);
+}
+
+.bo-loc {
+    width: 280px;
+    background-color: #ffffff;
+    padding: 20px;
+    padding-left: 40px;
+    margin-top: 20px;
+    border-right: 5px solid var(--mau-chinh);
+    border-radius: 5px;
+}
+
+.bo-loc__tieu-de {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.toi-thieu,
+.toi-da {
+    width: 47%;
+}
+
+.toi-thieu span,
+.toi-da span {
+    display: block;
+    text-align: center;
+}
+
+.nhap-so {
+    padding: 10px 5px;
+    width: 100%;
+    font-size: 17px;
+    border: 1px solid var(--mau-chinh);
+}
+
+.gach-ngang {
+    margin-top: 26px;
+}
+
+.nut-loc-gia {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loc-sao {
+    margin-top: 5px;
+}
+
+.loc-hang-container input,
+.loc-theo-gioi-tinh input {
+    margin-top: 5px;
+}
+
+
+.loc-theo-danh-gia label {
+    cursor: pointer;
+}
+
+
+
+.danh-muc-chinh {
+    width: calc(100% - 280px);
+    padding: 20px;
+    padding-left: 0;
+}
+
+.sap-xep {
+    margin-top: 20px;
+    height: 70px;
+    padding: 20px;
+}
+
+.sap-xep .sap-xep-title {
+    padding: 5px 20px;
+}
+
+.tieu-chi-sap-xep {
+    padding: 5px 20px;
+    border-left: 1px solid #ccc;
+}
+
+.tieu-chi-sap-xep:hover {
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--mau-chinh)
+}
+
+.danh-sach-san-pham {
+    padding: 20px;
+    padding-left: 0px;
+    min-height: 500px;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+}
+
+.san-pham-item {
+    width: 340px;
+    height: 550px;
+    /* background-color: #ccc; */
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+}
+
+/* .anh-san-pham:hover .anh-chinh {
+    display: none;
+} */
+.anh-phu {
+    display: none;
+}
+
+.anh-san-pham:hover .anh-phu {
+    display: block;
+}
+
+.anh-san-pham:hover .anh-chinh {
+    display: none;
+}
+
+.thong-tin-san-pham {
+    padding: 10px;
+    padding-top: 0px;
+
+}
+
+.cat-anh-san-pham {
+    width: 340px;
+    height: 448px;
+    overflow: hidden;
+}
+
+.cat-anh-san-pham img {
+    width: 340px;
+}
+
+.san-pham-item__img {
+    width: 340px;
+    height: 448px;
+}
+
+.san-pham-item__ten {
+    height: 30px;
+}
+
+.san-pham-item__gia {
+    margin-top: 12px;
+    text-align: right;
+}
+
+.gia-goc {
+    opacity: 0.7;
+    text-decoration: line-through;
+    font-size: 16px;
+}
+
+.gia-uu-dai {
+    color: red;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+.so-sao-danh-gia i {
+    color: orange;
+    font-size: 13px;
+}
+
+.san-pham-item__danh-gia span {
+    opacity: 0.7;
+    font-size: 13px;
+}
+
+.info-box {
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #fff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

@@ -1,127 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>ProcessSendMessage</servlet-name>
-        <servlet-class>controller.ProcessSendMessage</servlet-class>
-        <init-param>
-            <param-name>db.driver</param-name>
-            <param-value>com.mysql.jdbc.Driver</param-value>
-        </init-param>
-        <init-param>
-            <param-name>db.url</param-name>
-            <param-value>jdbc:mysql://localhost:3306/lionelronaldo</param-value>
-        </init-param>
-        <init-param>
-            <param-name>db.user</param-name>
-            <param-value>root</param-value>
-        </init-param>
-        <init-param>
-            <param-name>db.password</param-name>
-            <param-value>04072002</param-value>
-        </init-param>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>controller.NewServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessReceiveVote</servlet-name>
-        <servlet-class>controller.ProcessReceiveVote</servlet-class>
+        <servlet-name>NewServlet1</servlet-name>
+        <servlet-class>controller.NewServlet1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessGetAllProducts</servlet-name>
+        <servlet-class>controller.ProcessGetAllProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessFilterByPrice</servlet-name>
+        <servlet-class>controller.ProcessFilterByPrice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>handleFilterByDanhMucLoc</servlet-name>
+        <servlet-class>controller.handleFilterByDanhMucLoc</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessFilterByDanhMucLoc</servlet-name>
+        <servlet-class>controller.ProcessFilterByDanhMucLoc</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessFilterBySoSaoDanhGia</servlet-name>
+        <servlet-class>controller.ProcessFilterBySoSaoDanhGia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessSignin</servlet-name>
+        <servlet-class>controller.ProcessSignin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProcessSignup</servlet-name>
         <servlet-class>controller.ProcessSignup</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessLogin</servlet-name>
-        <servlet-class>controller.ProcessLogin</servlet-class>
+        <servlet-name>ProcessHomePage</servlet-name>
+        <servlet-class>controller.ProcessHomePage</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessLogout</servlet-name>
-        <servlet-class>controller.ProcessLogout</servlet-class>
+        <servlet-name>XuLyDangNhap</servlet-name>
+        <servlet-class>controller.XuLyDangNhap</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessOrder</servlet-name>
-        <servlet-class>controller.ProcessOrder</servlet-class>
+        <servlet-name>XuLyDangKy</servlet-name>
+        <servlet-class>controller.XuLyDangKy</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessGetUserOrder</servlet-name>
-        <servlet-class>controller.ProcessGetUserOrder</servlet-class>
+        <servlet-name>GetAllProducts</servlet-name>
+        <servlet-class>controller.shop.ProcessGetAllProducts</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessCancelOrder</servlet-name>
-        <servlet-class>controller.ProcessCancelOrder</servlet-class>
+        <servlet-name>ProcessSortAndFilterProducts</servlet-name>
+        <servlet-class>controller.shop.ProcessSortAndFilterProducts</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProcessAuthorization</servlet-name>
-        <servlet-class>controller.ProcessAuthorization</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProcessSignupCTV</servlet-name>
-        <servlet-class>controller.ProcessSignupCTV</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProcessAddPermission</servlet-name>
-        <servlet-class>controller.ProcessAddPermission</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProcessUpdatePermission</servlet-name>
-        <servlet-class>controller.ProcessUpdatePermission</servlet-class>
+        <servlet-name>ProcessGetKeyWordSearch</servlet-name>
+        <servlet-class>controller.shop.ProcessGetKeyWordSearch</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ProcessSendMessage</servlet-name>
-        <url-pattern>/ProcessSendMessage</url-pattern>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessReceiveVote</servlet-name>
-        <url-pattern>/ProcessReceiveVote</url-pattern>
+        <servlet-name>NewServlet1</servlet-name>
+        <url-pattern>/NewServlet1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessGetAllProducts</servlet-name>
+        <url-pattern>/ProcessGetAllProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessFilterByPrice</servlet-name>
+        <url-pattern>/ProcessFilterByPrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>handleFilterByDanhMucLoc</servlet-name>
+        <url-pattern>/handleFilterByDanhMucLoc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessFilterByDanhMucLoc</servlet-name>
+        <url-pattern>/ProcessFilterByDanhMucLoc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessFilterBySoSaoDanhGia</servlet-name>
+        <url-pattern>/ProcessFilterBySoSaoDanhGia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessSignin</servlet-name>
+        <url-pattern>/ProcessSignin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProcessSignup</servlet-name>
         <url-pattern>/ProcessSignup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessLogin</servlet-name>
-        <url-pattern>/ProcessLogin</url-pattern>
+        <servlet-name>ProcessHomePage</servlet-name>
+        <url-pattern>/ProcessHomePage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessLogout</servlet-name>
-        <url-pattern>/ProcessLogout</url-pattern>
+        <servlet-name>XuLyDangNhap</servlet-name>
+        <url-pattern>/XuLyDangNhap</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessOrder</servlet-name>
-        <url-pattern>/ProcessOrder</url-pattern>
+        <servlet-name>XuLyDangKy</servlet-name>
+        <url-pattern>/XuLyDangKy</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessGetUserOrder</servlet-name>
-        <url-pattern>/ProcessGetUserOrder</url-pattern>
+        <servlet-name>GetAllProducts</servlet-name>
+        <url-pattern>/products</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessCancelOrder</servlet-name>
-        <url-pattern>/ProcessCancelOrder</url-pattern>
+        <servlet-name>ProcessSortAndFilterProducts</servlet-name>
+        <url-pattern>/ProcessSortAndFilterProducts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProcessAuthorization</servlet-name>
-        <url-pattern>/ProcessAuthorization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProcessSignupCTV</servlet-name>
-        <url-pattern>/ProcessSignupCTV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProcessAddPermission</servlet-name>
-        <url-pattern>/ProcessAddPermission</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProcessUpdatePermission</servlet-name>
-        <url-pattern>/ProcessUpdatePermission</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProcessGetAllCTV</servlet-name>
-        <url-pattern>/ProcessGetAllCTV</url-pattern>
+        <servlet-name>ProcessGetKeyWordSearch</servlet-name>
+        <url-pattern>/ProcessGetKeyWordSearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 </web-app>
