@@ -4,6 +4,9 @@
  */
 package model;
 
+import dao.TRUC_OderDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author hi
@@ -14,6 +17,7 @@ public class TRUC_Order {
     int quantity;//so luong
     String phone; // so dien thoi
     String address;//dia chi nhan
+    String size;
     String deliveryStatus; // trang thai don
     String paymentMenthod; // phuong thuc thanh toan
     float totalAmount; // gia tien
@@ -22,12 +26,13 @@ public class TRUC_Order {
     public TRUC_Order() {
     }
 
-    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID) {
+    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String size, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID) {
         this.orderId = orderId;
         this.userId = userId;
         this.quantity = quantity;
         this.phone = phone;
         this.address = address;
+        this.size = size;
         this.deliveryStatus = deliveryStatus;
         this.paymentMenthod = paymentMenthod;
         this.totalAmount = totalAmount;
@@ -74,6 +79,14 @@ public class TRUC_Order {
         this.address = address;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     public String getDeliveryStatus() {
         return deliveryStatus;
     }
@@ -105,7 +118,7 @@ public class TRUC_Order {
     public void setWareHouseID(int wareHouseID) {
         this.wareHouseID = wareHouseID;
     }
-    
-    
-    
+    public static ArrayList<TRUC_Order> ListOders(String user_id, String ds){
+        return TRUC_OderDAO.getOrder(user_id, ds);
+    }
 }

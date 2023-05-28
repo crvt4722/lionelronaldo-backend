@@ -18,7 +18,22 @@
     <script>
         loadGioHang();
         function loadGioHang(){
-            
+            $.ajax({
+                url: 'http://localhost:8080/apptiengtrung/truc_loadgiohang',
+                type: 'GET',
+                async: false,
+                data: {
+                    ds: "giohang"
+                },
+                success: function (data) {
+                    renderData(data);
+                }
+            }); 
+        }
+        function renderData(data){
+            for (let item of data){
+                
+            }
         }
     </script>
 </html>

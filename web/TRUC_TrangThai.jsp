@@ -40,17 +40,22 @@
         for (let i = 1 ; i <= 5 ; i++){
             document.getElementById("" + i).style.color = "black";
             document.getElementById("" + i).style.borderBottom = "0px solid black";
+            document.getElementById("trangThai" + i).style.display = "none";
         }
         loadData(1);
         document.getElementById("1").style.color = "#43d5b0";
         document.getElementById("1").style.borderBottom = "3px solid #43d5b0";
+        document.getElementById("trangThai1").style.display = "flex";
         function loadData(n){
             for (let i = 1 ; i <= 5 ; i++){
                 document.getElementById("" + i).style.color = "black";
                 document.getElementById("" + i).style.borderBottom = "0px solid black";
+                document.getElementById("trangThai" + i).style.display = "none";
             }
             document.getElementById("" + n).style.color = "#43d5b0";
             document.getElementById("" + n).style.borderBottom = "3px solid #43d5b0";
+            document.getElementById("trangThai" + n).style.display = "flex";
+            
         }
     </script>
 </html>
