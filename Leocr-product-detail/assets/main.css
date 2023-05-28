@@ -1,0 +1,283 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0 20px;
+    margin-top: 120px;
+
+}
+
+.banner-nho {
+    height: 120px;
+    width: 100%;
+    background-color: yellowgreen;
+}
+
+:root {
+    --mau-bg: #f5f5f5;
+    --mau-chinh: #43d5b0;
+}
+
+.mr-2 {
+    margin-right: 2px;
+}
+
+.mt60 {
+    margin-top: 60px;
+}
+
+.mt90 {
+    margin-top: 90px;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}
+
+.ml-12 {
+    margin-left: 12px;
+}
+
+
+.mt-24 {
+    margin-top: 24px;
+}
+
+.df {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.f1 {
+    flex: 1
+}
+
+.f2 {
+    flex: 2
+}
+
+
+.tieu-de {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.pb-20 {
+    padding-bottom: 20px;
+}
+
+.khung {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.19);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+
+
+
+.nut {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.nut-chinh {
+    color: white;
+    background-color: var(--mau-chinh);
+}
+
+
+
+.chi-tiet-san-pham {
+    /* background-color: red; */
+    min-height: 500px;
+    padding: 20px;
+}
+
+.danh-sach-anh-san-pham {
+    width: 120px;
+    padding: 10px;
+}
+
+.anh-chinh {
+    width: calc(100% - 120px);
+    min-height: 100%;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.anh-san-pham__img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.anh-phu {
+    opacity: 0.6;
+    margin-bottom: 10px;
+}
+
+.anh-phu:hover {
+    opacity: 1;
+}
+
+.thong-tin-dat-hang {
+    background-color: #fff;
+    padding: 20px 10px;
+
+}
+
+.ten-san-pham {
+    font-size: 27px;
+    font-weight: 900;
+    /* font-family: sans-serif; */
+}
+
+.gia-goc {
+    opacity: 0.7;
+    text-decoration: line-through;
+    font-size: 16px;
+    font-size: 16px;
+}
+
+.gia-uu-dai {
+    color: black;
+    font-size: 25px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+
+.fa-star,
+.fa-star-half-stroke {
+    color: rgb(255, 140, 0);
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+.so-sao span {
+    color: rgb(255, 140, 0);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.so-sao {
+    margin-right: 12px;
+}
+
+.so-da-ban,
+.so-danh-gia {
+    text-align: center;
+    border-left: 1px solid #939292;
+}
+
+.kich-co-san-pham {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.chon-size {
+    margin-top: 12px;
+    border: 1px solid #ccc;
+    margin-right: 2px;
+    width: calc(100% / 6);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 550;
+    opacity: 0.6;
+}
+
+.chon-size:hover {
+    color: white;
+    opacity: 1;
+    background-color: #000;
+    cursor: pointer;
+}
+
+.so-luong-mua .chon-so-luong {
+    display: flex;
+}
+
+.so-luong-mua .nut {
+    width: 40px;
+    text-align: center;
+}
+
+.so-luong-mua .nut-tang,
+.so-luong-mua .nut-giam {
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.so-luong-mua .nut-tang:hover,
+.so-luong-mua .nut-giam:hover {
+    color: white;
+    background-color: var(--mau-chinh);
+}
+
+.so-luong-mua .so-luong-text {
+    width: 60px;
+}
+
+.them-vao-gio-hang-btn {
+    background-color: #00A98E;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.mua-ngay-btn {
+    background-color: var(--mau-bg);
+    padding: 15px 0;
+    text-align: center;
+    text-transform: uppercase;
+    border: 2px solid #ccc;
+}
+
+.them-vao-gio-hang-btn:hover,
+.mua-ngay-btn:hover {
+    opacity: 0.6;
+}
+
+.so-luong-con-lai-trong-kho {
+    margin-left: 12px;
+    opacity: 0.7;
+}
+
+.khung-thong-tin {
+    border: 1px solid #ccc;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.thong-tin-san-pham {
+    flex: 4;
+    /* background-color: red;/ */
+    min-height: 500px;
+    padding: 20px
+}
+
+.san-pham-ban-chay {
+    flex: 1;
+    /* background-color: #ccc; */
+}
