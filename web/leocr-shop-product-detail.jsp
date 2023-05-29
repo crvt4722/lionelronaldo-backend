@@ -1,4 +1,5 @@
 <%@page import="model.Product" %>
+<%@page import="model.CustomerResponse" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="util.MoneyUtil" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -18,6 +19,7 @@
     <body>
         <div class="main">
             <div class="banner-nho">
+                <img src="./img/products/product-detail-banner.png" alt="alt" style="width: 100%"/>
 
             </div>
             <div class="phan-chinh df khung-thong-tin">
@@ -98,7 +100,7 @@
                             </form>
                         </div>
                         <div class="hanh-dong__mua-ngay mt-12">
-                            <form action="" method="GET">
+                            <form action="/WebApplication2/order-now" method="GET">
                                 <input hidden type="text" class="chon-size-input" name="size" value="">
                                 <input hidden type="number" name="quantity" class="so-luong-dat-san-pham">
                                 <div class="df">
@@ -133,19 +135,46 @@
 
                 </div>
                 <div class="san-pham-ban-chay khung-thong-tin ml-12">
-
+                    <img src="https://i.pinimg.com/564x/19/32/fa/1932fae3adfe3dd4dcbfb40ae4f9b4fb.jpg" alt="alt"/>
                 </div>
             </div>
 
             <!-- comment, like: begin -->
-            <div class="comment-va-like">
-
+            <div class="comment-va-like khung-thong-tin">
+            <h3 class="mb-20">ĐÁNH GIÁ SẢN PHẨM</h3>
+            <div class="phan-hoi-khach-hang-container">
+                <% for(CustomerResponse productResponse : (ArrayList<CustomerResponse>)session.getAttribute("productResponses")){ %>
+                
+                <div class="phan-hoi-khach-hang df">
+                    <div class="f1 avatar">
+                        <img src="https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg" alt="">
+                    </div>
+                    <div class="f10">
+                        <div class="ten-user"><%= productResponse.getUserName() %></div>
+                        <div class="so-sao-danh-gia">
+                            <% for(int i = 0; i < (int)productResponse.getRating(); i++){ %>
+                            <i class="fa-solid fa-star"></i>
+                            <% } %>
+                        </div>
+                        <div class="thoi-gian-phan-hoi">
+                            <%= productResponse.getResponseTime()%>
+                        </div>
+                        <div class="comment-user">
+                            <%= productResponse.getComment()%>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr"></div>
+                
+                <% } %>
+                
             </div>
+        </div>
             <!-- comment, like: end -->
 
             <!-- sản phẩm liên quan: begin -->
 
-            <div class="danh-muc-lien-quan khung-thong-tin mt-20">
+            <div class="danh-muc-lien-quan khung-thong-tin mt-20" style="margin-bottom: 0px;">
                 <% ArrayList<Product> relatedProducts = (ArrayList<Product>)session.getAttribute("relatedProducts"); %>
                 <% for(Product relatedProduct : relatedProducts){ %>
                 <div class="danh-muc-lien-quan__item">
@@ -153,7 +182,9 @@
                         <img src="<%= relatedProduct.getImageLinks().get(0) %>" alt="">
                     </div>
                     <div class="thong-tin-danh-muc-lien-quan">
+                        <a href="/WebApplication2/products/<%= relatedProduct.getProductId() %>" target="_blank">
                         <div class="ten-san-pham-lien-quan"><%= relatedProduct.getName() %></div>
+                        </a>
                         <div class="df">
                             <div class="f1">
                                 <div class="danh-gia-san-pham-lien-quan">
@@ -192,6 +223,8 @@
             <div class="df">
                 <button class="nut nut-thu-gon f1">Thu gọn</button>
             </div>
+            
+            <div  style="margin-bottom: 60px;"></div>
         </div>
 
         <script>
