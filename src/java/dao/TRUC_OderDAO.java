@@ -17,7 +17,7 @@ import model.TRUC_Order;
  */
 public class TRUC_OderDAO {
     public static Connection openConnection(){
-        String driver = "com.mysql.jdbc.Driver";
+        String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/mydb";
         String user = "root";
         String password = "27082002";
@@ -35,7 +35,9 @@ public class TRUC_OderDAO {
     public static ArrayList<TRUC_Order> getOrder(String id, String ds){
         ArrayList<TRUC_Order> res = new ArrayList<>();
         try (Connection c = openConnection()){
-            String select = "SELECT * FROM order WHERE user_id = '%s' AND delivery_status = '%s'";
+           
+            String select = "SELECT * FROM mydb.order WHERE user_id = '%s' AND delivery_status = '%s'";
+            //System.out.println(id +  ds);
             select = String.format(select, id, ds);
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
@@ -52,6 +54,7 @@ public class TRUC_OderDAO {
                 int st10 = Integer.parseInt(rs.getString("warehouse_id") );
                 res.add(new TRUC_Order(st1, st2, st3, st4, st5, st6, st7, st8, st9, st10));
             }
+             //System.out.println(res.size());
             return res;
         } 
         catch (Exception e) {

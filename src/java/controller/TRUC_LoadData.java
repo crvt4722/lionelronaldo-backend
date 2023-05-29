@@ -5,9 +5,13 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +24,8 @@ import model.TRUC_Order;
  *
  * @author hi
  */
-@WebServlet(name = "TRUC_LoadGioHang", urlPatterns = {"/truc_loadgiohang"})
-public class TRUC_LoadGioHang extends HttpServlet {
+@WebServlet(name = "TRUC_LoadGioHang", urlPatterns = {"/truc_loaddata"})
+public class TRUC_LoadData extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +40,25 @@ public class TRUC_LoadGioHang extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            //HttpSession session = request.getSession();
-            //String name = (String)session.getAttribute("name");
-            //if (name == null) response.sendRedirect("dangnhap.jsp");
-            String  ds = request.getParameter("ds");
-            String user_id = "1";
-            //String ds = "giohang";
+            HttpSession session = request.getSession();
+            String user_id = (String) session.getAttribute("user_id");
+            BufferedReader reader = request.getReader();
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            Gson dataJson = new Gson();
+            JsonObject jsonObject = dataJson.fromJson(sb.toString(), JsonObject.class);
+            String ds = jsonObject.get("ds").getAsString();
+           
             ArrayList<TRUC_Order> listOrders = TRUC_Order.ListOders(user_id, ds);
             Gson gson = new Gson();
             String json = gson.toJson(listOrders);
             response.setContentType("application/json");
             response.getWriter().write(json);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
