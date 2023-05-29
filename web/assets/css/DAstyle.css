@@ -6,12 +6,13 @@
 }
 body{
   background-color: #e1efe4;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .ten-div{
   font-size: 36px;
   color: #5d5a68;
-  padding-top: 18px;
-  padding-left: 48px;
+  padding-top: 8px;
+  padding-left: 18px;
 }
 .all-thong-ke{
  
@@ -25,7 +26,7 @@ body{
 .thong-ke{
   
   width: 100%;
-  height: 150px;
+  height: 120px;
   padding: 16px;
   display: flex;
   justify-content: space-between; 
@@ -46,21 +47,32 @@ body{
   width: 50%;
   height: 50%;
   float: left;
-  padding: 16px;
   color: #5d5a68;
-  font-size: 24px;
+  font-size: 13px;
 }
 .so-tk{
   width: 50%;
   height: 50%;
   float: left;
   color: #5d5a68;
-  padding: 16px;
+ 
   font-weight: 500;
-  font-size: 40px;
+  font-size: 30px;
 }
 .full{
-  padding: 32px;
+  text-align: center;
   font-size: 60px;
-  color:#d6d2fd;
+  
+}
+.violet{
+  color:#c5c0f7;
+}
+.green{
+ color: rgb(115, 174, 27);
+}
+.red{
+color: rgb(234, 95, 95);
+}
+.blue{
+color: rgb(62, 62, 98);
 }
