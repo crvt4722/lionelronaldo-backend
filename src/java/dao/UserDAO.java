@@ -1,5 +1,6 @@
 package dao;
 
+import com.mysql.cj.xdevapi.PreparableStatement;
 import java.sql.*;
 import java.util.*;
 import model.UserOrder;
@@ -7,6 +8,7 @@ import model.UserProfile;
 import model.Message;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;   
+import model.Product;
 
 public class UserDAO {
     public static Connection openConnection(){
@@ -340,6 +342,200 @@ public class UserDAO {
             ps.setString(3, orderTime);
             
             ps.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static ArrayList<Product> getProductList(){
+        
+        ArrayList<Product> arr = new ArrayList<>();
+        
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM product";
+            
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int productId = rs.getInt("product_id");
+                int categoryId = rs.getInt("category_id");
+                int originPrice = rs.getInt("origin_price");
+                int sale = rs.getInt("sale");
+                
+                String name = rs.getString("name");
+                name = name == null? "None":name;
+                String description = rs.getString("description");
+                
+                description = description == null? "None":description;
+                String gender = rs.getString("gender");
+                
+                gender = gender == null? "None":gender;
+                String brand = rs.getString("brand");
+                
+                brand = brand == null? "None":brand;
+                arr.add(new Product(productId, categoryId, originPrice, sale, name, description, gender, brand));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return arr;
+    }
+    
+    public static boolean deleteProduct(int id){
+        try (Connection c = openConnection()){
+            String delete = "DELETE FROM product_image WHERE  product_id = ?";
+            PreparedStatement ps = c.prepareStatement(delete);
+            ps.setInt(1, id);
+            ps.execute();
+            
+            delete = "DELETE FROM warehouse WHERE  product_id = ?";
+            ps = c.prepareStatement(delete);
+            ps.setInt(1, id);
+            ps.execute();
+            
+            delete = "DELETE FROM keyword WHERE  product_id = ?";
+            ps = c.prepareStatement(delete);
+            ps.setInt(1, id);
+            ps.execute();
+            
+            delete = "DELETE FROM product WHERE  product_id = ?";
+            ps = c.prepareStatement(delete);
+            ps.setInt(1, id);
+            ps.execute();
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static int getCategoryID(String name){
+        int result = 0;
+        try (Connection c = openConnection()){                        
+            String select = "SELECT * FROM category WHERE name = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, name);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) return rs.getInt("category_id");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public static int getProductIdToAdd(){
+        int result = 0;
+        try (Connection c = openConnection()){                        
+            String select = "SELECT * FROM product ORDER BY product_id DESC LIMIT 1;";
+            PreparedStatement ps = c.prepareStatement(select);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) return rs.getInt("product_id");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public static boolean addProduct(String name, int categoryId, String description, String gender, String brand, int originPrice, int sale){
+        try (Connection c = openConnection()){                        
+            String insert = "INSERT INTO product(name, category_id, description, gender, brand, origin_price, sale) VALUES (?,?,?,?,?,?,?)";
+            PreparedStatement ps = c.prepareStatement(insert);
+            
+            ps.setString(1, name);
+            ps.setInt(2, categoryId);
+            ps.setString(3, description);
+            ps.setString(4, gender);
+            ps.setString(5, brand);
+            ps.setInt(6, originPrice);
+            ps.setInt(7, sale);
+            ps.execute();
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean addKeyWords(int productID, String [] keywords){
+        try (Connection c = openConnection()){                        
+            for (String keyword: keywords) {
+                keyword = keyword.strip();
+                String insert = "INSERT INTO keyword(product_id, name) VALUES (?,?)";
+                PreparedStatement ps = c.prepareStatement(insert);
+                ps.setInt(1, productID);
+                ps.setString(2, keyword);
+                ps.execute();
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean updateKeyWords(int productID, String [] keywords){
+        try (Connection c = openConnection()){                        
+            String delete = "DELETE FROM keyword WHERE  product_id = ?";
+            PreparedStatement ps = c.prepareStatement(delete);
+            ps.setInt(1, productID);
+            ps.execute();
+            
+            addKeyWords(productID, keywords);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean addProductImage(int productID, String [] images){
+        try (Connection c = openConnection()){                        
+            for (String image: images) {
+                image = image.strip();
+                String insert = "INSERT INTO product_image(product_id, link_img) VALUES (?,?)";
+                PreparedStatement ps = c.prepareStatement(insert);
+                ps.setInt(1, productID);
+                ps.setString(2, image);
+                ps.execute();
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean addWareHouse(int productID, String size, int quantity){
+        try (Connection c = openConnection()){                                   
+            String insert = "INSERT INTO warehouse(product_id, size, quantity) VALUES (?,?,?)";
+            PreparedStatement ps = c.prepareStatement(insert);
+            ps.setInt(1, productID);
+            ps.setString(2, size);
+            ps.setInt(3, quantity);
+            
+            ps.execute();
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean updateProductImage(int productID, String [] images){
+        try (Connection c = openConnection()){                        
+            String delete = "DELETE FROM product_image WHERE  product_id = ?";
+            PreparedStatement ps = c.prepareStatement(delete);
+            ps.setInt(1, productID);
+            ps.execute();
+            
+            addProductImage(productID, images);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

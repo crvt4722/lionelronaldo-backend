@@ -8,6 +8,7 @@ import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -56,6 +57,9 @@ public class ProcessSignupCTV extends HttpServlet {
             
             UserDAO.insertUserProfile(fullname, email, password, "ctv");
             errorMessage = "Đăng ký thành công!";
+            
+            ArrayList<UserProfile> result = UserDAO.getCTVList();
+            request.getSession().setAttribute("ctvlist", result);
         }
         request.setAttribute("error2", errorMessage);
         

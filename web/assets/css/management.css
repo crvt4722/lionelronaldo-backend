@@ -1,0 +1,41 @@
+button{
+    width: 100%;
+    height: 50px;
+    
+}
+
+.chmod{
+    border-right: 5px solid #ddd;
+}
+.row-form{
+    display: flex;
+    width: 100%;
+    height: 45px;
+    margin-top:40px;
+    /*align-items: center;*/
+    justify-content: space-around;
+}
+
+input, select {
+    width: 40%;
+    height: 45px;
+    border-radius: 0px;
+    border: 2px solid black;
+    /*padding: 20px;*/
+    /*font-size: 200px;*/
+}
+
+select option{
+    font-size: 14px;
+}
+
+input[type="text"], input[type="number"], input[type="file"]
+{
+    /*border:none;*/
+    border-radius: 0 px;
+    font-size:13px;
+}
+
+input[type="file"]{
+    /*border: none;*/
+}

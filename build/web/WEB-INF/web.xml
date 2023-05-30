@@ -64,6 +64,18 @@
         <servlet-name>ProcessUpdatePermission</servlet-name>
         <servlet-class>controller.ProcessUpdatePermission</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductListAPI</servlet-name>
+        <servlet-class>controller.ProductListAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessDeleteProduct</servlet-name>
+        <servlet-class>controller.ProcessDeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessAddOrUpdateProduct</servlet-name>
+        <servlet-class>controller.ProcessAddOrUpdateProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSendMessage</servlet-name>
         <url-pattern>/ProcessSendMessage</url-pattern>
@@ -115,6 +127,18 @@
     <servlet-mapping>
         <servlet-name>ProcessGetAllCTV</servlet-name>
         <url-pattern>/ProcessGetAllCTV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductListAPI</servlet-name>
+        <url-pattern>/ProductListAPI</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessDeleteProduct</servlet-name>
+        <url-pattern>/ProcessDeleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessAddOrUpdateProduct</servlet-name>
+        <url-pattern>/ProcessAddOrUpdateProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
