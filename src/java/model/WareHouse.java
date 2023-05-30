@@ -19,7 +19,7 @@ public class WareHouse {
 
     public WareHouse(int productId, int quantity, int wareHouseId, String size) {
         this.productId = productId;
-        this.quantity = quantity;
+        this.quantity = quantity;// so luong
         this.wareHouseId = wareHouseId;
         this.size = size;
     }

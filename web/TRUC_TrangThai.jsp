@@ -80,6 +80,7 @@
             'dondahuy',
             'delivered'
         ];
+        logJSONData();
         for (let i = 1; i <= 5; i++) {
             document.getElementById("" + i).style.color = "black";
             document.getElementById("" + i).style.borderBottom = "0px solid black";
@@ -98,28 +99,20 @@
             document.getElementById("" + n).style.color = "#43d5b0";
             document.getElementById("" + n).style.borderBottom = "3px solid #43d5b0";
             document.getElementById("trangThai" + n).style.display = "block";
-            logJSONData(n);
         }
-        async function logJSONData(n) {
-            const response = await fetch("http://localhost:8080/LeoCris/truc_loaddata", {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({ds: dss[n-1]}),
-
-            });
+        async function logJSONData() {
+            const response = await fetch("http://localhost:8080/LeoCris/truc_loaddata");
             const jsonData = await response.json();
-            renderData(jsonData, n);
+            renderListOrder(jsonData);
             console.log(jsonData);
         }
-        function renderData(data, n) {
-            for (let i of data) {
-                loadWareHouse(i, n);
+        function renderListOrder(ListOrder) {
+            for (let order of ListOrder) {
+                loadWareHouse(order);
             }
             //document.querySelector("#trangThai" + n).innerHTML = html;
         }
-        async function loadWareHouse(id_wh) {
+        async function loadWareHouse(order) {
             const response = await fetch("http://localhost:8080/LeoCris/truc_loadwarehouse", {
                 method: "POST",
                 headers: {
@@ -129,10 +122,10 @@
 
             });
             const jsonData = await response.json();
-            return renderDataWH(jsonData);
+            renderWH(jsonData, order);
             console.log(jsonData);
         }
-        function renderDataWH(data) {
+        function renderWH(data) {
             return data.product_id;
         }
     </script>

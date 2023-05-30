@@ -31,6 +31,8 @@ public class Product {
         this.imageLinks = imageLinks;
     }
 
+    public Product() {
+    }
     public void setImageLinks(ArrayList<String> imageLinks) {
         this.imageLinks = imageLinks;
     }

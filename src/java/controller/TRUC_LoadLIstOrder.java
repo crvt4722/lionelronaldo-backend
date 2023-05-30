@@ -24,8 +24,8 @@ import model.TRUC_Order;
  *
  * @author hi
  */
-@WebServlet(name = "TRUC_LoadGioHang", urlPatterns = {"/truc_loaddata"})
-public class TRUC_LoadData extends HttpServlet {
+@WebServlet(name = "TRUC_LoadGioHang", urlPatterns = {"/truc_loadlistorder"})
+public class TRUC_LoadListOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

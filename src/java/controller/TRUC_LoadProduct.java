@@ -4,9 +4,6 @@
  */
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,37 +11,37 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.WareHouse;
 
 /**
  *
  * @author hi
  */
-@WebServlet(name = "TRUC_LoadDataWareHouse", urlPatterns = {"/truc_loaddatawarehouse"})
-public class TRUC_LoadDataWareHouse extends HttpServlet {
+@WebServlet(name = "TRUC_LoadProduct", urlPatterns = {"/truc_loadproduct"})
+public class TRUC_LoadProduct extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String user_id = (String) session.getAttribute("user_id");
-            BufferedReader reader = request.getReader();
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            Gson dataJson = new Gson();
-            JsonObject jsonObject = dataJson.fromJson(sb.toString(), JsonObject.class);
-            String ds = jsonObject.get("id_wh").getAsString();
-           
-            WareHouse wh = WareHouse.getWareHouse(ds);
-            Gson gson = new Gson();
-            String json = gson.toJson(wh);
-            response.setContentType("application/json");
-            response.getWriter().write(json);
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet TRUC_LoadProduct</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet TRUC_LoadProduct at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

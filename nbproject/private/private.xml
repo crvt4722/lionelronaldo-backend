@@ -14,10 +14,11 @@
         <group>
             <file>file:/D:/Code/code%20java/lionelronaldo-backend/web/TRUC_TrangThai.jsp</file>
             <file>file:/D:/Code/code%20java/lionelronaldo-backend/web/assets/css/TRUC_GioHang1.css</file>
-            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/controller/TRUC_LoadDataWareHouse.java</file>
+            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/model/TRUC_Order.java</file>
             <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/dao/TRUC_OderDAO.java</file>
-            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/model/WareHouse.java</file>
-            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/model/Product.java</file>
+            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/controller/TRUC_LoadDataWareHouse.java</file>
+            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/controller/TRUC_TrangThai.java</file>
+            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/controller/TRUC_LoadData.java</file>
         </group>
     </open-files>
 </project-private>
