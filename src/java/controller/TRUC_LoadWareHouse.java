@@ -9,12 +9,14 @@ import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.TRUC_Order;
 import model.WareHouse;
 
 /**
@@ -29,18 +31,10 @@ public class TRUC_LoadWareHouse extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            String user_id = (String) session.getAttribute("user_id");
-            BufferedReader reader = request.getReader();
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            Gson dataJson = new Gson();
-            JsonObject jsonObject = dataJson.fromJson(sb.toString(), JsonObject.class);
-            String ds = jsonObject.get("id_wh").getAsString();
-           
-            WareHouse wh = WareHouse.getWareHouse(ds);
+            //String user_id = (String)session.getAttribute("user_id");
+            //if (name == null) response.sendRedirect("dangnhap.jsp");
+            String  id_wh = request.getParameter("id_wh");
+            WareHouse wh = WareHouse.getWareHouse(id_wh);
             Gson gson = new Gson();
             String json = gson.toJson(wh);
             response.setContentType("application/json");

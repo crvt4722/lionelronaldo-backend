@@ -11,14 +11,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Trạng Thái</title>
         <link rel="stylesheet" href="assets/css/TRUC_GioHang1.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
     </head>
     <body>
         <div class="thanhTrangThai">
-            <div class="trangThai" onclick="loadData(1)" id="1">Giỏ Hàng</div>
-            <div class="trangThai" onclick="loadData(2)" id="2">Chờ Xác Nhận</div>
-            <div class="trangThai" onclick="loadData(3)" id="3">Đang Giao</div>
-            <div class="trangThai" onclick="loadData(4)" id="4">Đơn Đã Hủy</div>
-            <div class="trangThai" onclick="loadData(5)" id="5">Lịch Sử Mua Hàng</div>
+            <div class="trangThai" onclick="loadTrangThai(1)" id="1">Giỏ Hàng</div>
+            <div class="trangThai" onclick="loadTrangThai(2)" id="2">Chờ Xác Nhận</div>
+            <div class="trangThai" onclick="loadTrangThai(3)" id="3">Đang Giao</div>
+            <div class="trangThai" onclick="loadTrangThai(4)" id="4">Đơn Đã Hủy</div>
+            <div class="trangThai" onclick="loadTrangThai(5)" id="5">Lịch Sử Mua Hàng</div>
         </div>
         <div class="noiDung" id="trangThai1">
             <div class="phanDau">
@@ -80,17 +82,16 @@
             'dondahuy',
             'delivered'
         ];
-        logJSONData();
-        for (let i = 1; i <= 5; i++) {
-            document.getElementById("" + i).style.color = "black";
-            document.getElementById("" + i).style.borderBottom = "0px solid black";
-            document.getElementById("trangThai" + i).style.display = "none";
-        }
-        loadData(1);
-        document.getElementById("1").style.color = "#43d5b0";
-        document.getElementById("1").style.borderBottom = "3px solid #43d5b0";
-        document.getElementById("trangThai1").style.display = "block";
-        function loadData(n) {
+        loadTrangThai(1);
+        loadListOrder();
+        let htmlTrangThai1 = '';
+        let htmlTrangThai2 = '';
+        let htmlTrangThai3 = '';
+        let htmlTrangThai4 = '';
+        let htmlTrangThai5 = '';
+        
+        
+        function loadTrangThai(n) {
             for (let i = 1; i <= 5; i++) {
                 document.getElementById("" + i).style.color = "black";
                 document.getElementById("" + i).style.borderBottom = "0px solid black";
@@ -100,33 +101,53 @@
             document.getElementById("" + n).style.borderBottom = "3px solid #43d5b0";
             document.getElementById("trangThai" + n).style.display = "block";
         }
-        async function logJSONData() {
-            const response = await fetch("http://localhost:8080/LeoCris/truc_loaddata");
-            const jsonData = await response.json();
-            renderListOrder(jsonData);
-            console.log(jsonData);
-        }
-        function renderListOrder(ListOrder) {
-            for (let order of ListOrder) {
-                loadWareHouse(order);
-            }
-            //document.querySelector("#trangThai" + n).innerHTML = html;
-        }
-        async function loadWareHouse(order) {
-            const response = await fetch("http://localhost:8080/LeoCris/truc_loadwarehouse", {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({id_wh: id_wh}),
-
+        function loadListOrder(){
+            $.ajax({
+                url: 'http://localhost:8080/LeoCris/truc_loadlistorder',
+                type: 'GET',
+                data: {},
+                success: function (data) { 
+                    //console.log(data);
+                    renderListOrder(data);
+                    
+                }
             });
-            const jsonData = await response.json();
-            renderWH(jsonData, order);
-            console.log(jsonData);
         }
-        function renderWH(data) {
-            return data.product_id;
+        function loadWareHouse(id_wh){
+            $.ajax({
+                url: 'http://localhost:8080/LeoCris/truc_loadwarehouse',
+                type: 'GET',
+                data: {id_wh : id_wh},
+                success: function (data) { 
+                    //console.log(data);
+                    renderWareHouse(data);
+                    
+                }
+            });
         }
+        function loadProduct(id_p){
+            $.ajax({
+                url: 'http://localhost:8080/LeoCris/truc_loadproduct',
+                type: 'GET',
+                data: {id_p : id_p},
+                success: function (data) { 
+                    console.log(data);
+                    renderProduct(data);
+                    
+                }
+            });
+        }
+        function renderListOrder(listOrder){
+            for (let order of listOrder){
+                loadWareHouse(order.wareHouseID);
+            }
+        }
+        function renderWareHouse(wareHouse){
+            loadProduct(wareHouse.productId);
+        }
+        function renderProduct(product){
+            
+        }
+        
     </script>
 </html>

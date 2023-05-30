@@ -40,21 +40,13 @@ public class TRUC_LoadListOrder extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String user_id = (String) session.getAttribute("user_id");
-            BufferedReader reader = request.getReader();
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            //Gson dataJson = new Gson();
-            //JsonObject jsonObject = dataJson.fromJson(sb.toString(), JsonObject.class);
-            //String ds = jsonObject.get("ds").getAsString();
-           
-            ArrayList<TRUC_Order> listOrders = TRUC_Order.ListOders(user_id);
+           HttpSession session = request.getSession();
+            String user_id = (String)session.getAttribute("user_id");
+            //if (name == null) response.sendRedirect("dangnhap.jsp");
+            //String  tim = request.getParameter("key");
+            ArrayList<TRUC_Order> list = TRUC_Order.ListOders(user_id);
             Gson gson = new Gson();
-            String json = gson.toJson(listOrders);
+            String json = gson.toJson(list);
             response.setContentType("application/json");
             response.getWriter().write(json);
         }

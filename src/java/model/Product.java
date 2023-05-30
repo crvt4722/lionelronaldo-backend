@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.TRUC_OderDAO;
 import java.util.ArrayList;
 
 
@@ -121,5 +122,8 @@ public class Product {
     public String toString() {
         return "Product{" + "productId=" + productId + ", categoryId=" + categoryId + ", originPrice=" + originPrice + ", sale=" + sale + ", price=" + price + ", numberOfRating=" + numberOfRating + ", soldQuantity=" + soldQuantity + ", name=" + name + ", description=" + description + ", gender=" + gender + ", brand=" + brand + ", categoryName=" + categoryName + ", imageLinks=" + imageLinks + ", avgRating=" + avgRating + '}';
     }
-      
+    
+    public static Product getProduct(String id_p){
+        return TRUC_OderDAO.getProduct(id_p);
+    }
 }
