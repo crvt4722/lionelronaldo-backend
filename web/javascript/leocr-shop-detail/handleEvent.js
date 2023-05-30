@@ -12,17 +12,17 @@ let searchProduct = "";
 
 // handle search event
 let searchProductElement = document.querySelector("#search-product");
-searchProductElement.onchange = function () {
-    clearSortData();
-    clearFilterData();
-    searchProduct = searchProductElement.value;
-    handleSearch();
-    handleSortAndFilterProducts();
-}
+//searchProductElement.onchange = function () {
+//    clearSortData();
+//    clearFilterData();
+//    searchProduct = searchProductElement.value;
+//    handleSearch();
+//    handleSortAndFilterProducts();
+//}
 
 searchProductElement.oninput = function () {
-    clearSortData();
-    clearFilterData();
+//    clearSortData();
+//    clearFilterData();
     searchProduct = searchProductElement.value;
     handleSearch();
 }
@@ -168,7 +168,7 @@ function clearSearchData(){
 function renderSearchData(searchData){
     let htmls = '';
     for(let item of searchData){
-        htmls += `<div class="goi-y-tim-kiem-item"><a href="/WebApplication2/ProcessGetKeyWordSearch?searchProduct=${item}">${item}</a></div>`;
+        htmls += `<a href="/WebApplication2/products?search=${item}"><div class="goi-y-tim-kiem-item">${item}</div></a>`;
     }
     SuggestData.innerHTML = htmls;
 }
@@ -177,7 +177,7 @@ function handleSearch() {
         url: "/WebApplication2/ProcessGetKeyWordSearch",
         type: "get", //send it through get method
         data: {
-            searchProduct: searchProduct,
+            search: searchProduct,
         },
         success: function (searchData) {
             console.log(searchData);
@@ -231,9 +231,11 @@ function renderProductsList(productsList)
                 </div>
                 </div>
                 <div class="thong-tin-san-pham">
-                    <div class="san-pham-item__ten">
-                        ${product.name}
-                    </div>
+                    <a href="/WebApplication2/product-detail?id=${product.productId}">
+                        <div class="san-pham-item__ten">
+                            ${product.name}
+                        </div>
+                    </a>
                     <div class="df">
                         <div class="san-pham-item__danh-gia f1">
                             <span class="so-luong-danh-gia">

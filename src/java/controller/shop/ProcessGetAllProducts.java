@@ -8,13 +8,18 @@ import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Product;
+import model.ProductKeyword;
 
 /**
  *
@@ -43,12 +48,72 @@ public class ProcessGetAllProducts extends HttpServlet {
         return n;
     }
 
+    public static double calculate(String s, String key) {
+        key = key.toLowerCase();
+        String[] arrS = s.split(" ");
+        String[] arrKey = key.split(" ");
+        int cnt = 0;
+        for (String x : arrS) {
+            for (String y : arrKey) {
+                if (x.contains(y) || y.contains(x)) {
+                    cnt++;
+                    break;
+                }
+            }
+        }
+        return (double) cnt / arrKey.length;
+    }
+
+    public static double totalCalculate(ArrayList<String> keywordsList, String key) {
+        double res = 0;
+        for (String s : keywordsList) {
+            res += calculate(s, key);
+        }
+        return res;
+    }
+
+    public static ArrayList<Product> getProductsMatchKey(ArrayList<Product> productsList, String key) {
+        ArrayList<Product> productsMatchKey = new ArrayList<>();
+        ArrayList<ProductKeyword> productKeywords = new ArrayList<>();
+        for (Product product : productsList) {
+            productKeywords.add(new ProductKeyword(product, totalCalculate(product.getKeywords(), key)));
+        }
+        Collections.sort(productKeywords, new Comparator<ProductKeyword>() {
+            @Override
+            public int compare(ProductKeyword t, ProductKeyword t1) {
+                if (t.getFind() < t1.getFind()) {
+                    return 1;
+                }
+                return -1;
+            }
+        });
+        System.out.println("----------------------------");
+        for (ProductKeyword pk : productKeywords) {
+            if (pk.getFind() > 0) {
+                System.out.println(pk.getProduct().getName() + " " + pk.getFind());
+                productsMatchKey.add(pk.getProduct());
+            }
+        }
+        System.out.println("-----------------------------------");
+        return productsMatchKey;
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        ArrayList<Product> arr = ProductDAO.getAllProduct();
-        request.setAttribute("productsList", arr);
+        ArrayList<Product> productsList = ProductDAO.getAllProduct();
+
+        String keyWord = request.getParameter("search");
+        if (keyWord == null) {
+            keyWord = "";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("search", keyWord);
+
+        ArrayList<Product> res = getProductsMatchKey(productsList, keyWord);
+
+        request.setAttribute("productsList", res);
         RequestDispatcher dis = request.getRequestDispatcher("leocr-shop-detail.jsp");
         dis.forward(request, response);
     }

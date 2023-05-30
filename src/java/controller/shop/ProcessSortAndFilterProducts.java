@@ -33,6 +33,7 @@ public class ProcessSortAndFilterProducts extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     public static boolean containValue(String[] arr, String x) {
         for (String item : arr) {
             if (item.equalsIgnoreCase(x)) {

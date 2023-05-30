@@ -5,26 +5,23 @@
 
 package controller.shop;
 
-import com.google.gson.Gson;
+import dao.OrderDAO;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Keyword;
 import model.Product;
 
 /**
  *
  * @author User
  */
-public class ProcessGetKeyWordSearch extends HttpServlet {
+public class ProcessOrderPayment extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,58 +30,37 @@ public class ProcessGetKeyWordSearch extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public static double calculate(String s, String key){
-        key = key.toLowerCase();
-        String[] arrS = s.split(" ");
-        String[] arrKey = key.split(" ");
-        int cnt = 0;
-        for(String x : arrS){
-            for(String y : arrKey){
-                if (x.contains(y) || y.contains(x)) {
-                    cnt++;
-                    break;
-                }
-            }
-        }
-        return (double) cnt / arrKey.length;
-    }
-    public static ArrayList<String> getMatchKeys(ArrayList<String> allProductKeywords, String key){
-        ArrayList<String> matchKey = new ArrayList<>();
-        ArrayList<Keyword> keywordsList = new ArrayList<>();
-        key = key.toLowerCase();
-        for(String x : allProductKeywords){
-            double findResult = calculate(x, key);
-            if(findResult > 0){
-                keywordsList.add(new Keyword(x, findResult));
-            }
-        }
-        Collections.sort(keywordsList, new Comparator<Keyword>(){
-            @Override
-            public int compare(Keyword t, Keyword t1) {
-                if(t.getFind() < t1.getFind()) return 1;
-                return -1;
-            }
-        });
-        int MAX_NUMBER_OF_SUGGEST = 6;
-        for(Keyword k : keywordsList){
-            if(matchKey.size() > MAX_NUMBER_OF_SUGGEST) break;
-            matchKey.add(k.getName());
-        }
-        return matchKey;
-    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        String size = request.getParameter("size");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String phone, address;
         
-        String keyWord = request.getParameter("search");
-        ArrayList<String> allProductKeywords = ProductDAO.getAllKeywords();
-        ArrayList<String> matchKeys = getMatchKeys(allProductKeywords, keyWord);
+        int userId = 1;
+        ArrayList<String> phoneAndAddress = OrderDAO.getPhoneAndAddressOfLastOrder(userId);
+        if(phoneAndAddress.get(0) != null){
+            phone = phoneAndAddress.get(0);
+            address = phoneAndAddress.get(1);
+        }
+        else{
+            phone = "";
+            address = "";
+        }
         
-        String json = new Gson().toJson(matchKeys);
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+        Product product = ProductDAO.getProductById(productId);
+        
+        request.setAttribute("product", product);
+        request.setAttribute("size", size);
+        request.setAttribute("quantity", quantity);
+        String totalPrice = "" + product.getPrice() * quantity;
+        request.setAttribute("totalPrice", totalPrice);
+        request.setAttribute("phone", phone);
+        request.setAttribute("address", address);
+        
+        RequestDispatcher dis = request.getRequestDispatcher("leocr-shop-order-payment.jsp");
+        dis.forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -124,4 +100,3 @@ public class ProcessGetKeyWordSearch extends HttpServlet {
     }// </editor-fold>
 
 }
-

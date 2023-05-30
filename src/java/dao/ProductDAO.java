@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.Product;
 import java.util.*;
+import model.CustomerResponse;
 
 /**
  *
@@ -174,6 +175,122 @@ public class ProductDAO {
         }
     }
 
+    public static Map<Integer, String> getAllCategoriesMap() {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select * from category");
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            HashMap<Integer, String> mp = new HashMap<>();
+            while (rs.next()) {
+                mp.put(rs.getInt("category_id"), rs.getString("name"));
+            }
+            return mp;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void setCategoryForEachProduct(ArrayList<Product> productsList) {
+        Map<Integer, String> categoryMap = getAllCategoriesMap();
+        for (Product product : productsList) {
+            product.setCategoryName(categoryMap.get(product.getCategoryId()));
+        }
+    }
+
+    public static ArrayList<String> getAllKeywordsByProductId(int productId) {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select * from keywords\n"
+                    + "where product_id = %s;", productId);
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<String> keywordsList = new ArrayList<>();
+            while (rs.next()) {
+                keywordsList.add(rs.getString("name"));
+            }
+            return keywordsList;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<String> getAllKeywords() {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select distinct name from keywords");
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<String> keywordsList = new ArrayList<>();
+            HashSet<String> se = new HashSet<>();
+            while (rs.next()) {
+                String key = rs.getString("name");
+                if (!se.contains(key)) {
+                    keywordsList.add(key);
+                    se.add(key);
+                }
+            }
+            return keywordsList;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void setKeywordsForEachProduct(ArrayList<Product> productsList) {
+        for (Product product : productsList) {
+            product.setKeywords(getAllKeywordsByProductId(product.getProductId()));
+        }
+    }
+
+    public static ArrayList<String> getSizesByProductId(int productId) {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select size\n"
+                    + "from warehouse as WH, product as P\n"
+                    + "where WH.product_id = P.product_id\n"
+                    + "and P.product_id = %s;", productId);
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<String> sizes = new ArrayList<>();
+            while (rs.next()) {
+                sizes.add(rs.getString("size"));
+            }
+            return sizes;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void setSizesForEachProduct(ArrayList<Product> productsList) {
+        for (Product product : productsList) {
+            product.setSizes(getSizesByProductId(product.getProductId()));
+        }
+    }
+
+    public static ArrayList<Integer> getAvailableQuantityByProductId(int productId) {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select *\n"
+                    + "from warehouse\n"
+                    + "where product_id = %s", productId);
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Integer> availableQuantity = new ArrayList<>();
+            while (rs.next()) {
+                availableQuantity.add(rs.getInt("quantity"));
+            }
+            return availableQuantity;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void setAvailableQuantityInWarehouseForEachProduct(ArrayList<Product> productsList) {
+        for (Product product : productsList) {
+            product.setAvailableQuantityInWarehouse(getAvailableQuantityByProductId(product.getProductId()));
+        }
+    }
+
     public static ArrayList<Product> getAllProduct() {
         try ( Connection c = openConnection()) {
             String select = String.format("select * from product");
@@ -186,9 +303,50 @@ public class ProductDAO {
             setImagesListForEachProduct(productsList);
             setSoldQuantityForEachProduct(productsList);
             setRatingForEachProduct(productsList);
+            setCategoryForEachProduct(productsList);
+            setKeywordsForEachProduct(productsList);
+            setSizesForEachProduct(productsList);
+            setAvailableQuantityInWarehouseForEachProduct(productsList);
+
             System.out.println(">>>test");
             System.out.println(productsList.get(0));
             return productsList;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Product getProductById(int productId) {
+        ArrayList<Product> productsList = getAllProduct();
+        for (Product product : productsList) {
+            if (product.getProductId() == productId) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<CustomerResponse> getCustomerResponseByProductId(int productId) {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select U.fullname, CR.comment, CR.rating, CR.response_time\n"
+                    + "from user_profile as U, product as P, warehouse as W, `order` as O, customer_response as CR\n"
+                    + "where P.product_id = W.product_id\n"
+                    + "and W.warehouse_id = O.warehouse_id\n"
+                    + "and O.user_id = U.user_id\n"
+                    + "and CR.order_id = O.order_id\n"
+                    + "and P.product_id = %s;", productId);
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<CustomerResponse> productResponses = new ArrayList<>();
+
+            while (rs.next()) {
+                productResponses.add(new CustomerResponse(rs.getString("fullname"), rs.getString("comment"), rs.getDouble("rating"), rs.getDate("response_time")));
+            }
+//            for(CustomerResponse x : productResponses){
+//                System.out.println(x);
+//            }
+            return productResponses;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
