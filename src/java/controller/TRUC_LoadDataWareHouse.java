@@ -9,33 +9,21 @@ import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.TRUC_Order;
+import model.WareHouse;
 
 /**
  *
  * @author hi
  */
-@WebServlet(name = "TRUC_LoadGioHang", urlPatterns = {"/truc_loaddata"})
-public class TRUC_LoadData extends HttpServlet {
+@WebServlet(name = "TRUC_LoadDataWareHouse", urlPatterns = {"/truc_loaddatawarehouse"})
+public class TRUC_LoadDataWareHouse extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -48,17 +36,16 @@ public class TRUC_LoadData extends HttpServlet {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            //Gson dataJson = new Gson();
-            //JsonObject jsonObject = dataJson.fromJson(sb.toString(), JsonObject.class);
-            //String ds = jsonObject.get("ds").getAsString();
+            Gson dataJson = new Gson();
+            JsonObject jsonObject = dataJson.fromJson(sb.toString(), JsonObject.class);
+            String ds = jsonObject.get("id_wh").getAsString();
            
-            ArrayList<TRUC_Order> listOrders = TRUC_Order.ListOders(user_id);
+            WareHouse wh = WareHouse.getWareHouse(ds);
             Gson gson = new Gson();
-            String json = gson.toJson(listOrders);
+            String json = gson.toJson(wh);
             response.setContentType("application/json");
             response.getWriter().write(json);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

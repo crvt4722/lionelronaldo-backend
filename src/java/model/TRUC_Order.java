@@ -118,7 +118,7 @@ public class TRUC_Order {
     public void setWareHouseID(int wareHouseID) {
         this.wareHouseID = wareHouseID;
     }
-    public static ArrayList<TRUC_Order> ListOders(String user_id, String ds){
-        return TRUC_OderDAO.getOrder(user_id, ds);
+    public static ArrayList<TRUC_Order> ListOders(String user_id){
+        return TRUC_OderDAO.getOrder(user_id);
     }
 }

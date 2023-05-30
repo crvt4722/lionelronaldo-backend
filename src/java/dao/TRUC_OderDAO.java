@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import model.TRUC_Order;
+import model.WareHouse;
 
 /**
  *
@@ -32,13 +33,13 @@ public class TRUC_OderDAO {
         
         return conn;
     }
-    public static ArrayList<TRUC_Order> getOrder(String id, String ds){
+    public static ArrayList<TRUC_Order> getOrder(String id){
         ArrayList<TRUC_Order> res = new ArrayList<>();
         try (Connection c = openConnection()){
            
-            String select = "SELECT * FROM mydb.order WHERE user_id = '%s' AND delivery_status = '%s'";
+            String select = "SELECT * FROM mydb.order WHERE user_id = '%s'";
             //System.out.println(id +  ds);
-            select = String.format(select, id, ds);
+            select = String.format(select, id);
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -60,5 +61,27 @@ public class TRUC_OderDAO {
         catch (Exception e) {
         }
         return res;
+    }
+    public static WareHouse getWareHouse(String id_wh){
+        try (Connection c = openConnection()){
+           
+            String select = "SELECT * FROM mydb.warehouse WHERE warehouse_id = '%s'";
+            //System.out.println(id +  ds);
+            select = String.format(select, id_wh);
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int st1 = Integer.parseInt(rs.getString("product_id") );
+                int st2 = Integer.parseInt(rs.getString("quantity") );
+                int st3 = Integer.parseInt(rs.getString("warehouse_id") );
+                String st4 = rs.getString("size");
+                return new WareHouse(st1, st2, st3, st4);
+            }
+             //System.out.println(res.size());
+            return new WareHouse();
+        } 
+        catch (Exception e) {
+        }
+        return new WareHouse();
     }
 }

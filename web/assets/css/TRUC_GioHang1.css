@@ -27,9 +27,65 @@
     color: blueviolet;
 }
 .noiDung{
-    width: 60%;
-    height: 300px;
-    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
-    margin-left: 20%;
+    width: 70%;
+    margin-left: 15%;
     margin-top: 50px;
+}
+.phanDau{
+    width: 100%;
+    height: 50px;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    float: left;
+}
+.phanGiua{
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+}
+.phanGiuaCon{
+    width: 100%;
+    height: 100px;
+    margin-top: 15px;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    float: left;
+}
+.nua{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.nuanua{
+    width: 25%;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nuanuanua{
+    width: 25%;
+    
+}
+.cbox{
+    width: 18px;
+    height: 18px;
+}
+.checkbox{
+    width: 25%;
+}
+.anh{
+    width: 15%;
+}
+.ten{
+    width: 35%;
+}
+.moTa{
+    width: 25%;
+}
+.Sp{
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

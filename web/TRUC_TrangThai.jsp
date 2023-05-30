@@ -20,7 +20,53 @@
             <div class="trangThai" onclick="loadData(4)" id="4">Đơn Đã Hủy</div>
             <div class="trangThai" onclick="loadData(5)" id="5">Lịch Sử Mua Hàng</div>
         </div>
-        <div class="noiDung" id="trangThai1"></div>
+        <div class="noiDung" id="trangThai1">
+            <div class="phanDau">
+                <div class="nua">
+                    <div class="nuanua"><input class="cbox" type="checkbox" value="1" name="dssp"></div>
+                    <div class="nuanua">Sản Phẩm</div>
+                </div>
+                <div class="nua">
+                    <div class="nuanuanua Sp">Đơn giá</div> 
+                    <div class="nuanuanua Sp">Số Lượng</div> 
+                    <div class="nuanuanua Sp">Số Tiền</div> 
+                    <div class="nuanuanua Sp">Xóa</div> 
+                </div>
+            </div>
+            <div class="phanGiua" id="phanGiua1">
+                <div class="phanGiuaCon">
+                    Không tồn tại sản phẩm nào!
+                </div>
+                <div class="phanGiuaCon">
+                    <div class="nua">
+                        <div class="checkbox Sp"><input class="cbox" type="checkbox" value="1" name="dssp"></div>
+                        <div class="anh Sp">img</div>
+                        <div class="ten Sp">tenn</div>
+                        <div class="moTa Sp">size : M</div>
+                    </div>
+                    <div class="nua">
+                        <div class="nuanuanua Sp">Đơn giá</div> 
+                        <div class="nuanuanua Sp">Số Lượng</div> 
+                        <div class="nuanuanua Sp">Số Tiền</div> 
+                        <div class="nuanuanua Sp">Xóa</div> 
+                    </div>
+                </div>
+                <div class="phanGiuaCon">
+                    <div class="nua">
+                        <div class="checkbox Sp"><input class="cbox" type="checkbox" value="1" name="dssp"></div>
+                        <div class="anh Sp">img</div>
+                        <div class="ten Sp">tenn </div>
+                        <div class="moTa Sp">size : M</div>
+                    </div>
+                    <div class="nua">
+                        <div class="nuanuanua Sp">Đơn giá</div> 
+                        <div class="nuanuanua Sp">Số Lượng</div> 
+                        <div class="nuanuanua Sp">Số Tiền</div> 
+                        <div class="nuanuanua Sp">Xóa</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="noiDung" id="trangThai2"></div>
         <div class="noiDung" id="trangThai3"></div>
         <div class="noiDung" id="trangThai4"></div>
@@ -42,7 +88,7 @@
         loadData(1);
         document.getElementById("1").style.color = "#43d5b0";
         document.getElementById("1").style.borderBottom = "3px solid #43d5b0";
-        document.getElementById("trangThai1").style.display = "flex";
+        document.getElementById("trangThai1").style.display = "block";
         function loadData(n) {
             for (let i = 1; i <= 5; i++) {
                 document.getElementById("" + i).style.color = "black";
@@ -51,7 +97,7 @@
             }
             document.getElementById("" + n).style.color = "#43d5b0";
             document.getElementById("" + n).style.borderBottom = "3px solid #43d5b0";
-            document.getElementById("trangThai" + n).style.display = "flex";
+            document.getElementById("trangThai" + n).style.display = "block";
             logJSONData(n);
         }
         async function logJSONData(n) {
@@ -68,13 +114,26 @@
             console.log(jsonData);
         }
         function renderData(data, n) {
-            
-            let html = '';
             for (let i of data) {
-                html += i.orderId + " ";
+                loadWareHouse(i, n);
             }
-            document.querySelector("#trangThai" + n).innerHTML = html;
+            //document.querySelector("#trangThai" + n).innerHTML = html;
         }
+        async function loadWareHouse(id_wh) {
+            const response = await fetch("http://localhost:8080/LeoCris/truc_loadwarehouse", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({id_wh: id_wh}),
 
+            });
+            const jsonData = await response.json();
+            return renderDataWH(jsonData);
+            console.log(jsonData);
+        }
+        function renderDataWH(data) {
+            return data.product_id;
+        }
     </script>
 </html>
