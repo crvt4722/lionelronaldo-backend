@@ -37,13 +37,9 @@ public class ProcessLogout extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         System.out.println("Logout");
+        
         session.removeAttribute("lastName");
         session.removeAttribute("fullname");
-        
-        
-        
-//        System.out.println(responseString);
-        
         session.removeAttribute("email");
     }
 

@@ -8,6 +8,7 @@ import model.UserProfile;
 import model.Message;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;   
+import model.Order;
 import model.Product;
 
 public class UserDAO {
@@ -258,6 +259,66 @@ public class UserDAO {
         return result;
     }
     
+    public static String getSize( int id){
+        String result = "";
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM warehouse WHERE warehouse_id = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getString("size");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public static int getProductIdFromWarehoust( int id){
+        int result = 0;
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM warehouse WHERE warehouse_id = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getInt("product_id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public static String getFullname(int id){
+        String result = "";
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_profile WHERE user_id = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getString("fullname");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public static String getProductName(int id){
+        String result = "";
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM product WHERE product_id = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getString("name");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     public static boolean insertUserOrder(String phone, String email,String address, String orderTime
             ,String size, String quantity, String paymentMethod, String season, 
             String orderShirtType, String clubOrNation, String player){
@@ -372,6 +433,10 @@ public class UserDAO {
                 String gender = rs.getString("gender");
                 
                 gender = gender == null? "None":gender;
+                if (gender.equals("1")) gender = "Trẻ em";
+                if (gender.equals("2")) gender = "Nam";
+                if (gender.equals("3")) gender = "Nữ";
+                if (gender.equals("4")) gender = "Nam và Nữ";
                 String brand = rs.getString("brand");
                 
                 brand = brand == null? "None":brand;
@@ -462,6 +527,64 @@ public class UserDAO {
         return false;
     }
     
+    public static boolean updateProduct(int ID, String name, String description, String gender, String brand, int originPrice, int sale){
+        try (Connection c = openConnection()){                        
+            if (name.equals("")==false){
+                String update = "UPDATE product set name = ? where product_id = ?";
+                PreparedStatement ps = c.prepareStatement(update);
+                ps.setString(1, name);
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            
+            if (description.equals("")==false){
+                String update = "UPDATE product set description = ? where product_id = ?";
+                PreparedStatement ps = c.prepareStatement(update);
+                ps.setString(1, description);
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            
+            if (gender.equals("gender")==false){
+                String update = "UPDATE product set gender = ? where product_id = ?";
+                PreparedStatement ps = c.prepareStatement(update);
+                ps.setString(1, gender);
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            
+            if (brand.equals("brand")==false){
+                String update = "UPDATE product set brand = ? where product_id = ?";
+                PreparedStatement ps = c.prepareStatement(update);
+                ps.setString(1, brand);
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            
+            if (originPrice != -1){
+                String update = "UPDATE product set origin_price = ? where product_id = ?";
+                PreparedStatement ps = c.prepareStatement(update);
+                ps.setInt(1, originPrice);
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            
+            if (sale != -1){
+                String update = "UPDATE product set sale = ? where product_id = ?";
+                PreparedStatement ps = c.prepareStatement(update);
+                ps.setInt(1, sale);
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public static boolean addKeyWords(int productID, String [] keywords){
         try (Connection c = openConnection()){                        
             for (String keyword: keywords) {
@@ -528,6 +651,21 @@ public class UserDAO {
         return false;
     }
     
+    public static boolean updateWarehouse(int productID, int quantity){
+        try (Connection c = openConnection()){                        
+            String update = "UPDATE warehouse set quantity = ?  WHERE  product_id = ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            ps.setInt(1, quantity);
+            ps.setInt(2, productID);
+            ps.execute();
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public static boolean updateProductImage(int productID, String [] images){
         try (Connection c = openConnection()){                        
             String delete = "DELETE FROM product_image WHERE  product_id = ?";
@@ -536,6 +674,88 @@ public class UserDAO {
             ps.execute();
             
             addProductImage(productID, images);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static ArrayList<Order> getOrderList(String deliveryStatusToSearch, String orderTime){
+        
+        ArrayList<Order> arr = new ArrayList<>();
+        
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM lionelronaldo.order ";
+            
+            if(deliveryStatusToSearch.equals("all") == false){
+                select += "WHERE delivery_status = " +"\'" + deliveryStatusToSearch + "\'";
+                
+            }
+            
+            if (orderTime.equals("new"))  select += " ORDER BY order_id DESC";
+            
+            PreparedStatement ps = c.prepareStatement(select);
+            
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int orderId= rs.getInt("order_id");
+                String customerName = getFullname(rs.getInt("user_id"));
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String dateTime = rs.getString("order_time");
+                String productName = getProductName(getProductIdFromWarehoust(rs.getInt("warehouse_id")));
+                String size = getSize(rs.getInt("warehouse_id"));
+                int quantity = rs.getInt("quantity");
+                int totalAmount = rs.getInt("total_amount");
+                String paymentMethod = rs.getString("payment_method");
+                String deliveryStatus = rs.getString("delivery_status");
+                
+                arr.add(new Order(orderId, customerName, phone, address, dateTime, productName, size, quantity, totalAmount, paymentMethod, deliveryStatus));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return arr;
+    }
+    
+    public static boolean cancelOrderLeoCr(int orderId){
+        try (Connection c = openConnection()){                        
+            String update = "UPDATE lionelronaldo.order SET delivery_status = ? WHERE order_id = ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            
+            ps.setString(1, "Đã hủy");
+            ps.setInt(2, orderId);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean controllOrder(int orderId, int option){
+        
+        String optionConverted = "";
+        if (option ==  1) {
+            optionConverted = "Chờ lấy hàng";
+        }
+        if (option ==  2) {
+            optionConverted = "Lấy hàng thành công";
+        }
+        if (option ==  3) {
+            optionConverted = "Đang vận chuyển";
+        }
+        
+        try (Connection c = openConnection()){                        
+            String update = "UPDATE lionelronaldo.order SET delivery_status = ? WHERE order_id = ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            
+            ps.setString(1, optionConverted);
+            ps.setInt(2, orderId);
+            ps.execute();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

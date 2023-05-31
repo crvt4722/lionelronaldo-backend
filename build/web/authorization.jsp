@@ -97,6 +97,20 @@
     <script>
         includeHTML();
         
+        function controllPermission(){
+            let xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessAuthorizationPermission', true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                  let responseMessage = xhr.responseText
+                  if (responseMessage == 'DENY') window.location.href = "index.jsp"
+                }
+              };
+            xhr.send()
+        }
+        controllPermission()
+        
         setTimeout(()=>{
             const logoutBtn = document.querySelector('.fa-power-off')
 

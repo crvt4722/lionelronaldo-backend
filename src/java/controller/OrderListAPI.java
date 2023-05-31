@@ -5,7 +5,9 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import dao.UserDAO;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,14 +16,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
+import model.Order;
 
 /**
  *
  * @author DELL
  */
-@WebServlet (urlPatterns = {"/api/products"})
-public class ProductListAPI extends HttpServlet {
+@WebServlet (urlPatterns = {"/api/orders"})
+public class OrderListAPI extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,13 +39,30 @@ public class ProductListAPI extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        ArrayList<Product> productList = UserDAO.getProductList();
+        response.getWriter().write("");
+        
+        BufferedReader reader = request.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        
         Gson gson = new Gson();
-
+        JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
+        
+        String deliveryStatus = jsonObject.get("deliveryStatus").getAsString();
+        String orderTime = jsonObject.get("orderTime").getAsString();
+        
+        ArrayList<Order> orderList = UserDAO.getOrderList(deliveryStatus, orderTime);
+        
+        for (Order x : orderList){
+            System.out.println(x.getAddress());
+        }
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(gson.toJson(productList));
+        response.getWriter().write(gson.toJson(orderList));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

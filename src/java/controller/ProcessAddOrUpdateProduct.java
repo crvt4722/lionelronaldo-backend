@@ -52,11 +52,25 @@ public class ProcessAddOrUpdateProduct extends HttpServlet {
         
         String errorMessage = "";
         
-        RequestDispatcher dis = request.getRequestDispatcher("management.jsp");
+        RequestDispatcher dis = request.getRequestDispatcher("product.jsp");
         System.out.println(id);
         
         if (id != null  && id.equals("")==false ){
-            System.out.println("None");
+            int ID = Integer.parseInt(id);
+            if (keywords.equals("")==false) UserDAO.updateKeyWords(ID, keywords.split("!"));
+            if(files.length > 0) UserDAO.updateProductImage(ID, files);
+            if(quantity.equals("")==false){
+                int quantityX = Integer.parseInt(quantity);
+                UserDAO.updateWarehouse(ID, quantityX);
+            }
+            
+            int originPriceX = originPrice.equals("")? -1 : Integer.parseInt(originPrice);
+            int saleX = sale.equals("")? -1 : Integer.parseInt(sale);
+            
+            UserDAO.updateProduct(ID, name, description, gender, brand, originPriceX, saleX);
+            errorMessage = "Cập nhật thành công";
+            request.setAttribute("error", errorMessage);
+            dis.forward(request, response);
         }
         else if (id == null || id.equals("")==true) {
             

@@ -58,9 +58,10 @@
                 <div class="row-form">
                     <select name="gender" >
                         <option value="gender">Dành cho</option>
-                        <option value="Quần áo">Trẻ em</option>
-                        <option value="Phụ nữ">Phụ nữ</option>
-                        <option value="Đàn ông">Đàn ông</option>
+                        <option value="1">Trẻ em</option>
+                        <option value="2">Nam</option>
+                        <option value="3">Nữ</option>
+                        <option value="4">Nam và Nữ</option>
                     </select>
                     
                     <select name="brand">
@@ -193,6 +194,20 @@
     </script>
     <script>
         includeHTML();
+        
+        function controllPermission(){
+            let xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessManagementPermission', true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                  let responseMessage = xhr.responseText
+                  if (responseMessage == 'DENY') window.location.href = "index.jsp"
+                }
+              };
+            xhr.send()
+        }
+        controllPermission()
         
         setTimeout(()=>{
             const logoutBtn = document.querySelector('.fa-power-off')

@@ -38,23 +38,32 @@ public class ProcessDeleteProduct extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
+        String email = (String) request.getSession().getAttribute("email");
+        if (email != null && email.equals("")==false){
+            String role = UserDAO.getRole(email);
+            if (role.equals("admin") || role.equals("ctv")){
+                try{
+                    System.out.println(request.getPathInfo().substring(1));
+                    int id = Integer.parseInt(request.getPathInfo().substring(1));
+                    UserDAO.deleteProduct(id);
+                    Gson gson = new Gson();
+                    response.addHeader("Access-Control-Allow-Origin", "*");
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    String json = "{\"productId\": " + id +"}";
+                    response.getWriter().write(json);
+                    response.sendRedirect("http://localhost:8080/LeoCris/product.jsp");
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    response.sendRedirect("http://localhost:8080/LeoCris/product.jsp");
+                }
+            }
+        }
+        else {
+            response.getWriter().write("Permission denied.");
+        }
         
-        try{
-            System.out.println(request.getPathInfo().substring(1));
-            int id = Integer.parseInt(request.getPathInfo().substring(1));
-            UserDAO.deleteProduct(id);
-            Gson gson = new Gson();
-            response.addHeader("Access-Control-Allow-Origin", "*");
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            String json = "{\"productId\": " + id +"}";
-            response.getWriter().write(json);
-            response.sendRedirect("http://localhost:8080/LeoCris/management.jsp");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            response.sendRedirect("http://localhost:8080/LeoCris/management.jsp");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

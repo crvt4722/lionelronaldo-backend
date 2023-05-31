@@ -4,24 +4,20 @@
  */
 package controller;
 
-import com.google.gson.Gson;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
 
 /**
  *
  * @author DELL
  */
-@WebServlet (urlPatterns = {"/api/products"})
-public class ProductListAPI extends HttpServlet {
+public class ProcessManagementPermission extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,13 +33,21 @@ public class ProductListAPI extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        ArrayList<Product> productList = UserDAO.getProductList();
-        Gson gson = new Gson();
-
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(gson.toJson(productList));
+        String responseMessage = "";
+        String email = (String) request.getSession().getAttribute("email");
+        if (email != null && email.equals("")==false){
+            String role = UserDAO.getRole(email);
+            if (role.equals("user")){
+                responseMessage = "DENY";
+            }
+            else {
+                responseMessage = "ACCEPT";
+            }
+        }
+        else {
+            responseMessage = "DENY";
+        }
+        response.getWriter().write(responseMessage);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

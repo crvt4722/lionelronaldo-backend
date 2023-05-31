@@ -105,7 +105,7 @@ html{
     /* padding-right: 23%; */
 }
 
-.item--authorization, .item--dashboard, .item--management{
+.item--authorization, .item--dashboard, .item--management, .item--order{
     display:none;
 }
 

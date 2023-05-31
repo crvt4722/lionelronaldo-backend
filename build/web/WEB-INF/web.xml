@@ -76,6 +76,30 @@
         <servlet-name>ProcessAddOrUpdateProduct</servlet-name>
         <servlet-class>controller.ProcessAddOrUpdateProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessManagementPermission</servlet-name>
+        <servlet-class>controller.ProcessManagementPermission</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessAuthorizationPermission</servlet-name>
+        <servlet-class>controller.ProcessAuthorizationPermission</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessOrderPermission</servlet-name>
+        <servlet-class>controller.ProcessOrderPermission</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderListAPI</servlet-name>
+        <servlet-class>controller.OrderListAPI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessCancelOrderLeoCr</servlet-name>
+        <servlet-class>controller.ProcessCancelOrderLeoCr</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessControllOrder</servlet-name>
+        <servlet-class>controller.ProcessControllOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSendMessage</servlet-name>
         <url-pattern>/ProcessSendMessage</url-pattern>
@@ -139,6 +163,30 @@
     <servlet-mapping>
         <servlet-name>ProcessAddOrUpdateProduct</servlet-name>
         <url-pattern>/ProcessAddOrUpdateProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessManagementPermission</servlet-name>
+        <url-pattern>/ProcessManagementPermission</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessAuthorizationPermission</servlet-name>
+        <url-pattern>/ProcessAuthorizationPermission</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrderPermission</servlet-name>
+        <url-pattern>/ProcessOrderPermission</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderListAPI</servlet-name>
+        <url-pattern>/OrderListAPI</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessCancelOrderLeoCr</servlet-name>
+        <url-pattern>/ProcessCancelOrderLeoCr</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessControllOrder</servlet-name>
+        <url-pattern>/ProcessControllOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

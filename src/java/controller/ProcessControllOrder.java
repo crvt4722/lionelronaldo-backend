@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import com.google.gson.Gson;
@@ -9,19 +5,20 @@ import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
+
 
 /**
  *
  * @author DELL
  */
-@WebServlet (urlPatterns = {"/api/products"})
-public class ProductListAPI extends HttpServlet {
+@WebServlet (urlPatterns = {"/api/orders/controll/*"})
+public class ProcessControllOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,13 +34,37 @@ public class ProductListAPI extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        ArrayList<Product> productList = UserDAO.getProductList();
-        Gson gson = new Gson();
-
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(gson.toJson(productList));
+        String email = (String) request.getSession().getAttribute("email");
+        if (email != null && email.equals("")==false){
+            String role = UserDAO.getRole(email);
+            if (role.equals("admin") || role.equals("ctv")){
+                try{
+                    System.out.println(request.getPathInfo().substring(1));
+                    
+                    String [] requestInfos = request.getPathInfo().substring(1).split("/");
+                    
+                    int id = Integer.parseInt(requestInfos[0]);
+                    int option  = Integer.parseInt(requestInfos[1]);
+                    
+                    UserDAO.controllOrder(id, option);
+                    Gson gson = new Gson();
+                    response.addHeader("Access-Control-Allow-Origin", "*");
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    String json = "{\"productId\": " + id +"}";
+                    response.getWriter().write(json);
+                    response.sendRedirect("http://localhost:8080/LeoCris/order-web.jsp");
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    response.sendRedirect("http://localhost:8080/LeoCris/order-web.jsp");
+                }
+            }
+        }
+        else {
+            response.getWriter().write("{\"Message\": \"Permission denied.\"");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
