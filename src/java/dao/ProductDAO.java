@@ -31,84 +31,6 @@ public class ProductDAO {
         return conn;
     }
 
-//    public static void xuLySoLuongDaBan(ArrayList<Product> products) {
-//        try ( Connection c = openConnection()) {
-//            String select = String.format("select SP.idSanPham, sum(soLuong) AS soLuongDaBan\n"
-//                    + "from san_pham AS SP, dat_hang AS DH\n"
-//                    + "where SP.idSanPham = DH.idSanPham\n"
-//                    + "group by SP.idSanPham");
-//            PreparedStatement ps = c.prepareStatement(select);
-//            ResultSet rs = ps.executeQuery();
-//            Map<Integer, Integer> mp = new TreeMap<>();
-//            while (rs.next()) {
-//                mp.put(rs.getInt("idSanPham"), rs.getInt("soLuongDaBan"));
-//            }
-//            for(Product product : products) {
-//                int id = product.getIdSanPham();
-//                if(mp.containsKey(id)){
-//                    product.setSoLuongDaBan(mp.get((id)));
-//                }
-//                else{
-//                    product.setSoLuongDaBan(0);
-//                }
-//            }
-//            
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//
-//    public static void xuLyDanhGia(ArrayList<Product> products) {
-//        try ( Connection c = openConnection()) {
-//            String select = String.format("select SP.idSanPham, AVG(DG.so_sao) as soSaoDanhGia, count(*) AS soLuotDanhGia\n"
-//                    + "from san_pham AS SP, danh_gia AS DG\n"
-//                    + "where SP.idSanPham = DG.idSanPham\n"
-//                    + "group by SP.idSanPham");
-//            PreparedStatement ps = c.prepareStatement(select);
-//            ResultSet rs = ps.executeQuery();
-//            Map<Integer, String[]> mp = new TreeMap<>();
-//            while (rs.next()) {
-//                int idSanPham = rs.getInt("idSanPham");
-//                double soSaoDanhGia = rs.getDouble("soSaoDanhGia");
-//                int soLuotDanhGia = rs.getInt("soLuotDanhGia");
-//                String[] arr = new String[2];
-//                arr[0] = "" + soSaoDanhGia;
-//                arr[1] = "" + soLuotDanhGia;
-//                mp.put(idSanPham, arr);
-//            }
-//            for(Product product : products) {
-//                int id = product.getIdSanPham();
-//                if(mp.containsKey(id)){
-//                    product.setSoSaoDanhGia(Double.parseDouble(mp.get(id)[0]));
-//                    product.setSoLuotDanhGia(Integer.parseInt(mp.get(id)[1]));
-//                }
-//                else{
-//                    product.setSoSaoDanhGia(0);
-//                    product.setSoLuotDanhGia(0);
-//                }
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//
-//    public static ArrayList<Product> getAllProduct() {
-//        try ( Connection c = openConnection()) {
-//            String select = String.format("select * from san_pham");
-//            PreparedStatement ps = c.prepareStatement(select);
-//            ResultSet rs = ps.executeQuery();
-//            ArrayList<Product> res = new ArrayList<>();
-//            while (rs.next()) {
-//                res.add(new Product(rs.getInt("idSanPham"), rs.getInt("idDanhMuc"), rs.getString("tenSanPham"), rs.getString("moTa"), rs.getInt("giaCu"), rs.getInt("giaHienTai"), rs.getString("linkAnh")));
-//            }
-//            xuLySoLuongDaBan(res);
-//            xuLyDanhGia(res);
-//            return res;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return null;
-//    }
 //    public Product(int productId, int categoryId, int originPrice, int sale, String name, String description, String gender, String brand, ArrayList<String> image_link) {
     public static ArrayList<String> setImagesForProduct(int productId) {
 
@@ -141,7 +63,7 @@ public class ProductDAO {
                         + "from warehouse as WH, product as P, `order` as O\n"
                         + "where WH.product_id = P.product_id\n"
                         + "and O.warehouse_id = WH.warehouse_id\n"
-                        + "and WH.product_id = %s", product.getProductId());
+                        + "and WH.product_id = %s and O.delivery_status = 'Đã giao'", product.getProductId());
                 PreparedStatement ps = c.prepareStatement(select);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
@@ -323,6 +245,47 @@ public class ProductDAO {
             if (product.getProductId() == productId) {
                 return product;
             }
+        }
+        return null;
+    }
+
+    public static ArrayList<Product> getFeaturedProducts() {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select P.product_id, sum(O.quantity) as sold_quantity\n"
+                    + "from product as P, warehouse as WH, `order` as O\n"
+                    + "where P.product_id = WH.product_id\n"
+                    + "and O.warehouse_id = WH.warehouse_id\n"
+                    + "and O.delivery_status = 'Đã giao'\n"
+                    + "group by P.product_id\n"
+                    + "order by sold_quantity desc\n"
+                    + "limit 10");
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Product> featuredProducts = new ArrayList<>();
+            while (rs.next()) {
+                featuredProducts.add(getProductById(rs.getInt("product_id")));
+            }
+            return featuredProducts;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<Product> getNewestProducts() {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select * from product\n"
+                    + "order by product_id desc\n"
+                    + "limit 4");
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Product> newestProducts = new ArrayList<>();
+            while (rs.next()) {
+                newestProducts.add(getProductById(rs.getInt("product_id")));
+            }
+            return newestProducts;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return null;
     }
