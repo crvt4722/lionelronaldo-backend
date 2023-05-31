@@ -12,11 +12,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chi tiết sản phẩm</title>
         <link rel="stylesheet" href="./css/leocr-shop-product-detail/main.css">
+        <link rel="stylesheet" href="./css/seach-bar/main.css">
         <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     </head>
 
     <body>
+
+        <div id="nav">
+            <form method="GET" action="/WebApplication2/products">
+                <div class="tim-kiem-container">
+                    <div class="thanh-tim-kiem">
+                        <input type="text" name="search" id="search-product" placeholder="Tìm kiếm..." value="<%= session.getAttribute("search") != null ? session.getAttribute("search") : "" %>">
+                    </div>
+                    <div class="goi-y-tim-kiem info-box">
+                        <!--                                    <div class="goi-y-tim-kiem-item"><a href="">hello</a></div>
+                                                            <div class="goi-y-tim-kiem-item">hi</div>
+                                                            <div class="goi-y-tim-kiem-item">hello world</div>-->
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="main">
             <div class="banner-nho">
                 <img src="./img/products/banner-2.png" alt="alt" style="width: 100%"/>
@@ -65,7 +81,7 @@
                     <div class="kich-co-san-pham">
                         <% for (String size : product.getSizes()) {%>
                         <div class="chon-size"><%= size%></div>
-                        <% } %>
+                        <% }%>
                     </div>
                     <div class="so-luong-mua mt-24">
                         <h4>Số lượng</h4>
@@ -76,7 +92,7 @@
                                 <div class="nut nut-tang"><i class="fa-solid fa-plus"></i></div>
                             </div>
                             <div class="so-luong-con-lai-trong-kho mt-24 f2 ml-6">
-<!--                                334112 sản phẩm có sẵn-->
+                                <!--                                334112 sản phẩm có sẵn-->
                                 <input hidden type="text" class="so-luong-con-lai-trong-kho-value" value="<%=product.getAvailableQuantityInWarehouse().get(0)%>"></input>
                                 <% for (int availableQuantity : product.getAvailableQuantityInWarehouse()) {%>
                                 <div class="so-luong-trong-kho"><%= availableQuantity%> sản phẩm có sẵn</div>  
@@ -231,7 +247,7 @@
             <div  style="margin-bottom: 60px;"></div>
         </div>
 
-
+        <script src="javascript/search-bar/index.js"></script>
         <script>
             let anhPhuElements = document.querySelectorAll('.anh-phu');
             let anhChinhElement = document.querySelector('.anh-chinh .anh-san-pham__img');
@@ -261,7 +277,7 @@
             }
         </script>
 
-        
+
 
         <script>
             let chonSizeElements = document.querySelectorAll('.kich-co-san-pham .chon-size');
@@ -290,7 +306,7 @@
                 }
             })
         </script>
-        
+
         <script>
             // xử lý tăng giảm số lượng
             let nutTangSoLuongSP = document.querySelector('.nut-tang');
@@ -298,7 +314,7 @@
             let soLuongDatSanPhamInputElements = document.querySelectorAll('.so-luong-dat-san-pham');
             let soLuongDatSanPhamText = document.querySelector('.so-luong-text');
             let soLuongConLaiElement = document.querySelector('.so-luong-con-lai-trong-kho-value');
-            
+
 
             soLuongDatSanPhamInputElements.forEach((item) => {
                 item.value = "1";

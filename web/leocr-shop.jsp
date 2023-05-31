@@ -13,14 +13,28 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LeoCr shop</title>
-        <link rel="stylesheet" href="./css/leocr-shop//main.css">
+        <link rel="stylesheet" href="./css/leocr-shop/main.css">
+        <link rel="stylesheet" href="./css/seach-bar/main.css">
         <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 
     </head>
 
     <body>
         <div id="nav">
-
+            <form method="GET" action="/WebApplication2/products">
+                <div class="tim-kiem-container">
+                    <div class="thanh-tim-kiem">
+                        <input type="text" name="search" id="search-product" placeholder="Tìm kiếm..." value="<%= session.getAttribute("search") != null ? session.getAttribute("search") : "" %>">
+                    </div>
+                    <div class="goi-y-tim-kiem info-box">
+                        <!--                                    <div class="goi-y-tim-kiem-item"><a href="">hello</a></div>
+                                                            <div class="goi-y-tim-kiem-item">hi</div>
+                                                            <div class="goi-y-tim-kiem-item">hello world</div>-->
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="main mt90">
             <div class="san-pham-header">
@@ -325,6 +339,7 @@
                              alt="" class="khung-anh">
                     </div>
                 </div>
+                <script src="javascript/search-bar/index.js"></script>
                 <script>
                     //            let arr =
                     //                ['https://i8.amplience.net/i/jpl/performance-logo-bw…4d987855ac86f8e0ff5637da59d8438?qlt=80&w=140&h=53', 'https://i8.amplience.net/i/jpl/adidas-originals-2adf9245358c4e8b6f34372d49ed84ac?qlt=80', 'https://i8.amplience.net/i/jpl/castore-no-white-b995dca0cc85cfb6cb91b39225033df2', 'https://i8.amplience.net/i/jpl/converse?qlt=80&w=140&h=94', 'https://i8.amplience.net/i/jpl/ea7-68fe9895e241977687411d9ef552ac9c?qlt=80', 'https://i8.amplience.net/i/jpl/filaexported-bd97523323a4e904885307d4803717b4?qlt=80', 'https://i8.amplience.net/i/jpl/hoodrichexported-4cdf6788ab1831866a45e7501e5c2a5f?qlt=80', 'https://i8.amplience.net/i/jpl/levi-73dd94824f210890565eefb43f819c72?qlt=80', 'https://i8.amplience.net/i/jpl/puma-456ab7242446811e862069d94277829a?qlt=80', 'https://i8.amplience.net/i/jpl/nike-621a4daaff4afc19c241a0febf32df75?qlt=80', 'https://i8.amplience.net/i/jpl/tnf-ec7d7b450efe952dbe0b32b5c16256a8?qlt=80', 'https://i8.amplience.net/i/jpl/vans-b5c0a099c374620035b080a9ec5ed711?qlt=80', 'https://i8.amplience.net/i/jpl/nb-4163ae1bfa2f378ab5e316e986efd2cd?qlt=80', 'https://i8.amplience.net/i/jpl/under-armour-265f0a0d0df0522ba15f92d5be860678?qlt=80'];
