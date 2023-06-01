@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +45,20 @@ public class OrderDAO_DA {
             
         }
         return 0;
+    }
+    public static int getThuNhapHomNay(){
+        try ( Connection c = openConnection()) {
+            String select = "SELECT sum(total_amount) as tong FROM mydb.order o where o.order_time > curdate();";
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("tong");
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return 0;
+        
     }
 }
     

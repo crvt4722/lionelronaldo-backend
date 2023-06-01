@@ -6,9 +6,9 @@
 package controller;
 
 import com.google.gson.Gson;
+import dao.OrderDAO_DA;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class DA_ThuNhapHomNay extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */  
-            String now = LocalDate.now().toString();  
+            int now = OrderDAO_DA.getThuNhapHomNay();        
             Gson gson = new Gson();
             String json = gson.toJson(now);
             response.setContentType("application/json");
