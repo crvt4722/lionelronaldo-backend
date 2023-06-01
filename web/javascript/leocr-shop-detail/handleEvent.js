@@ -165,10 +165,23 @@ mainSection.onclick = function () {
 function clearSearchData(){
     SuggestData.innerHTML = '';
 }
+function notBoldKeyword(key) {
+    let res = "";
+    for (let i = 0; i < key.length; i++) {
+        if (i <= key.length - 3 && key.substring(i, i + 3) === "<b>")
+            i += 3;
+        else if (i <= key.length - 4 && key.substring(i, i + 4) === "</b>")
+            i += 4;
+        res += key.charAt(i);
+    }
+    return res;
+}
+
 function renderSearchData(searchData){
+    console.log(notBoldKeyword("<b>bóng</b>%20<b>đá</b>"));
     let htmls = '';
     for(let item of searchData){
-        htmls += `<a href="/WebApplication2/products?search=${item}"><div class="goi-y-tim-kiem-item">${item}</div></a>`;
+        htmls += `<a href="/WebApplication2/products?search=${notBoldKeyword(item)}"><div class="goi-y-tim-kiem-item">${item}</div></a>`;
     }
     SuggestData.innerHTML = htmls;
 }

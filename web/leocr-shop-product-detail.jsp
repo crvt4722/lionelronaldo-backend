@@ -23,7 +23,7 @@
             <form method="GET" action="/WebApplication2/products">
                 <div class="tim-kiem-container">
                     <div class="thanh-tim-kiem">
-                        <input type="text" name="search" id="search-product" placeholder="Tìm kiếm..." value="<%= session.getAttribute("search") != null ? session.getAttribute("search") : "" %>">
+                        <input type="text" autocomplete="off" name="search" id="search-product" placeholder="Tìm kiếm..." value="<%= session.getAttribute("search") != null ? session.getAttribute("search") : "" %>">
                     </div>
                     <div class="goi-y-tim-kiem info-box">
                         <!--                                    <div class="goi-y-tim-kiem-item"><a href="">hello</a></div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="hanh-dong mt-24">
                         <div class="giao-hang-tiet-kiem">
-                            <img src="/assets/image/truck.svg" alt="" style="max-width: 45px;">
+                            <img src="./img/truck.svg" alt="" style="max-width: 45px;">
                             <span class="ml-12">Giao hàng siêu tiết kiệm</span>
                         </div>
                         <div class="hanh-dong__them-vao-gio-hang mt-24">

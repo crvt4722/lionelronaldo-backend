@@ -50,7 +50,7 @@
             <form method="GET" action="/WebApplication2/products">
                 <div class="tim-kiem-container">
                     <div class="thanh-tim-kiem">
-                        <input type="text" name="search" id="search-product" placeholder="Tìm kiếm..." value="<%= session.getAttribute("search")%>">
+                        <input type="text" autocomplete="off" name="search" id="search-product" placeholder="Tìm kiếm..." value="<%= session.getAttribute("search")%>">
                     </div>
                     <div class="goi-y-tim-kiem info-box">
                         <!--                                    <div class="goi-y-tim-kiem-item"><a href="">hello</a></div>
