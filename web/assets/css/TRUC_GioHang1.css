@@ -92,7 +92,25 @@
     justify-content: center;
     align-items: center;
 }
- 
+.Pc{
+    display: block;
+}
+
+.tren{
+    padding: 8px;
+    width: 100%;
+    height: 30%;
+    margin-top: 30px;
+    font-size: 25px;
+    color: red;
+}
+.duoi{
+    padding: 8px;
+    width: 100%;
+    height: 70%;
+    font-size: 15px;
+    color: gray;
+}
 .nut:hover{
     cursor: pointer;
     color: red;

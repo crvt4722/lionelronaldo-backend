@@ -43,8 +43,8 @@ public class TRUC_LoadListOrder extends HttpServlet {
            HttpSession session = request.getSession();
             String user_id = (String)session.getAttribute("user_id");
             //if (name == null) response.sendRedirect("dangnhap.jsp");
-            //String  tim = request.getParameter("key");
-            ArrayList<TRUC_Order> list = TRUC_Order.ListOders(user_id);
+            String  trangThai = request.getParameter("trangThai");
+            ArrayList<TRUC_Order> list = TRUC_Order.ListOders(user_id, trangThai);
             Gson gson = new Gson();
             String json = gson.toJson(list);
             response.setContentType("application/json");

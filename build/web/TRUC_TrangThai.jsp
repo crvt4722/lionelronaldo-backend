@@ -13,7 +13,7 @@
         </head>
 
         <body>
-            <div style="margin-bottom: 300px">
+            <div style="margin-bottom: 900px">
                 <div class="thanhTrangThai">
                     <div class="trangThai" onclick="loadTrangThai(1)" id="1">Giỏ Hàng</div>
                     <div class="trangThai" onclick="loadTrangThai(2)" id="2">Chờ Xác Nhận</div>
@@ -26,7 +26,6 @@
                         <div class="danh-sach-mua-hang">
 
                         </div>
-                        <button type="submit">MUA</button>
                     </form>
 
                 </div>
@@ -37,9 +36,17 @@
             </div>
         </body>
         <script>
-            loadListOrder();
+            let dss = [
+                    'Giỏ hàng',
+                    'Chờ xác nhận',
+                    'Đang giao',
+                    'Đơn đã hủy',
+                    'Đã giao'
+                ];
+            //loadListOrder();
             let LO;
             loadTrangThai(1);
+            
             function loadTrangThai(n) {
                 for (let i = 1; i <= 5; i++) {
                     document.getElementById("" + i).style.color = "black";
@@ -49,26 +56,27 @@
                 document.getElementById("" + n).style.color = "#43d5b0";
                 document.getElementById("" + n).style.borderBottom = "3px solid #43d5b0";
                 document.getElementById("trangThai" + n).style.display = "block";
+                loadListOrder(n);
             }
-            function loadListOrder() {
+            function loadListOrder(n) {
                 $.ajax({
                     url: 'http://localhost:8080/LeoCris/truc_loadlistorder',
                     type: 'GET',
-                    data: {},
+                    data: {trangThai : dss[n-1] },
                     success: function (data) {
                         console.log(data);
                         LO = data;
-                        renderListOrder(data);
+                        renderListOrder(data, n);
 
                     }
                 });
             }
-            function renderListOrder(listOrder) {
+            function renderListOrder(listOrder, n) {
 
                 let html1 =
                     "<div class='phanDau'>" +
                     "<div class='nua'>" +
-                    "<div class='nuanua'><input class='cbox' type='checkbox' value='1' name='dssp'></div>" +
+                    "<div class='nuanua'><input class='cboxAll' type='checkbox' value='1' name='dssp'></div>" +
                     "<div class='nuanua'>Sản Phẩm</div>" +
                     "</div>" +
                     "<div class='nua'>" +
@@ -82,16 +90,10 @@
                 let html3 = '';
                 let html4 = '';
                 let html5 = '';
-                let dss = [
-                    'Giỏ hàng',
-                    'Chờ xác nhận',
-                    'Đang giao',
-                    'Đơn đã hủy',
-                    'Đã giao'
-                ];
+                
 
                 for (let order of listOrder) {
-                    if (order.deliveryStatus === dss[0]) {
+                    if (n === 1) {
                         html1 +=
                             "<div class='phanGiua'>" +
                             "<div class='nua'>" +
@@ -110,7 +112,7 @@
                             "<div class='motphantu Sp'><button class='nut' onclick='xoa()'>Xóa</button></div>" +
                             "</div>" +
                             "</div>";
-                    } else if (order.deliveryStatus === dss[1]) {
+                    } else if (n === 2) {
                         html2 +=
                             "<div class='phanGiua'>" +
                             "<div class='anhCXN Sp'><img class='anhsp' src='" + order.p.imageLinks[0] + "'></div>" +
@@ -126,7 +128,7 @@
                             "<div class='huyDonCXN Sp'><button class='nut' onclick='huyDon()'>Hủy Đơn</button></div>" +
                             "</div>";
 
-                    } else if (order.deliveryStatus === dss[2]) {
+                    } else if (n === 3) {
                         html3 +=
                             "<div class='phanGiua'>" +
                             "<div class='anhCXN Sp'><img class='anhsp' src='" + order.p.imageLinks[0] + "'></div>" +
@@ -142,7 +144,7 @@
                             "<div class='huyDonCXN Sp'><button class='nut' onclick='daNhanHang()'>Đã nhận hàng</button></div>" +
                             "</div>";
 
-                    } else if (order.deliveryStatus === dss[3]) {
+                    } else if (n === 4) {
                         html4 +=
                             "<div class='phanGiua'>" +
                             "<div class='anhCXN Sp'><img class='anhsp' src='" + order.p.imageLinks[0] + "'></div>" +
@@ -157,7 +159,7 @@
                             "</div>" +
                             "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai()'>Mua Lại</button></div>" +
                             "</div>";
-                    } else if (order.deliveryStatus === dss[4]) {
+                    } else if (n === 5) {
                         html5 +=
                             "<div class='phanGiua'>" +
                             "<div class='anhCXN Sp'><img class='anhsp' src='" + order.p.imageLinks[0] + "'></div>" +
@@ -174,20 +176,22 @@
                             "</div>";
                     }
                 }
-                html1 +=
-                    "<div class='phanCuoi'>" +
-                        "<div class='nua'>" +
-                            "<div class='nua Sp'><input class='cbox' type='checkbox' value='1' name='dssp'>&nbsp;&nbsp;Chọn tất cả</div>" +
-                            "<div class='nua Sp'><button class='nut' onclick='xoa()'>Xóa</button></div>" +
-                        "</div>" +
-                        "<div class='nua'>" +
-                            "<div class='nua Sp'>"+
-                                "<div class='nuaTren Sp' id='tongTien'></div>"+
-                                "<div class='nuaTren Sp' id='tietKiem'></div>"+
+                if (n === 1){
+                    html1 +=
+                        "<div class='phanCuoi'>" +
+                            "<div class='nua'>" +
+                                "<div class='nua Sp'><input class='cboxAll' type='checkbox' value='1' name='dssp'>&nbsp;&nbsp;Chọn tất cả</div>" +
+                                "<div class='nua Sp'><button class='nut' onclick='xoa()'>Xóa</button></div>" +
                             "</div>" +
-                            "<div class='nua Sp'><button class='nut' onclick='xoa()'>MUA</button></div>" +
-                        "</div>" +
-                    "</div>";
+                            "<div class='nua'>" +
+                                "<div class='nua Pc Sp'>"+
+                                    "<div class='tren' id='tongTien'>Tổng: ₫0</div><br>"+
+                                    "<span class='duoi' id='tietKiem'>Tiết kiệm: ₫0</span>"+
+                                "</div>" +
+                                "<div class='nua Sp'><button class='nut' onclick='xoa()'>MUA</button></div>" +
+                            "</div>" +
+                        "</div>";
+                }
                 document.querySelector("#trangThai1 .form-mua-hang .danh-sach-mua-hang").innerHTML = html1;
                 document.querySelector("#trangThai2").innerHTML = html2;
                 document.querySelector("#trangThai3").innerHTML = html3;
@@ -200,11 +204,50 @@
             setTimeout(() => {
                 let buyProductIds = [];
                 let buyProductCheckboxs = document.querySelectorAll(".cbox");
+                
+                let buyProductCheckboxsAll = document.querySelectorAll(".cboxAll");
+                buyProductCheckboxsAll.forEach((checkboxAll) =>{
+                    checkboxAll.oninput = function () {
+                        if(checkboxAll.checked){
+                            buyProductCheckboxs.forEach((item) => {
+                                item.checked = true;
+                            });
+                            buyProductCheckboxsAll.forEach((item) => {
+                                item.checked = true;
+                            });
+                        }
+                        else{
+                            buyProductCheckboxs.forEach((item) => {
+                                item.checked = false;
+                            });
+                            buyProductCheckboxsAll.forEach((item) => {
+                                item.checked = false;
+                            });
+                            
+                        }
+                    };
+                });
+                    
+                    
+                
+                
                 buyProductCheckboxs.forEach((checkbox) => {
                     checkbox.oninput = function () {
+                        buyProductCheckboxsAll.forEach((item) => {
+                            item.checked = false;
+                        });
+                        
+                        
                         let tongTien = 0;
                         let tietKiem = 0;
                         let checkedProductElements = document.querySelectorAll('input[type="checkbox"]:checked');
+                        
+                        if (checkedProductElements.length === buyProductCheckboxs.length){
+                            buyProductCheckboxsAll.forEach((item) => {
+                                item.checked = true;
+                            });
+                        }
+
                         buyProductIds = Array.from(checkedProductElements).map((item) => item.value);
                         for (let i of buyProductIds){
                             for (let order of LO){
@@ -218,12 +261,12 @@
                         tietKiem -= tongTien;
                         console.log("buyProductIds");
                         console.log(buyProductIds);
-                        document.querySelector("#tongTien").innerHTML = "Tổng thanh toán :" + tongTien;
-                        document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :" + tietKiem;
+                        document.querySelector("#tongTien").innerHTML = "Tổng :₫" + tongTien;
+                        document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :₫" + tietKiem;
                         console.log(LO);
                     };
                 });
-            }, 2000);
+            }, 0500);
 
         </script>
 

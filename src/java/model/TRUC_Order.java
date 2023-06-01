@@ -141,7 +141,7 @@ public class TRUC_Order {
 
     
 
-    public static ArrayList<TRUC_Order> ListOders(String user_id){
-        return TRUC_OderDAO.getOrder(user_id);
+    public static ArrayList<TRUC_Order> ListOders(String user_id, String trangThai){
+        return TRUC_OderDAO.getOrder(user_id, trangThai);
     }
 }

@@ -34,15 +34,15 @@ public class TRUC_OderDAO {
         
         return conn;
     }
-    public static ArrayList<TRUC_Order> getOrder(String id){
+    public static ArrayList<TRUC_Order> getOrder(String id, String trangThai){
         ArrayList<TRUC_Order> res = new ArrayList<>();
         try (Connection c = openConnection()){
            
             String select = "SELECT * \n" +
                 "FROM mydb.order as O, mydb.product as P, mydb.warehouse as W\n"
-                    + "WHERE user_id = %s and W.warehouse_id = O.warehouse_id and P.product_id = W.product_id";
+                    + "WHERE user_id = %s and delivery_status = '%s'  and W.warehouse_id = O.warehouse_id and P.product_id = W.product_id";
             //System.out.println(id +  ds);
-            select = String.format(select, id);
+            select = String.format(select, id, trangThai);
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
