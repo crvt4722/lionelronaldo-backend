@@ -22,11 +22,13 @@ public class TRUC_Order {
     String paymentMenthod; // phuong thuc thanh toan
     float totalAmount; // gia tien
     int wareHouseID;// chi tiet san pham
+    WareHouse wh;
+    Product p;
 
     public TRUC_Order() {
     }
 
-    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String size, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID) {
+    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String size, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID, WareHouse wh, Product p) {
         this.orderId = orderId;
         this.userId = userId;
         this.quantity = quantity;
@@ -37,6 +39,8 @@ public class TRUC_Order {
         this.paymentMenthod = paymentMenthod;
         this.totalAmount = totalAmount;
         this.wareHouseID = wareHouseID;
+        this.wh = wh;
+        this.p = p;
     }
 
     public int getOrderId() {
@@ -118,6 +122,23 @@ public class TRUC_Order {
     public void setWareHouseID(int wareHouseID) {
         this.wareHouseID = wareHouseID;
     }
+
+    public WareHouse getWh() {
+        return wh;
+    }
+
+    public void setWh(WareHouse wh) {
+        this.wh = wh;
+    }
+
+    public Product getP() {
+        return p;
+    }
+
+    public void setP(Product p) {
+        this.p = p;
+    }
+
     public static ArrayList<TRUC_Order> ListOders(String user_id){
         return TRUC_OderDAO.getOrder(user_id);
     }

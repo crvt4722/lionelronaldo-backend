@@ -54,7 +54,9 @@ public class TRUC_OderDAO {
                 String st8 = rs.getString("payment_method");
                 float st9 = Float.parseFloat( rs.getString("total_amount") );
                 int st10 = Integer.parseInt(rs.getString("warehouse_id") );
-                res.add(new TRUC_Order(st1, st2, st3, st4, st5, st6, st7, st8, st9, st10));
+                WareHouse st11 = getWareHouse(rs.getString("warehouse_id"));
+                Product st12 = getProduct(  st11.getProductId() + ""  );
+                res.add(new TRUC_Order(st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12));
             }
              //System.out.println(res.size());
             return res;

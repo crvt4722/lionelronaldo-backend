@@ -38,7 +38,6 @@ public class TRUC_TrangThai extends HttpServlet {
             session.setAttribute("pass", "123");
             session.setAttribute("user_id", "1");
             response.sendRedirect("TRUC_TrangThai.jsp");
-            
         }
     }
 

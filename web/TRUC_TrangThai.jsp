@@ -107,32 +107,8 @@
                 type: 'GET',
                 data: {},
                 success: function (data) { 
-                    //console.log(data);
-                    renderListOrder(data);
-                    
-                }
-            });
-        }
-        function loadWareHouse(id_wh){
-            $.ajax({
-                url: 'http://localhost:8080/LeoCris/truc_loadwarehouse',
-                type: 'GET',
-                data: {id_wh : id_wh},
-                success: function (data) { 
-                    //console.log(data);
-                    renderWareHouse(data);
-                    
-                }
-            });
-        }
-        function loadProduct(id_p){
-            $.ajax({
-                url: 'http://localhost:8080/LeoCris/truc_loadproduct',
-                type: 'GET',
-                data: {id_p : id_p},
-                success: function (data) { 
                     console.log(data);
-                    renderProduct(data);
+                    renderListOrder(data);
                     
                 }
             });
@@ -142,12 +118,5 @@
                 loadWareHouse(order.wareHouseID);
             }
         }
-        function renderWareHouse(wareHouse){
-            loadProduct(wareHouse.productId);
-        }
-        function renderProduct(product){
-            
-        }
-        
     </script>
 </html>
