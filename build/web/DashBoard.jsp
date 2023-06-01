@@ -30,7 +30,7 @@
           <i class="fa-solid fa-clock kich-co violet"></i>
         </div>
         <div class="so-tk">
-          230k
+            <%= request.getAttribute("spDaBan") %>
         </div>
         <div class="ten-tk">
           Đã bán
@@ -42,7 +42,7 @@
           <i class="fa-solid fa-user kich-co blue"></i>
         </div>
         <div class="so-tk">
-          8.549k
+          <%= request.getAttribute("tongUser") %>
         </div>
         <div class="ten-tk">
           Khách hàng
@@ -53,7 +53,7 @@
           <i class="fa-solid fa-cart-shopping kich-co red"></i>
         </div>
         <div class="so-tk">
-          1.423k
+          <%= request.getAttribute("tongSanPham") %>
         </div>
         <div class="ten-tk">
           Sản phẩm
@@ -64,7 +64,7 @@
           <i class="fa-solid fa-dollar-sign kich-co green"></i>
         </div>
         <div class="so-tk">
-          $9745
+          <%= request.getAttribute("tongDoanhThu") %>
         </div>
         <div class="ten-tk">
           Thu nhập

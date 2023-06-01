@@ -5,6 +5,9 @@
  */
 package controller;
 
+import dao.OrderDAO_DA;
+import dao.ProductDAO_DA;
+import dao.UserDAO_DA;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,8 +37,24 @@ public class DA_DashBoard extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            request.setAttribute("spDaBan", OrderDAO_DA.getSoLuongSanPhamDaBan());
+            request.setAttribute("tongUser", UserDAO_DA.getSoLuongUser());
+            request.setAttribute("tongSanPham", ProductDAO_DA.getSoLuongSanPham());
+            request.setAttribute("tongDoanhThu", OrderDAO_DA.getTongDoangThu());
             request.getRequestDispatcher("DashBoard.jsp").forward(request, response);
         }
+    }
+    private String ChuyenSo(int n){
+        float res = 0;
+        if(n > 1000000000){
+            res = (float)n / 1000000000;
+            return String.format("%0.2f Tỉ", res);
+        }
+        if(n > 1000000){
+            res = (float)n / 1000000;
+            return String.format("%0.2f Triệu", res);
+        }
+        return n + "";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
