@@ -17,7 +17,7 @@ public class TRUC_Order {
     int quantity;//so luong
     String phone; // so dien thoi
     String address;//dia chi nhan
-    String size;
+    String orderTime;//dia chi nhan
     String deliveryStatus; // trang thai don
     String paymentMenthod; // phuong thuc thanh toan
     float totalAmount; // gia tien
@@ -28,13 +28,13 @@ public class TRUC_Order {
     public TRUC_Order() {
     }
 
-    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String size, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID, WareHouse wh, Product p) {
+    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String orderTime, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID, WareHouse wh, Product p) {
         this.orderId = orderId;
         this.userId = userId;
         this.quantity = quantity;
         this.phone = phone;
         this.address = address;
-        this.size = size;
+        this.orderTime = orderTime;
         this.deliveryStatus = deliveryStatus;
         this.paymentMenthod = paymentMenthod;
         this.totalAmount = totalAmount;
@@ -83,12 +83,12 @@ public class TRUC_Order {
         this.address = address;
     }
 
-    public String getSize() {
-        return size;
+    public String getOrderTime() {
+        return orderTime;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
     }
 
     public String getDeliveryStatus() {
@@ -138,6 +138,8 @@ public class TRUC_Order {
     public void setP(Product p) {
         this.p = p;
     }
+
+    
 
     public static ArrayList<TRUC_Order> ListOders(String user_id){
         return TRUC_OderDAO.getOrder(user_id);

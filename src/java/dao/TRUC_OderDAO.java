@@ -38,7 +38,9 @@ public class TRUC_OderDAO {
         ArrayList<TRUC_Order> res = new ArrayList<>();
         try (Connection c = openConnection()){
            
-            String select = "SELECT * FROM mydb.order WHERE user_id = '%s'";
+            String select = "SELECT * \n" +
+                "FROM mydb.order as O, mydb.product as P, mydb.warehouse as W\n"
+                    + "WHERE user_id = %s and W.warehouse_id = O.warehouse_id and P.product_id = W.product_id";
             //System.out.println(id +  ds);
             select = String.format(select, id);
             PreparedStatement ps = c.prepareStatement(select);
@@ -49,14 +51,14 @@ public class TRUC_OderDAO {
                 int st3 = Integer.parseInt(rs.getString("quantity") );
                 String st4 = rs.getString("phone");
                 String st5 = rs.getString("address");
-                String st6 = rs.getString("size");
+                String st6 = rs.getString("order_time");
                 String st7 = rs.getString("delivery_status");
                 String st8 = rs.getString("payment_method");
                 float st9 = Float.parseFloat( rs.getString("total_amount") );
                 int st10 = Integer.parseInt(rs.getString("warehouse_id") );
-                WareHouse st11 = getWareHouse(rs.getString("warehouse_id"));
+                WareHouse st11 = getWareHouse(rs.getString("warehouse_id") );
                 Product st12 = getProduct(  st11.getProductId() + ""  );
-                res.add(new TRUC_Order(st1, st2, st3, st4, st5, st6, st7, st8, st9, st10, st11, st12));
+                res.add(new TRUC_Order(st1, st2, st3, st4, st5,st6, st7, st8, st9, st10, st11, st12));
             }
              //System.out.println(res.size());
             return res;
@@ -99,6 +101,7 @@ public class TRUC_OderDAO {
             while(rs.next()){
                 list.add(rs.getString("image_link"));
             }
+            if (list.isEmpty()) list.add("https://i8.amplience.net/i/jpl/jd_533345_a?qlt=92&w=750&h=957&v=1&fmt=auto");
             return list;
         } 
         catch (Exception e) {
