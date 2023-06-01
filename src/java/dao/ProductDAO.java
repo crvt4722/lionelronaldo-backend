@@ -249,45 +249,76 @@ public class ProductDAO {
         return null;
     }
 
+//    public static ArrayList<Product> getFeaturedProducts() {
+//        try ( Connection c = openConnection()) {
+//            String select = String.format("select P.product_id, sum(O.quantity) as sold_quantity\n"
+//                    + "from product as P, warehouse as WH, `order` as O\n"
+//                    + "where P.product_id = WH.product_id\n"
+//                    + "and O.warehouse_id = WH.warehouse_id\n"
+//                    + "and O.delivery_status = 'Đã giao'\n"
+//                    + "group by P.product_id\n"
+//                    + "order by sold_quantity desc\n"
+//                    + "limit 10");
+//            PreparedStatement ps = c.prepareStatement(select);
+//            ResultSet rs = ps.executeQuery();
+//            ArrayList<Product> featuredProducts = new ArrayList<>();
+//            while (rs.next()) {
+//                featuredProducts.add(getProductById(rs.getInt("product_id")));
+//            }
+//            return featuredProducts;
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    public static ArrayList<Product> getNewestProducts() {
+//        try ( Connection c = openConnection()) {
+//            String select = String.format("select * from product\n"
+//                    + "order by product_id desc\n"
+//                    + "limit 4");
+//            PreparedStatement ps = c.prepareStatement(select);
+//            ResultSet rs = ps.executeQuery();
+//            ArrayList<Product> newestProducts = new ArrayList<>();
+//            while (rs.next()) {
+//                newestProducts.add(getProductById(rs.getInt("product_id")));
+//            }
+//            return newestProducts;
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
     public static ArrayList<Product> getFeaturedProducts() {
-        try ( Connection c = openConnection()) {
-            String select = String.format("select P.product_id, sum(O.quantity) as sold_quantity\n"
-                    + "from product as P, warehouse as WH, `order` as O\n"
-                    + "where P.product_id = WH.product_id\n"
-                    + "and O.warehouse_id = WH.warehouse_id\n"
-                    + "and O.delivery_status = 'Đã giao'\n"
-                    + "group by P.product_id\n"
-                    + "order by sold_quantity desc\n"
-                    + "limit 10");
-            PreparedStatement ps = c.prepareStatement(select);
-            ResultSet rs = ps.executeQuery();
-            ArrayList<Product> featuredProducts = new ArrayList<>();
-            while (rs.next()) {
-                featuredProducts.add(getProductById(rs.getInt("product_id")));
+        ArrayList<Product> productsList = getAllProduct();
+        Collections.sort(productsList, new Comparator<Product>() {
+            @Override
+            public int compare(Product t, Product t1) {
+                return t1.getSoldQuantity()- t.getSoldQuantity();
             }
-            return featuredProducts;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        });
+        ArrayList<Product> res = new ArrayList<>();
+        int NUMBER_FEATURED_DISPLAY = 10;
+        for (int i = 0; i < productsList.size() && i < NUMBER_FEATURED_DISPLAY; i++) {
+            res.add(productsList.get(i));
         }
-        return null;
+        return res;
     }
 
     public static ArrayList<Product> getNewestProducts() {
-        try ( Connection c = openConnection()) {
-            String select = String.format("select * from product\n"
-                    + "order by product_id desc\n"
-                    + "limit 4");
-            PreparedStatement ps = c.prepareStatement(select);
-            ResultSet rs = ps.executeQuery();
-            ArrayList<Product> newestProducts = new ArrayList<>();
-            while (rs.next()) {
-                newestProducts.add(getProductById(rs.getInt("product_id")));
+        ArrayList<Product> productsList = getAllProduct();
+        Collections.sort(productsList, new Comparator<Product>() {
+            @Override
+            public int compare(Product t, Product t1) {
+                return t1.getProductId() - t.getProductId();
             }
-            return newestProducts;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        });
+        ArrayList<Product> res = new ArrayList<>();
+        int NUMBER_NEWEST_DISPLAY = 4;
+        for (int i = 0; i < productsList.size() && i < NUMBER_NEWEST_DISPLAY; i++) {
+            res.add(productsList.get(i));
         }
-        return null;
+        return res;
     }
 
     public static ArrayList<CustomerResponse> getCustomerResponseByProductId(int productId) {
