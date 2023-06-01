@@ -5,23 +5,27 @@
  */
 package controller;
 
-import dao.OrderDAO_DA;
-import dao.ProductDAO_DA;
-import dao.UserDAO_DA;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import jdk.internal.net.http.common.Pair;
 
 /**
  *
  * @author Vinh
  */
-@WebServlet(name = "DA_DashBoard", urlPatterns = {"/dashboard"})
-public class DA_DashBoard extends HttpServlet {
+@WebServlet(name = "DA_ThuNhapHomNay", urlPatterns = {"/thunhaphomnay"})
+public class DA_ThuNhapHomNay extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,30 +40,13 @@ public class DA_DashBoard extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            request.setAttribute("spDaBan", OrderDAO_DA.getSoLuongSanPhamDaBan());
-            request.setAttribute("tongUser", UserDAO_DA.getSoLuongUser());
-            request.setAttribute("tongSanPham", ProductDAO_DA.getSoLuongSanPham());
-            request.setAttribute("tongDoanhThu", ChuyenSo(OrderDAO_DA.getTongDoangThu()));
-            
-            request.getRequestDispatcher("DashBoard.jsp").forward(request, response);
+            /* TODO output your page here. You may use following sample code. */  
+            String now = LocalDate.now().toString();  
+            Gson gson = new Gson();
+            String json = gson.toJson(now);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         }
-    }
-    private String ChuyenSo(int n){
-        float res = 0;
-        if(n > 1000000000){
-            res = (float)n / 1000000000;
-            return String.format("%.2fB", res);
-        }
-        if(n > 1000000){
-            res = (float)n / 1000000;
-            return String.format("%.2fM", res);
-        }
-        if(n > 1000){
-            res = (float)n / 1000;
-            return String.format("%.2fK", res);
-        }
-        return n + "";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -186,10 +186,17 @@
 
 </body>
 <script>
-  const xValues = [50, 60, 70, 80];
-  const yValues = [7, 8, 8, 10];
-  const x2Values = ["Thu nhập hôm nay", "Còn thiếu"];
-  const y2Values = [800, 200];
+  logJSONData();
+  async function logJSONData() {
+  const response = await fetch("http://localhost:2511/LeoCris/thunhaphomnay");
+  const jsonData = await response.json();
+  console.log(jsonData);
+}
+  let xValues = [50, 60, 70, 80];
+  let yValues = [7, 8, 8, 10];
+  let x2Values = ["Thu nhập hôm nay", "Còn thiếu"];
+  let y2Values = [2,3];
+ 
   const x3Values = [50, 60, 70, 80];
   const y3Values = [17, 38, 58, 80];
   barColors = ["rgb(115, 174, 27)", "rgba(200,250,200)"];
@@ -228,19 +235,7 @@
       }
     }
   });
-  new Chart("bieu-do-san-pham", {
-    type: "bar",
-    data: {
-      labels: x3Values,
-      datasets: [{
-        backgroundColor: "rgba(200,250,200)",
-        data: y3Values
-      }]
-    },
-    options: {
-
-    }
-  });
+ 
   new Chart("bieu-do-danh-muc", {
     type: 'radar',
     data: {
