@@ -144,4 +144,7 @@ public class TRUC_Order {
     public static ArrayList<TRUC_Order> ListOders(String user_id, String trangThai){
         return TRUC_OderDAO.getOrder(user_id, trangThai);
     }
+    public static void xoaOrder(String id_order){
+        TRUC_OderDAO.xoaOrder(id_order);
+    }
 }

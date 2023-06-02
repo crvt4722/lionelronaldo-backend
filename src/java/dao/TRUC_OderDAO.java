@@ -117,22 +117,6 @@ public class TRUC_OderDAO {
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                
-//                private int productId, categoryId, originPrice, sale, price, numberOfRating, soldQuantity;
-//                private String name, description, gender, brand, categoryName;
-//                private ArrayList<String> imageLinks;
-
-//                this.productId = productId;
-//                this.categoryId = categoryId; // danh muc
-//                this.originPrice = originPrice;// gia goc
-//                this.sale = sale; // giam gia
-//                this.price = this.originPrice - this.originPrice * this.sale / 100;
-//                this.name = name; 
-//                this.description = description; // mo ta
-//                this.gender = gender; // gioi tinh
-//                this.brand = brand; 
-//                this.imageLinks = imageLinks;
-                
                 int st1 = Integer.parseInt(rs.getString("product_id"));
                 int st2 = Integer.parseInt(rs.getString("category_id"));
                 int st3 = Integer.parseInt(rs.getString("origin_price"));
@@ -150,5 +134,16 @@ public class TRUC_OderDAO {
         catch (Exception e) {
         }
         return new Product();
+    }
+    public static void xoaOrder(String id_order){
+        try (Connection c = openConnection()){
+            String select = "delete from mydb.customer_response WHERE order_id = '%s';delete from mydb.order WHERE order_id = '%s';";
+            //System.out.println(id +  ds);
+            select = String.format(select, id_order, id_order);
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.executeQuery();
+        } 
+        catch (Exception e) {
+        }
     }
 }

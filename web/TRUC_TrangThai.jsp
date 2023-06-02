@@ -7,7 +7,7 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Trạng Thái</title>
-            <link rel="stylesheet" href="assets/css/TRUC_GioHang1.css">
+            <link rel="stylesheet" href="assets/css/TRUC_GioHang.css">
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         </head>
@@ -108,8 +108,8 @@
                             order.p.price +
                             "</div>" +
                             "<div class='motphantu Sp'>" + order.quantity + "</div>" +
-                            "<div class='motphantu Sp'>" + order.quantity * order.p.price + "</div>" +
-                            "<div class='motphantu Sp'><button class='nut' onclick='xoa()'>Xóa</button></div>" +
+                            "<div class='motphantu Sp'>₫" + order.quantity * order.p.price + "</div>" +
+                            "<div class='motphantu Sp'><button class='nut' onclick='xoa("+ order.orderId +")'>Xóa</button></div>" +
                             "</div>" +
                             "</div>";
                     } else if (n === 2) {
@@ -125,7 +125,7 @@
                             "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
                             order.p.price * order.quantity +
                             "</div>" +
-                            "<div class='huyDonCXN Sp'><button class='nut' onclick='huyDon()'>Hủy Đơn</button></div>" +
+                            "<div class='huyDonCXN Sp'><button class='nut' onclick='huyDon("+ order.orderId +")'>Hủy Đơn</button></div>" +
                             "</div>";
 
                     } else if (n === 3) {
@@ -141,7 +141,7 @@
                             "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
                             order.p.price * order.quantity +
                             "</div>" +
-                            "<div class='huyDonCXN Sp'><button class='nut' onclick='daNhanHang()'>Đã nhận hàng</button></div>" +
+                            "<div class='huyDonCXN Sp'><button class='nut' onclick='daNhanHang("+ order.orderId +")'>Đã nhận</button></div>" +
                             "</div>";
 
                     } else if (n === 4) {
@@ -157,7 +157,7 @@
                             "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
                             order.p.price * order.quantity +
                             "</div>" +
-                            "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai()'>Mua Lại</button></div>" +
+                            "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai("+ order.orderId +")'>Mua Lại</button></div>" +
                             "</div>";
                     } else if (n === 5) {
                         html5 +=
@@ -172,7 +172,7 @@
                             "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
                             order.p.price * order.quantity +
                             "</div>" +
-                            "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai()'>Mua Lại</button></div>" +
+                            "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai("+ order.orderId +")'>Mua Lại</button></div>" +
                             "</div>";
                     }
                 }
@@ -188,7 +188,7 @@
                                     "<div class='tren' id='tongTien'>Tổng: ₫0</div><br>"+
                                     "<span class='duoi' id='tietKiem'>Tiết kiệm: ₫0</span>"+
                                 "</div>" +
-                                "<div class='nua Sp'><button class='nut' onclick='xoa()'>MUA</button></div>" +
+                                "<div class='nua Sp'><button class='nut mua' onclick='xoa()'>MUA</button></div>" +
                             "</div>" +
                         "</div>";
                 }
@@ -200,11 +200,25 @@
             }
         </script>
         <script>
-            // xử lý checkboxs
             setTimeout(() => {
                 let buyProductIds = [];
                 let buyProductCheckboxs = document.querySelectorAll(".cbox");
-                
+                buyProductCheckboxs.forEach((checkbox) => {
+                    checkbox.onchange = function () {
+                        buyProductCheckboxsAll.forEach((item) => {
+                            item.checked = false;
+                        });
+                        let checkedProductElements = document.querySelectorAll('input[type="checkbox"]:checked');
+                        if (checkedProductElements.length === buyProductCheckboxs.length){
+                            buyProductCheckboxsAll.forEach((item) => {
+                                item.checked = true;
+                            });
+                        }
+                        buyProductIds = Array.from(checkedProductElements).map((item) => item.value);// chuyen mang
+                        tinhTien(buyProductIds);
+
+                    }; 
+                });
                 let buyProductCheckboxsAll = document.querySelectorAll(".cboxAll");
                 buyProductCheckboxsAll.forEach((checkboxAll) =>{
                     checkboxAll.oninput = function () {
@@ -225,49 +239,47 @@
                             });
                             
                         }
-                    };
-                });
-                    
-                    
-                
-                
-                buyProductCheckboxs.forEach((checkbox) => {
-                    checkbox.oninput = function () {
-                        buyProductCheckboxsAll.forEach((item) => {
-                            item.checked = false;
-                        });
-                        
-                        
-                        let tongTien = 0;
-                        let tietKiem = 0;
                         let checkedProductElements = document.querySelectorAll('input[type="checkbox"]:checked');
-                        
-                        if (checkedProductElements.length === buyProductCheckboxs.length){
-                            buyProductCheckboxsAll.forEach((item) => {
-                                item.checked = true;
-                            });
-                        }
-
-                        buyProductIds = Array.from(checkedProductElements).map((item) => item.value);
-                        for (let i of buyProductIds){
-                            for (let order of LO){
-                                if (String(order.orderId) === String(i)){
-                                    tongTien += order.p.price * order.quantity;
-                                    tietKiem += order.p.originPrice * order.quantity;
-                                }
-                            }
-                            
-                        }
-                        tietKiem -= tongTien;
-                        console.log("buyProductIds");
-                        console.log(buyProductIds);
-                        document.querySelector("#tongTien").innerHTML = "Tổng :₫" + tongTien;
-                        document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :₫" + tietKiem;
-                        console.log(LO);
+                        buyProductIds = Array.from(checkedProductElements).map((item) => item.value);// chuyen mang
+                        tinhTien(buyProductIds);
+                        //tinhTien(buyProductIds);
                     };
                 });
+                
             }, 0500);
+            function tinhTien(buyProductIds){
+                let tongTien = 0;
+                let tietKiem = 0;
+                let soSanPham = buyProductIds.length;
+                for (let i of buyProductIds){
+                    for (let order of LO){
+                        if (String(order.orderId) === String(i)){
+                            tongTien += order.p.price * order.quantity;
+                            tietKiem += order.p.originPrice * order.quantity;
+                        }
+                    }
 
+                }
+                tietKiem -= tongTien;
+                console.log("buyProductIds");
+                console.log(buyProductIds);
+                document.querySelector("#tongTien").innerHTML = "Tổng :₫" + tongTien;
+                document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :₫" + tietKiem + " ("+ soSanPham +" sản phẩm)";
+                console.log(LO);
+            }
+        </script>
+        <script>
+            function xoa(id){
+                $.ajax({
+                    url: 'http://localhost:8080/LeoCris/truc_xoaorder',
+                    type: 'GET',
+                    data: {id_order : id +"" },
+                    success: function (data) {
+                        alert(data);
+                        //loadListOrder(1);
+                    }
+                });
+            }
         </script>
 
         </html>

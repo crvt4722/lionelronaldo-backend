@@ -4,21 +4,24 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.TRUC_Order;
 
 /**
  *
  * @author hi
  */
-@WebServlet(name = "TRUC_TrangThai", urlPatterns = {"/truc_trangthai"})
-public class TRUC_TrangThai extends HttpServlet {
+@WebServlet(name = "TRUC_XoaOrder", urlPatterns = {"/truc_xoaorder"})
+public class TRUC_XoaOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,12 +36,12 @@ public class TRUC_TrangThai extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            session.setAttribute("name", "Vinh");
-            session.setAttribute("pass", "123");
-            session.setAttribute("user_id", "1");
-            request.getRequestDispatcher("TRUC_TrangThai.jsp").forward(request, response);
-            //response.sendRedirect();
+            String  id_order = request.getParameter("id_order");
+            TRUC_Order.xoaOrder(id_order);
+            Gson gson = new Gson();
+            String json = gson.toJson("xoa oke");
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         }
     }
 

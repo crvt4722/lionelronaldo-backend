@@ -5,7 +5,7 @@
             <url>web/TRUC_TrangThai.jsp</url>
             <bookmark id="1">
                 <name/>
-                <line>24</line>
+                <line>25</line>
                 <key/>
             </bookmark>
         </file>
@@ -14,6 +14,8 @@
         <group>
             <file>file:/D:/Code/code%20java/lionelronaldo-backend/web/TRUC_TrangThai.jsp</file>
             <file>file:/D:/Code/code%20java/lionelronaldo-backend/web/assets/css/TRUC_GioHang1.css</file>
+            <file>file:/D:/Code/code%20java/lionelronaldo-backend/web/assets/css/TRUC_GioHang.css</file>
+            <file>file:/D:/Code/code%20java/lionelronaldo-backend/src/java/controller/TRUC_TrangThai.java</file>
         </group>
     </open-files>
 </project-private>
