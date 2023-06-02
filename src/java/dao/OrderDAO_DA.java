@@ -11,8 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.ThuNhapNgay_DA;
 
 /**
  *
@@ -58,6 +61,25 @@ public class OrderDAO_DA {
             
         }
         return 0;
+        
+    }
+    public static List<ThuNhapNgay_DA> getThuNhapHangThang(){
+        List<ThuNhapNgay_DA> tnThang = new ArrayList<>();
+        try ( Connection c = openConnection()) {
+            String select = "SELECT sum(total_amount) as tongtien, date(od.order_time) as ngay FROM mydb.order od\n" +
+                            "where month(od.order_time) = month(now())\n" +
+                            "group by ngay";
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int tongtien = rs.getInt("tongtien");
+                String ngay = rs.getString("ngay");
+                tnThang.add(new ThuNhapNgay_DA(tongtien,ngay));
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return tnThang;
         
     }
 }

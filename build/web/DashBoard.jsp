@@ -94,7 +94,7 @@
                         <span class="thong-tin-them">Doanh Thu Tháng</span>
                     </div>
                     <div class="chart">
-                        <canvas id="bieu-do-tuan" style="width:100%"></canvas>
+                        <canvas id="bieu-do-thang" style="width:100%"></canvas>
                     </div>
                 </div>
 
@@ -121,10 +121,34 @@
 
         </body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script>
-            let chitieu = 100000000;
-            let xValues = [50, 60, 70, 80];
-            let yValues = [7, 8, 8, 10];
+        <script>           
+            let today = new Date();
+            let date = new Date(today.getFullYear(), today.getMonth(), "1", "7");
+            let days = [];
+            let thuNhapThang = [];
+            while (date.getMonth() === today.getMonth()) {
+                let s = date.toJSON().slice(0,10).trim();
+                days.push(s);
+                thuNhapThang.push(0);
+                date.setDate(date.getDate() + 1);
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:2511/LeoCris/thunhapthang',
+                async: false,
+                success: function (data) {               
+                    for(let i = 0; i < data.length; i++){                 
+                        for(let j = 0; j < days.length; j++){// tim vi tri ngay trong mang
+                            if(days[j] === data[i].ngay)
+                            thuNhapThang[j] = data[i].tien;
+                        } 
+                        
+                    }
+                }
+            });
+            
+            let chitieu = 100000000;                     
             let x2Values = ["Thu nhập hôm nay", "Còn thiếu"];
             let y2Values = [];
             $.ajax({
@@ -151,16 +175,16 @@
             const x3Values = [50, 60, 70, 80];
             const y3Values = [17, 38, 58, 80];
             barColors = ["rgb(115, 174, 27)", "rgba(200,250,200)"];
-            new Chart("bieu-do-tuan", {
+            new Chart("bieu-do-thang", {
                 type: "line",
                 data: {
-                    labels: xValues,
+                    labels: days,
                     datasets: [{
                         fill: false,
                         lineTension: 0,
                         backgroundColor: "rgb(115, 174, 27)",
                         borderColor: "rgba(200,250,200)",
-                        data: yValues
+                        data: thuNhapThang
                     }]
                 },
                 options: {
@@ -238,7 +262,7 @@
                         "</div>" +
                         "<div class=\"chi-tiet thong-tin-chinh\">" +
                         data[i].name +"<br>"+
-                        "<span class=\"thong-tin-them\">Item:" + data[i].productId + "</span>" +
+                        "<span class=\"thong-tin-them\">Item: #" + data[i].productId + "</span>" +
                         "</div>" +
                         "<div class=\"gia thong-tin-chinh\">" + xuLyTien(data[i].price) + "₫</div>" +
                         "</div>";
