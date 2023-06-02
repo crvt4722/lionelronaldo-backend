@@ -37,6 +37,7 @@ public class TRUC_XoaOrder extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             String  id_order = request.getParameter("id_order");
+            System.out.println(id_order);
             TRUC_Order.xoaOrder(id_order);
             Gson gson = new Gson();
             String json = gson.toJson("xoa oke");

@@ -1,0 +1,58 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+:root {
+    --mau-bg: #f5f5f5;
+    --mau-chinh: #43d5b0;
+}
+.tim-kiem-container {
+    margin: 0px 25px;
+}
+
+.goi-y-tim-kiem {
+    background-color: #ffffff;
+    
+}
+
+.goi-y-tim-kiem-item {
+    padding: 8px 20px;
+    border: 1px solid #43d5b0;
+    border-top: 0;
+    background-color: #ffffff;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.goi-y-tim-kiem-item:hover {
+    border-left: 3px solid #43d5b0;
+    padding-left: 18px;
+    background-color: #f2eded;
+    cursor: pointer;
+}
+
+.tim-kiem-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 999;
+}
+.thanh-tim-kiem {
+    border: 2px solid var(--mau-chinh);
+    width: 100%;
+    margin-top: 10px;
+}
+
+.thanh-tim-kiem input {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 15px;
+}

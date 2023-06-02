@@ -4,7 +4,6 @@
  */
 package model;
 
-import dao.TRUC_OderDAO;
 import java.util.ArrayList;
 
 
@@ -16,24 +15,27 @@ public class Product {
     private int productId, categoryId, originPrice, sale, price, numberOfRating, soldQuantity;
     private String name, description, gender, brand, categoryName;
     private ArrayList<String> imageLinks;
+    private ArrayList<String> sizes;
+    private ArrayList<Integer> availableQuantityInWarehouse;
     private ArrayList<String> keywords;
     private double avgRating;
-
+    
+    public Product(){
+        
+    }
     public Product(int productId, int categoryId, int originPrice, int sale, String name, String description, String gender, String brand, ArrayList<String> imageLinks) {
         this.productId = productId;
-        this.categoryId = categoryId; // danh muc
-        this.originPrice = originPrice;// gia goc
-        this.sale = sale; // giam gia
+        this.categoryId = categoryId;
+        this.originPrice = originPrice;
+        this.sale = sale;
         this.price = this.originPrice - this.originPrice * this.sale / 100;
-        this.name = name; 
-        this.description = description; // mo ta
-        this.gender = gender; // gioi tinh
-        this.brand = brand; 
+        this.name = name;
+        this.description = description;
+        this.gender = gender;
+        this.brand = brand;
         this.imageLinks = imageLinks;
     }
 
-    public Product() {
-    }
     public void setImageLinks(ArrayList<String> imageLinks) {
         this.imageLinks = imageLinks;
     }
@@ -89,6 +91,13 @@ public class Product {
     public double getAvgRating() {
         return avgRating;
     }
+    
+    public String getAvgRatingString() {
+        if(this.avgRating - (int)(this.avgRating) == 0){
+            return String.format("%.0f", this.avgRating);
+        }
+        return String.format("%.1f", this.avgRating);
+    }
 
     public void setAvgRating(double avgRating) {
         this.avgRating = avgRating;
@@ -117,13 +126,26 @@ public class Product {
     public void setKeywords(ArrayList<String> keywords) {
         this.keywords = keywords;
     }
+
+    public ArrayList<String> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(ArrayList<String> sizes) {
+        this.sizes = sizes;
+    }
+
+    public ArrayList<Integer> getAvailableQuantityInWarehouse() {
+        return availableQuantityInWarehouse;
+    }
+
+    public void setAvailableQuantityInWarehouse(ArrayList<Integer> availableQuantityInWarehouse) {
+        this.availableQuantityInWarehouse = availableQuantityInWarehouse;
+    }
     
     @Override
     public String toString() {
         return "Product{" + "productId=" + productId + ", categoryId=" + categoryId + ", originPrice=" + originPrice + ", sale=" + sale + ", price=" + price + ", numberOfRating=" + numberOfRating + ", soldQuantity=" + soldQuantity + ", name=" + name + ", description=" + description + ", gender=" + gender + ", brand=" + brand + ", categoryName=" + categoryName + ", imageLinks=" + imageLinks + ", avgRating=" + avgRating + '}';
     }
-    
-    public static Product getProduct(String id_p){
-        return TRUC_OderDAO.getProduct(id_p);
-    }
+      
 }

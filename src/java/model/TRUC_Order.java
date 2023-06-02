@@ -20,6 +20,7 @@ public class TRUC_Order {
     String orderTime;//dia chi nhan
     String deliveryStatus; // trang thai don
     String paymentMenthod; // phuong thuc thanh toan
+    String comment;
     float totalAmount; // gia tien
     int wareHouseID;// chi tiet san pham
     WareHouse wh;
@@ -28,7 +29,7 @@ public class TRUC_Order {
     public TRUC_Order() {
     }
 
-    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String orderTime, String deliveryStatus, String paymentMenthod, float totalAmount, int wareHouseID, WareHouse wh, Product p) {
+    public TRUC_Order(int orderId, int userId, int quantity, String phone, String address, String orderTime, String deliveryStatus, String paymentMenthod, String comment, float totalAmount, int wareHouseID, WareHouse wh, Product p) {
         this.orderId = orderId;
         this.userId = userId;
         this.quantity = quantity;
@@ -37,6 +38,7 @@ public class TRUC_Order {
         this.orderTime = orderTime;
         this.deliveryStatus = deliveryStatus;
         this.paymentMenthod = paymentMenthod;
+        this.comment = comment;
         this.totalAmount = totalAmount;
         this.wareHouseID = wareHouseID;
         this.wh = wh;
@@ -107,6 +109,14 @@ public class TRUC_Order {
         this.paymentMenthod = paymentMenthod;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public float getTotalAmount() {
         return totalAmount;
     }
@@ -139,7 +149,6 @@ public class TRUC_Order {
         this.p = p;
     }
 
-    
 
     public static ArrayList<TRUC_Order> ListOders(String user_id, String trangThai){
         return TRUC_OderDAO.getOrder(user_id, trangThai);
