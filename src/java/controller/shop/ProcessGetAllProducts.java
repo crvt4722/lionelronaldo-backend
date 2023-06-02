@@ -8,6 +8,7 @@ import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -98,6 +99,52 @@ public class ProcessGetAllProducts extends HttpServlet {
         return productsMatchKey;
     }
 
+    public static ArrayList<Product> filterByGenderProduct(ArrayList<Product> productsList, String productGender){
+        boolean[] d = new boolean[productsList.size()];
+            Arrays.fill(d, true);
+        if(productGender.compareTo("0") > 0) {
+            for (int i = 0; i < productsList.size(); i++) {
+                Product product = productsList.get(i);
+                if(productGender.equals("1")){
+                    if(!product.getGender().equals("1") && !product.getGender().equals("4") && !product.getGender().equals("5")){
+                        d[i] = false;
+                    }
+                }
+                else if(productGender.equals("2")){
+                    if(!product.getGender().equals("2") && !product.getGender().equals("4") && !product.getGender().equals("5")){
+                        d[i] = false;
+                    }
+                }
+                else if(productGender.equals("3")){
+                    if(!product.getGender().equals("3") && !product.getGender().equals("5")){
+                        d[i] = false;
+                    }
+                }
+                else if(productGender.equals("4")){
+                    if(product.getGender().compareTo("3") == 0){
+                        d[i] = false;
+                    }
+                }
+            }
+        }
+        ArrayList<Product> res = new ArrayList<Product>();
+        for (int i = 0; i < productsList.size(); i++) {
+            if (d[i]) {
+                res.add(productsList.get(i));
+            }
+        }
+        return res;
+    }
+    
+    public static ArrayList<Product> filterByCategory (ArrayList<Product> productsList, int categoryId){
+        ArrayList<Product> res = new ArrayList<>();
+        for(Product product : productsList){
+            if(product.getCategoryId() == categoryId){
+                res.add(product);
+            }
+        }
+        return res;
+    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -112,6 +159,19 @@ public class ProcessGetAllProducts extends HttpServlet {
         session.setAttribute("search", keyWord);
 
         ArrayList<Product> res = getProductsMatchKey(productsList, keyWord);
+        
+                
+//        Lọc theo giới tính đối tượng
+        String productGender = request.getParameter("productGender");
+        if(productGender != null){
+            res = filterByGenderProduct(res, productGender);
+        }
+//        Lọc theo danh mục
+        String categoryStr = request.getParameter("categoryId");
+        if(categoryStr != null){
+            int categoryId = Integer.parseInt(categoryStr);
+            res = filterByCategory(res, categoryId);
+        }
 
         request.setAttribute("productsList", res);
         RequestDispatcher dis = request.getRequestDispatcher("leocr-shop-detail.jsp");

@@ -80,6 +80,14 @@
         <servlet-name>ProcessShopHomePage</servlet-name>
         <servlet-class>controller.shop.ProcessShopHomePage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessGetOrderDetail</servlet-name>
+        <servlet-class>controller.shop.ProcessGetOrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessPostCumtomerResponse</servlet-name>
+        <servlet-class>controller.shop.ProcessPostCumtomerResponse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -155,6 +163,14 @@
     <servlet-mapping>
         <servlet-name>ProcessShopHomePage</servlet-name>
         <url-pattern>/shop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessGetOrderDetail</servlet-name>
+        <url-pattern>/api/v1/get-order-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessPostCumtomerResponse</servlet-name>
+        <url-pattern>/api/v1/post-customer-response</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

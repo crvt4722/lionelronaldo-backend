@@ -37,6 +37,16 @@ public class MoneyUtil {
         for(String x : arr){
             res += x;
         }
-        return toString(Integer.parseInt(res));
+        if(res.length() > 0)
+            return toString(Integer.parseInt(res));
+        return toString(Integer.parseInt(s));
     }
+//    public static String toString(Object o){
+//        String[] arr = o.toString().split(".");
+//        String res = "";
+//        for(String x : arr){
+//            res += x;
+//        }
+//        return toString(Integer.parseInt(res));
+//    }
 }

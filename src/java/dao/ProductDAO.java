@@ -294,7 +294,7 @@ public class ProductDAO {
         Collections.sort(productsList, new Comparator<Product>() {
             @Override
             public int compare(Product t, Product t1) {
-                return t1.getSoldQuantity()- t.getSoldQuantity();
+                return t1.getSoldQuantity() - t.getSoldQuantity();
             }
         });
         ArrayList<Product> res = new ArrayList<>();
@@ -321,6 +321,32 @@ public class ProductDAO {
         return res;
     }
 
+    public static Product getProductByOrderId(int orderId) {
+        try ( Connection c = openConnection()) {
+            String select = String.format("select P.*\n"
+                    + "from `order` as O, product as P, warehouse as WH\n"
+                    + "where O.warehouse_id = WH.warehouse_id\n"
+                    + "and P.product_id = WH.product_id\n"
+                    + "and O.order_id = %s", orderId);
+            PreparedStatement ps = c.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Product> productsList = getAllProduct();
+            int productId = 0;
+            while (rs.next()) {
+                productId = rs.getInt("product_id");
+            }
+            for (Product product : productsList) {
+                if (product.getProductId() == productId) {
+                    return product;
+                }
+            }
+            return null;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public static ArrayList<CustomerResponse> getCustomerResponseByProductId(int productId) {
         try ( Connection c = openConnection()) {
             String select = String.format("select U.fullname, CR.comment, CR.rating, CR.response_time\n"
@@ -329,7 +355,8 @@ public class ProductDAO {
                     + "and W.warehouse_id = O.warehouse_id\n"
                     + "and O.user_id = U.user_id\n"
                     + "and CR.order_id = O.order_id\n"
-                    + "and P.product_id = %s;", productId);
+                    + "and P.product_id = %s "
+                    + "order by CR.response_time desc;", productId);
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             ArrayList<CustomerResponse> productResponses = new ArrayList<>();
