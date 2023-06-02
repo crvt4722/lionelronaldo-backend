@@ -156,4 +156,10 @@ public class TRUC_Order {
     public static void xoaOrder(String id_order){
         TRUC_OderDAO.xoaOrder(id_order);
     }
+    public static void huyDon(String id_order){
+        TRUC_OderDAO.huyDon(id_order);
+    }
+    public static void nhanHang(String id_order){
+        TRUC_OderDAO.nhanHang(id_order);
+    }
 }

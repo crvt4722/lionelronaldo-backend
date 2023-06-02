@@ -162,11 +162,11 @@
                             "</div>" +
                             "<div class='nua'>" +
                             "<div class='motphantu Sp'>" +
-                            "<div class='chuGach'>₫" + order.p.originPrice + "</div>&nbsp;&nbsp;&nbsp;₫" +
-                            order.p.price +
+                            "<div class='chuGach'>₫" + xuLyTien(order.p.originPrice) + "</div>&nbsp;&nbsp;&nbsp;₫" +
+                            xuLyTien(order.p.price) +
                             "</div>" +
                             "<div class='motphantu Sp'>" + order.quantity + "</div>" +
-                            "<div class='motphantu Sp'>₫" + order.quantity * order.p.price + "</div>" +
+                            "<div class='motphantu Sp'>₫" + xuLyTien(order.quantity * order.p.price) + "</div>" +
                             "<div class='motphantu Sp'><button class='nut' onclick='xoa(" + order.orderId + ")'>Xóa</button></div>" +
                             "</div>" +
                             "</div>";
@@ -180,8 +180,8 @@
                             "Số lượng: " + order.quantity +
                             "</div>" +
                             "<div class='giaCXN Sp'>" +
-                            "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
-                            order.p.price * order.quantity +
+                            "<div class='chuGach'>₫" + xuLyTien(order.p.originPrice * order.quantity) + "</div>&nbsp;&nbsp;&nbsp;₫" +
+                            xuLyTien(order.p.price * order.quantity) +
                             "</div>" +
                             "<div class='huyDonCXN Sp'><button class='nut' onclick='huyDon(" + order.orderId + ")'>Hủy Đơn</button></div>" +
                             "</div>";
@@ -196,10 +196,10 @@
                             "Số lượng: " + order.quantity +
                             "</div>" +
                             "<div class='giaCXN Sp'>" +
-                            "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
-                            order.p.price * order.quantity +
+                            "<div class='chuGach'>₫" + xuLyTien(order.p.originPrice * order.quantity) + "</div>&nbsp;&nbsp;&nbsp;₫" +
+                            xuLyTien(order.p.price * order.quantity) +
                             "</div>" +
-                            "<div class='huyDonCXN Sp'><button class='nut' onclick='daNhanHang(" + order.orderId + ")'>Đã nhận</button></div>" +
+                            "<div class='huyDonCXN Sp'><button class='nut' onclick='nhanHang(" + order.orderId + ")'>Đã nhận</button></div>" +
                             "</div>";
 
                 } else if (n === 4) {
@@ -212,8 +212,8 @@
                             "Số lượng: " + order.quantity +
                             "</div>" +
                             "<div class='giaCXN Sp'>" +
-                            "<div class='chuGach'>₫" + order.p.originPrice * order.quantity + "</div>&nbsp;&nbsp;&nbsp;₫" +
-                            order.p.price * order.quantity +
+                            "<div class='chuGach'>₫" + xuLyTien(order.p.originPrice * order.quantity) + "</div>&nbsp;&nbsp;&nbsp;₫" +
+                            xuLyTien(order.p.price * order.quantity) +
                             "</div>" +
                             "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai(" + order.orderId + ")'>Mua Lại</button></div>" +
                             "</div>";
@@ -333,8 +333,8 @@
             tietKiem -= tongTien;
             console.log("buyProductIds");
             console.log(buyProductIds);
-            document.querySelector("#tongTien").innerHTML = "Tổng :₫" + tongTien;
-            document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :₫" + tietKiem + " (" + soSanPham + " sản phẩm)";
+            document.querySelector("#tongTien").innerHTML = "Tổng :₫" + xuLyTien(tongTien);
+            document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :₫" + xuLyTien(tietKiem) + " (" + soSanPham + " mặt hàng)";
             console.log(LO);
         }
     </script>
@@ -345,11 +345,34 @@
                 type: 'GET',
                 data: {id_order: id + ""},
                 success: function (data) {
-                    alert(data);
-                    //loadListOrder(1);
+                    alert("Xóa thành công đơn này!");
+                    loadListOrder(1);
+                }
+            });
+        }
+        function huyDon(id) {
+            $.ajax({
+                url: 'http://localhost:8080/LeoCris/truc_huydon',
+                type: 'GET',
+                //async : false,
+                data: {id_order: id + ""},
+                success: function (data) {
+                    alert("Hủy thành công đơn này!");
+                    loadListOrder(2);
+                }
+            });
+            
+        }
+        function nhanHang(id) {
+            $.ajax({
+                url: 'http://localhost:8080/LeoCris/truc_nhanhang',
+                type: 'GET',
+                data: {id_order: id + ""},
+                success: function (data) {
+                    alert("Bạn đã nhận được hàng?");
+                    loadListOrder(3);
                 }
             });
         }
     </script>
-
 </html>

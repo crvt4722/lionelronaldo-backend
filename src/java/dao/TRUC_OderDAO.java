@@ -153,7 +153,32 @@ public class TRUC_OderDAO {
         } catch (Exception e) {
         }
     }
-
+    public static void huyDon(String id_order) {
+        try ( Connection c = openConnection()) {
+            System.out.println(id_order);
+            String select = "update mydb.order set delivery_status = 'Đơn đã hủy' WHERE order_id = %s;";
+            //System.out.println(id +  ds);
+            select = String.format(select, id_order);
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.executeUpdate();
+            ps.close();
+            System.out.println(id_order);
+        } catch (Exception e) {
+        }
+    }
+    public static void nhanHang(String id_order) {
+        try ( Connection c = openConnection()) {
+            System.out.println(id_order);
+            String select = "update mydb.order set delivery_status = 'Đã giao' WHERE order_id = %s;";
+            //System.out.println(id +  ds);
+            select = String.format(select, id_order);
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.executeUpdate();
+            ps.close();
+            System.out.println(id_order);
+        } catch (Exception e) {
+        }
+    }
     public static String getComment(String orderId) {
         try ( Connection c = openConnection()) {
 
