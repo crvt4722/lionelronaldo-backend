@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Trạng Thái</title>
         
-        <link rel="stylesheet" href="assets/css/TRUC_GioHang.css">
+        <link rel="stylesheet" href="assets/css/TRUC_GioHang1.css">
         <link rel="stylesheet" href="./css/leocr-shop-danh-gia/main.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><!-- comment -->
         <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
@@ -346,6 +346,7 @@
                 data: {id_order: id + ""},
                 success: function (data) {
                     alert("Xóa thành công đơn này!");
+                    
                     loadListOrder(1);
                 }
             });
@@ -358,7 +359,9 @@
                 data: {id_order: id + ""},
                 success: function (data) {
                     alert("Hủy thành công đơn này!");
+                    
                     loadListOrder(2);
+                    //document.querySelector("#4").innerHTML = "Đơn đã hủy(1)";
                 }
             });
             
