@@ -143,10 +143,16 @@ public class TRUC_OderDAO {
     public static void xoaOrder(String id_order) {
         try ( Connection c = openConnection()) {
             System.out.println(id_order);
-            String select = "delete from mydb.order WHERE order_id = %s;";
+            String select = "delete from mydb.customer_response WHERE order_id = %s;";
             //System.out.println(id +  ds);
-            select = String.format(select, id_order, id_order);
+            select = String.format(select, id_order);
             PreparedStatement ps = c.prepareStatement(select);
+            ps.executeUpdate();
+            ps.close();
+            select = "delete from mydb.order WHERE order_id = %s;";
+            //System.out.println(id +  ds);
+            select = String.format(select, id_order);
+            ps = c.prepareStatement(select);
             ps.executeUpdate();
             ps.close();
             System.out.println(id_order);
