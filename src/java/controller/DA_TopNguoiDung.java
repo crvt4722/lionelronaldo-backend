@@ -6,24 +6,24 @@
 package controller;
 
 import com.google.gson.Gson;
-import dao.ProductDAO_DA;
+import dao.UserDAO;
+import dao.UserDAO_DA;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Product;
+import model.User_DA;
 
 /**
  *
  * @author Vinh
  */
-@WebServlet(name = "DA_Top5SanPham", urlPatterns = {"/topsanpham"})
-public class DA_Top5SanPham extends HttpServlet {
+@WebServlet(name = "DA_TopNguoiDung", urlPatterns = {"/topnguoidung"})
+public class DA_TopNguoiDung extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,9 @@ public class DA_Top5SanPham extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            List<Product> listP = ProductDAO_DA.getTop5SanPham();
+            List<User_DA> list = UserDAO_DA.getDanhSachUserGiau();
             Gson gson = new Gson();
-            String json = gson.toJson(listP);
+            String json = gson.toJson(list);
             response.setContentType("application/json");
             response.getWriter().write(json);
         }

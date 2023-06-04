@@ -84,7 +84,7 @@ color: rgb(91, 190, 244);
 }
 .bieu-do-trai{  
   margin-top: 50px;
-  height: 450px;
+  height: 480px;
   padding: 8px;
   width: 48%;
   float: left;
@@ -115,7 +115,6 @@ color: rgb(91, 190, 244);
   box-shadow: 1px 1px 1px 1px #a2b1a6;
 }
 .chart{
- 
   margin-top: 30px;
 }
 .san-pham{
@@ -156,4 +155,7 @@ color: rgb(91, 190, 244);
   width: 100%;
   height: 100%;
   border-radius: 8px;
+}
+.footer{
+  margin-top: 2000px;
 }

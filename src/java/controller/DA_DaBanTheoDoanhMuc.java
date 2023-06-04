@@ -6,26 +6,24 @@
 package controller;
 
 import com.google.gson.Gson;
-import dao.OrderDAO_DA;
+import dao.CategoryDAO_DA;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jdk.internal.net.http.common.Pair;
+import model.Category_DA;
 
 /**
  *
  * @author Vinh
  */
-@WebServlet(name = "DA_ThuNhapHomNay", urlPatterns = {"/thunhaphomnay"})
-public class DA_ThuNhapHomNay extends HttpServlet {
+@WebServlet(name = "DA_DaBanTheoDoanhMuc", urlPatterns = {"/dabantheodoanhmuc"})
+public class DA_DaBanTheoDoanhMuc extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +38,10 @@ public class DA_ThuNhapHomNay extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */  
-            int now = OrderDAO_DA.getThuNhapHomNay();        
+            /* TODO output your page here. You may use following sample code. */
+            List<Category_DA> list = CategoryDAO_DA.getDanhMucSanPham();
             Gson gson = new Gson();
-            String json = gson.toJson(now);
+            String json = gson.toJson(list);
             response.setContentType("application/json");
             response.getWriter().write(json);
         }

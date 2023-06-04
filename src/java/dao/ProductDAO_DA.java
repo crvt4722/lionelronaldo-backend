@@ -53,6 +53,7 @@ public class ProductDAO_DA {
         try(Connection c = openConnection()){
             String select = "SELECT p.*,sum(o.quantity) as tongdaban FROM mydb.product p, mydb.order o, mydb.warehouse w\n" +
                             " where p.product_id = w.product_id and o.warehouse_id = w.warehouse_id\n" +
+                            //"and month(now()) = month(o.order_time)\n"+
                             " group by p.product_id\n" +
                             " order by  tongdaban DESC\n" +
                             " limit 5";
