@@ -27,7 +27,7 @@
             </div>
             <div class="main-menu__item item--auction"><a href="vote.jsp">Who's the best</a></div>
             <div class="main-menu__item item--comunity"><a href="comunity.jsp">Comunity</a></div>
-            <div class="main-menu__item item--shopping"><a href="shopping.jsp">Shopping</a></div>
+            <div class="main-menu__item item--shopping"><a href="shop">Shopping</a></div>
             <div class="main-menu__item item--management"><a href="product.jsp">Product</a></div>
             <div class="main-menu__item item--order"><a href="order-web.jsp">Order</a></div>
             <div class="main-menu__item item--authorization"><a href="authorization.jsp">Authorization</a></div>

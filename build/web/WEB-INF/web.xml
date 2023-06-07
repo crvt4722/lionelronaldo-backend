@@ -188,6 +188,70 @@
         <servlet-name>ProcessControllOrder</servlet-name>
         <url-pattern>/ProcessControllOrder</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>GetAllProducts</servlet-name>
+        <servlet-class>controller.shop.ProcessGetAllProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessSortAndFilterProducts</servlet-name>
+        <servlet-class>controller.shop.ProcessSortAndFilterProducts</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessGetKeyWordSearch</servlet-name>
+        <servlet-class>controller.shop.ProcessGetKeyWordSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessProductDetail</servlet-name>
+        <servlet-class>controller.shop.ProcessProductDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>controller.shop.NewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessProductPayment</servlet-name>
+        <servlet-class>controller.shop.ProcessProductPayment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessOrderPayment</servlet-name>
+        <servlet-class>controller.shop.ProcessOrderPayment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessShopHomePage</servlet-name>
+        <servlet-class>controller.shop.ProcessShopHomePage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetAllProducts</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessSortAndFilterProducts</servlet-name>
+        <url-pattern>/ProcessSortAndFilterProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessGetKeyWordSearch</servlet-name>
+        <url-pattern>/ProcessGetKeyWordSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessProductDetail</servlet-name>
+        <url-pattern>/product-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrderPayment</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+<!--    <servlet-mapping>
+        <servlet-name>ProcessShopHomePage</servlet-name>
+        <url-pattern>/shop</url-pattern>
+    </servlet-mapping>-->
+    
+    
     <session-config>
         <session-timeout>
             30

@@ -66,6 +66,7 @@
                         <option value="Lấy hàng thành công">Lấy hàng thành công</option>
                         <option value="Đang vận chuyển">Đang vận chuyển</option>
                         <option value="Giao hàng thành công">Giao hàng thành công</option>
+                        <option value="Đã hủy">Đã hủy</option>
                     </select>
                     <input type="radio" name ='old-new' class = 'old-new' style ="height:10px; transform: translateX(110px)" value = "new"/>
                     <label style="transform:translateX(40px)">Mới nhất</label>

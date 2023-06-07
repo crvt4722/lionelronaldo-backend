@@ -259,6 +259,21 @@ public class UserDAO {
         return result;
     }
     
+    public static int getUserId(String email){
+        int result = 0;
+        try (Connection c = openConnection()){
+            String select = "SELECT * FROM user_profile WHERE email = ?";
+            PreparedStatement ps = c.prepareStatement(select);
+            ps.setString(1, email);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) result = rs.getInt("user_id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
     public static String getSize( int id){
         String result = "";
         try (Connection c = openConnection()){
@@ -303,6 +318,7 @@ public class UserDAO {
         }
         return result;
     }
+    
     
     public static String getProductName(int id){
         String result = "";
@@ -706,8 +722,9 @@ public class UserDAO {
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
                 String dateTime = rs.getString("order_time");
-                String productName = getProductName(getProductIdFromWarehoust(rs.getInt("warehouse_id")));
-                String size = getSize(rs.getInt("warehouse_id"));
+//                String productName = getProductName(getProductIdFromWarehoust(rs.getInt("warehouse_id")));
+                String productName = "haha";
+                String size = rs.getString("size");
                 int quantity = rs.getInt("quantity");
                 int totalAmount = rs.getInt("total_amount");
                 String paymentMethod = rs.getString("payment_method");

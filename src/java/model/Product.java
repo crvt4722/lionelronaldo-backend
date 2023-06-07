@@ -13,6 +13,8 @@ public class Product {
     private int originPrice, sale, price, soldQuantity,numberOfRating;
     private ArrayList<String> imageLinks;
     private ArrayList<String> keywords;
+    private ArrayList<Integer> availableQuantityInWarehouse;
+    private ArrayList<String> sizes;
     private double avgRating;
     
     public Product(){
@@ -30,6 +32,19 @@ public class Product {
         this.gender = gender;
         this.brand = brand;
 //        this.imageLinks = imageLinks;
+    }
+    
+     public Product(int productId, int categoryId, int originPrice, int sale, String name, String description, String gender, String brand, ArrayList<String> imageLinks) {
+        this.productId = productId;
+        this.categoryId = categoryId;
+        this.originPrice = originPrice;
+        this.sale = sale;
+        this.price = this.originPrice - this.originPrice * this.sale / 100;
+        this.name = name;
+        this.description = description;
+        this.gender = gender;
+        this.brand = brand;
+        this.imageLinks = imageLinks;
     }
 
     public void setImageLinks(ArrayList<String> imageLinks) {
@@ -87,6 +102,13 @@ public class Product {
     public double getAvgRating() {
         return avgRating;
     }
+    
+    public String getAvgRatingString() {
+        if(this.avgRating - (int)(this.avgRating) == 0){
+            return String.format("%.0f", this.avgRating);
+        }
+        return String.format("%.1f", this.avgRating);
+    }
 
     public void setAvgRating(double avgRating) {
         this.avgRating = avgRating;
@@ -115,10 +137,27 @@ public class Product {
     public void setKeywords(ArrayList<String> keywords) {
         this.keywords = keywords;
     }
+
+    public ArrayList<String> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(ArrayList<String> sizes) {
+        this.sizes = sizes;
+    }
+
+    public ArrayList<Integer> getAvailableQuantityInWarehouse() {
+        return availableQuantityInWarehouse;
+    }
+
+    public void setAvailableQuantityInWarehouse(ArrayList<Integer> availableQuantityInWarehouse) {
+        this.availableQuantityInWarehouse = availableQuantityInWarehouse;
+    }
     
     @Override
     public String toString() {
         return "Product{" + "productId=" + productId + ", categoryId=" + categoryId + ", originPrice=" + originPrice + ", sale=" + sale + ", price=" + price + ", numberOfRating=" + numberOfRating + ", soldQuantity=" + soldQuantity + ", name=" + name + ", description=" + description + ", gender=" + gender + ", brand=" + brand + ", categoryName=" + categoryName + ", imageLinks=" + imageLinks + ", avgRating=" + avgRating + '}';
     }
-      
+
 }
+
