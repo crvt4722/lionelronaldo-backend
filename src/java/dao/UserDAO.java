@@ -323,7 +323,7 @@ public class UserDAO {
     public static String getProductName(int id){
         String result = "";
         try (Connection c = openConnection()){
-            String select = "SELECT * FROM product WHERE product_id = ?";
+            String select = "select name from product where product_id IN (select product_id from warehouse where warehouse_id = ?)";
             PreparedStatement ps = c.prepareStatement(select);
             ps.setInt(1, id);
             
@@ -722,8 +722,8 @@ public class UserDAO {
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
                 String dateTime = rs.getString("order_time");
-//                String productName = getProductName(getProductIdFromWarehoust(rs.getInt("warehouse_id")));
-                String productName = "haha";
+                String productName = getProductName(rs.getInt("warehouse_id"));
+                
                 String size = rs.getString("size");
                 int quantity = rs.getInt("quantity");
                 int totalAmount = rs.getInt("total_amount");
@@ -764,6 +764,7 @@ public class UserDAO {
         }
         if (option ==  3) {
             optionConverted = "Đang vận chuyển";
+            substractQuantityInWareHouse(orderId);
         }
         
         try (Connection c = openConnection()){                        
@@ -774,6 +775,23 @@ public class UserDAO {
             ps.setInt(2, orderId);
             ps.execute();
             return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean substractQuantityInWareHouse(int orderId){
+        
+        try (Connection c = openConnection()){
+            String update = "update warehouse set quantity = quantity - 1 "
+                    + "where warehouse_id IN (SELECT warehouse_id from lionelronaldo.order WHERE order_id = ?)";
+            PreparedStatement ps = c.prepareStatement(update);
+            ps.setInt(1, orderId);
+            
+            ps.execute();
+            return true;
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

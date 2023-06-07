@@ -15,6 +15,13 @@
 
         <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/base.css">
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/main.css">
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/footer.css">
+        <link rel="stylesheet" type="text/css" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
+        <script src="./includes/include.js"></script>
+        
         <style>
             .tim-kiem-container {
                 margin: 0px 25px;
@@ -46,6 +53,7 @@
     </head>
 
     <body>
+        <div class="header" w3-include-html="./includes/header.jsp"></div>
         <div id="nav">
             <form method="GET" action="/LeoCris/products">
                 <div class="tim-kiem-container">
@@ -277,6 +285,11 @@
                 </div>
             </div>
         </div>
+        <footer class="footer-distributed" w3-include-html="./includes/footer.html"> </footer>
+        <script src="./js/header.js"> </script>
+        <script>
+            includeHTML();
+        </script>
         <script src="./javascript/leocr-shop-detail/handleEvent.js"></script>
     </body>
 
