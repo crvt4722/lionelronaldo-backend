@@ -33,6 +33,9 @@
                             <span class='duoi' id='tietKiem'>Tiết kiệm: ₫0</span>
                         </div>
                         <input name="orderIds" id ="ord" value="1, 6">
+                        <input name="productIds" id ="prd" value="1, 6">
+                        <input name="sizes" id ="s" value="1, 6">
+                        <input name="quantities" id ="qtt" value="1, 6">
 
                         <div class='nua Sp'><button type="SUBMIT" class='nut mua'>MUA</button></div>
                     </div>
@@ -165,12 +168,18 @@
         function tinhTien(buyProductIds) {
             let tongTien = 0;
             let tietKiem = 0;
-            let listIdMua = [];
+            let listIdOrdMua = [];
+            let listIdPrdMua = [];
+            let listSizesMua = [];
+            let listQuantitiesMua = [];
             let soSanPham = buyProductIds.length;
             for (let i of buyProductIds) {
                 for (let order of LO) {
                     if (String(order.orderId) === String(i)) {
-                        listIdMua +=  String(i) + ",";
+                        listIdOrdMua +=  String(order.orderId) + ",";
+                        listIdPrdMua +=  String(order.p.productId) + ",";
+                        listSizesMua +=  String(order.wh.size) + ",";
+                        listQuantitiesMua +=  String(order.quantity) + ",";
                         tongTien += order.p.price * order.quantity;
                         tietKiem += order.p.originPrice * order.quantity;
                     }
@@ -182,7 +191,10 @@
             console.log(buyProductIds);
             document.querySelector("#tongTien").innerHTML = "Tổng :₫" + xuLyTien(tongTien);
             document.querySelector("#tietKiem").innerHTML = "Tiết kiệm :₫" + xuLyTien(tietKiem) + " (" + soSanPham + " mặt hàng)";
-            document.querySelector("#ord").value = listIdMua;
+            document.querySelector("#ord").value = listIdOrdMua;
+            document.querySelector("#prd").value = listIdPrdMua;  
+            document.querySelector("#s").value = listSizesMua;
+            document.querySelector("#qtt").value = listQuantitiesMua;
             console.log(LO);
         }
     </script>
