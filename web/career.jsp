@@ -58,7 +58,7 @@
             <div class="main-menu__item item--management"><a href="product.jsp">Product</a></div>
             <div class="main-menu__item item--order"><a href="order-web.jsp">Order</a></div>
             <div class="main-menu__item item--authorization"><a href="authorization.jsp">Authorization</a></div>
-            <div class="main-menu__item item--dashboard"><a href="dashboard.jsp">Dashboard</a></div>
+            <div class="main-menu__item item--dashboard"><a href="dashboard">Dashboard</a></div>
         </div>
 
         <div class="search-login">

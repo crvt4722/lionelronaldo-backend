@@ -212,7 +212,7 @@
                             <input hidden type="text" name="size" id="" value="<%= (String) request.getAttribute("size")%>">
                             <input hidden type="text" name="phone" id="" value="<%= request.getAttribute("phone")%>">
                             <input hidden type="text" name="address" id="" value="<%= request.getAttribute("address")%>">
-                            <input hidden type="text" name="paymentMethod" id="" value="Thanh toán trực tuyến">
+                            <input hidden type="text" name="paymentMethod" id="" value="thanh toán trực tuyến">
                             <input hidden type="text" name="totalAmount" id="" value="1">
 
                             <button type="submit" class="nut dat-hang-btn" style="font-size: 16px">ĐẶT HÀNG</button>
@@ -322,8 +322,12 @@
             let phuongThucThanhToanElements = document.querySelectorAll('.chon-phuong-thuc-item');
             let thanhToanTrucTuyenElement = document.querySelector('.phuong-thuc-thanh-toan-truc-tuyen');
             let thanhToanKhiNhanhangElement = document.querySelector('.phuong-thuc-thanh-toan-khi-nhan-hang');
-            let thanhToanContainer = [thanhToanKhiNhanhangElement, thanhToanTrucTuyenElement];
+            let thanhToanContainer = [thanhToanTrucTuyenElement, thanhToanKhiNhanhangElement];
 
+
+            phuongThucThanhToanElements[0].style.color = '#038b75';
+            phuongThucThanhToanElements[0].style.border = '1px solid #038b75';
+                    
             phuongThucThanhToanElements.forEach((phuongThuc, index) => {
                 phuongThuc.onclick = function () {
                     phuongThucThanhToanElements.forEach((item) => {
@@ -336,12 +340,12 @@
                     thanhToanContainer.forEach((thanhToan) => {
                         thanhToan.style.display = 'none';
                     })
-                    if (index === 1) {
+                    if (index === 0) {
                         thanhToanContainer[index].style.display = 'flex'
-                        formPaymentMethod.value = "Thanh toán khi nhận hàng";
+                        formPaymentMethod.value = "thanh toán khi nhận hàng";
                     } else {
                         thanhToanContainer[index].style.display = 'block'
-                        formPaymentMethod.value = "Thanh toán trực tuyến";
+                        formPaymentMethod.value = "thanh toán trực tuyến";
                     }
                 }
             })

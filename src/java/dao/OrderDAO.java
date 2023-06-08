@@ -40,9 +40,10 @@ public class OrderDAO {
                     + "limit 1", userId);
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
-            ArrayList<String> phoneAndAddress = new ArrayList<>();
+            ArrayList<String> phoneAndAddress = null;
 
             if (rs.next()) {
+                phoneAndAddress = new ArrayList<>();
                 phoneAndAddress.add(rs.getString("phone"));
                 phoneAndAddress.add(rs.getString("address"));
             }

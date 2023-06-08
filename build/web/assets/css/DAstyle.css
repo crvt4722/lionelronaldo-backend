@@ -1,0 +1,258 @@
+*{
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  line-height: 1.2;
+}
+body{
+  background-color: #f2f7f4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ten-div{
+  float: left;
+  width: 90%;
+  
+  font-size: 24px;
+  color: #5d5a68;
+  padding-top: 8px;
+  padding-left: 18px;
+}
+.three-dot{
+  float: left;
+  width: 10%;
+  text-align: end;
+  font-size: 24px;
+  padding: 8px;
+  color: #5d5a68;
+  background-color: #ffffff;
+}
+.three-dot :hover{
+
+}
+.all-thong-ke{
+  width: 80%;
+  margin: auto;
+  margin-top: 50px;
+  background-color: #ffffff;
+   border-radius: 8px;
+   box-shadow: 1px 1px 1px 1px #a2b1a6;
+}
+.thong-ke{
+  width: 100%;
+  height: 120px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between; 
+ 
+ 
+}
+.thong-ke-item{
+  width: 20%;
+  font-size: 36px;
+  border-radius: 8px;
+  
+}
+.icon-tk{
+  width: 50%;
+  height: 100%;
+  float: left;
+ 
+}
+.ten-tk{
+  width: 50%;
+  height: 50%;
+  float: left;
+  color: #5d5a68;
+  font-size: 13px;
+}
+.so-tk{
+  width: 50%;
+  height: 50%;
+  float: left;
+  color: #5d5a68;
+ 
+  font-weight: 500;
+  font-size: 30px;
+}
+.kich-co{
+  text-align: center;
+  font-size: 60px;
+  font-weight: 700;
+}
+.violet{
+  color:#c5c0f7;
+}
+.green{
+ color: rgb(115, 174, 27);
+}
+.red{
+color: rgb(234, 95, 95);
+}
+.blue{
+color: rgb(91, 190, 244);
+}
+.chart-content{
+  width: 80%;
+  margin: auto;
+ 
+}
+.bieu-do-trai{  
+  margin-top: 50px;
+  height: 480px;
+  padding: 8px;
+  width: 48%;
+  float: left;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px #a2b1a6;
+  
+}
+.bieu-do-phai{ 
+  display: flex;
+  margin-top: 50px;
+  padding: 8px;
+  width: 50%;
+  float: right;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px #a2b1a6;
+  justify-content: center;
+  flex-direction: column;
+}
+.bieu-do-full{
+  margin-top: 50px;
+  padding: 8px;
+  width: 100%;
+  float: right;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px #a2b1a6;
+}
+.chart{
+  margin-top: 30px;
+}
+.san-pham{
+  width: 100%;
+  height: 70px;
+  margin-top: 10px;
+  display: flex;
+  
+}
+.anh-sp{
+  height: 100%;
+  flex: 0.8;
+  
+}
+.chi-tiet{
+  height: 100%;
+  flex: 5;
+  
+  font-size: 24px;
+  padding: 8px;
+  padding-left: 16px;
+}
+.gia{
+  height: 100%;
+  flex : 1;
+  text-align: end;
+  padding: 16px;
+}
+.thong-tin-chinh{
+  color: #5d5a68;
+  font-size: 20px;
+}
+.thong-tin-them{
+  color: #5d5a68a8;
+  font-size: 16px;
+}
+.full{
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.footer{
+  margin-top: 1800px;
+}
+#stt{
+  padding: 8px;
+}
+.code-div {
+  position: relative;
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  height: 200px;
+}
+.cho-nhap{
+  margin-top: 30px;
+  padding-left: 80px;
+}
+ .modal-text{
+    width: 300px;
+    height: 50px;
+ }
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.cac-nut-modal{
+  
+  margin-left: 150px;
+  margin-top: 24px;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+.huy-modal{
+  width: 50px;
+  height: 30px;
+  background-color: rgb(214, 27, 27);
+  color: #fff;
+  border-radius: 4px;
+}
+.chap-nhan{
+  width: 50px;
+  height: 30px;
+  background-color: rgb(58, 214, 27);
+  color: #fff;
+  border-radius: 4px;
+}
+.chap-nhan:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+}
+.huy-modal:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+}

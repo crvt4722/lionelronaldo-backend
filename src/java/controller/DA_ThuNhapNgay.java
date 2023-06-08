@@ -1,28 +1,31 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package controller.shop;
+package controller;
 
-import dao.OrderDAO;
-import dao.ProductDAO;
-import dao.UserDAO;
+import com.google.gson.Gson;
+import dao.OrderDAO_DA;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Product;
+import jdk.internal.net.http.common.Pair;
 
 /**
  *
- * @author User
+ * @author Vinh
  */
-public class ProcessOrderPayment extends HttpServlet {
+@WebServlet(urlPatterns = {"/thunhaphomnay"})
+public class DA_ThuNhapNgay extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,34 +39,14 @@ public class ProcessOrderPayment extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        String size = request.getParameter("size");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String phone, address;
-        HttpSession session = request.getSession();
-
-        int userId = UserDAO.getUserId((String) session.getAttribute("email"));
-        ArrayList<String> phoneAndAddress = OrderDAO.getPhoneAndAddressOfLastOrder(userId);
-        if (phoneAndAddress != null) {
-            phone = phoneAndAddress.get(0);
-            address = phoneAndAddress.get(1);
-        } else {
-            phone = "";
-            address = "";
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */  
+            int now = OrderDAO_DA.getThuNhapHomNay();        
+            Gson gson = new Gson();
+            String json = gson.toJson(now);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         }
-
-        Product product = ProductDAO.getProductById(productId);
-
-        request.setAttribute("product", product);
-        request.setAttribute("size", size);
-        request.setAttribute("quantity", quantity);
-        String totalPrice = "" + product.getPrice() * quantity;
-        request.setAttribute("totalPrice", totalPrice);
-        request.setAttribute("phone", phone);
-        request.setAttribute("address", address);
-
-        RequestDispatcher dis = request.getRequestDispatcher("leocr-shop-order-payment.jsp");
-        dis.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

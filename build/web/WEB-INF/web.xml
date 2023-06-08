@@ -100,6 +100,10 @@
         <servlet-name>ProcessControllOrder</servlet-name>
         <servlet-class>controller.ProcessControllOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessDashBoardPermission</servlet-name>
+        <servlet-class>controller.ProcessDashBoardPermission</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSendMessage</servlet-name>
         <url-pattern>/ProcessSendMessage</url-pattern>
@@ -188,8 +192,6 @@
         <servlet-name>ProcessControllOrder</servlet-name>
         <url-pattern>/ProcessControllOrder</url-pattern>
     </servlet-mapping>
-    
-    
     <servlet>
         <servlet-name>GetAllProducts</servlet-name>
         <servlet-class>controller.shop.ProcessGetAllProducts</servlet-class>
@@ -246,12 +248,14 @@
         <servlet-name>ProcessOrderPayment</servlet-name>
         <url-pattern>/payment</url-pattern>
     </servlet-mapping>
-<!--    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>ProcessShopHomePage</servlet-name>
         <url-pattern>/shop</url-pattern>
     </servlet-mapping>-->
-    
-    
+    <servlet-mapping>
+        <servlet-name>ProcessDashBoardPermission</servlet-name>
+        <url-pattern>/ProcessDashBoardPermission</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -59,9 +59,10 @@ public class ProcessAddOrUpdateProduct extends HttpServlet {
             int ID = Integer.parseInt(id);
             if (keywords.equals("")==false) UserDAO.updateKeyWords(ID, keywords.split("!"));
             if(files.length > 0) UserDAO.updateProductImage(ID, files);
-            if(quantity.equals("")==false){
+            if(quantity.equals("")==false && size.equals("")==false){
                 int quantityX = Integer.parseInt(quantity);
-                UserDAO.updateWarehouse(ID, quantityX);
+                UserDAO.addWareHouse(ID, size, quantityX);
+
             }
             
             int originPriceX = originPrice.equals("")? -1 : Integer.parseInt(originPrice);
@@ -115,7 +116,7 @@ public class ProcessAddOrUpdateProduct extends HttpServlet {
                 
                 int orginPriceX = Integer.parseInt(originPrice);
                 int quantityX = Integer.parseInt(quantity);
-                int saleX = sale.equals("")? 0 : Integer.parseInt(originPrice);
+                int saleX = sale.equals("")? 0 : Integer.parseInt(sale);
                 int categoryId = UserDAO.getCategoryID(category);
                 
                 UserDAO.addProduct(name, categoryId, description, gender, brand, orginPriceX, saleX);

@@ -636,8 +636,8 @@ public class UserDAO {
     public static boolean addProductImage(int productID, String [] images){
         try (Connection c = openConnection()){                        
             for (String image: images) {
-                image = image.strip();
-                String insert = "INSERT INTO product_image(product_id, link_img) VALUES (?,?)";
+                image = "./assets/img/product_image/"+ image.strip();
+                String insert = "INSERT INTO product_image(product_id, image_link) VALUES (?,?)";
                 PreparedStatement ps = c.prepareStatement(insert);
                 ps.setInt(1, productID);
                 ps.setString(2, image);

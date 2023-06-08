@@ -13,12 +13,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LeoCr shop</title>
-        <link rel="stylesheet" href="./css/leocr-shop/main.css">
-        <link rel="stylesheet" href="./css/seach-bar/main.css">
+        
         
         <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/base.css">
         <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/main.css">
         <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/footer.css">
+        <link rel="stylesheet" href="./css/leocr-shop/main.css">
+        <link rel="stylesheet" href="./css/seach-bar/main.css">
         <link rel="stylesheet" type="text/css" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
         <script src="./includes/include.js"></script>
     
