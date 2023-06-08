@@ -11,7 +11,7 @@ import java.sql.DriverManager;
  *
  * @author User
  */
-public class DBConfig {
+public class DBConnect {
 
     public static String driver = "com.mysql.cj.jdbc.Driver";
     public static String url = "jdbc:mysql://localhost:3306/mydb";
@@ -21,7 +21,7 @@ public class DBConfig {
         Connection con = null;
         try {
 //            System.out.println("Hello from DBConfig.driver " + DBConfig.driver);
-            Class.forName(DBConfig.driver);
+            Class.forName(DBConnect.driver);
             con = DriverManager.getConnection(url, user, password);
 //            System.out.println("connected successfully");
         } catch (Exception ex) {

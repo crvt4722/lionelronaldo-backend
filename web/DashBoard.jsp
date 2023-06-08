@@ -1,3 +1,4 @@
+
 <%-- Document : DA_DashBoard Created on : Jun 1, 2023, 4:39:55 PM Author : Vinh --%>
 
     <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -16,9 +17,10 @@
         </head>
 
         <body>
+            
             <div class="all-thong-ke">
                 <div class="ten-div">
-                    THỐNG KÊ TỔNG
+                    Thống kê tổng
                 </div>
                 <div class="thong-ke">
 
@@ -57,7 +59,7 @@
                         </div>
                     </div>
                     <div class="thong-ke-item">
-                        <div class="icon-tk">
+                        <div class="icon-tk" style="width: 30%;" >
                             <i class="fa-solid fa-dollar-sign kich-co green"></i>
                         </div>
                         <div class="so-tk">
@@ -76,8 +78,10 @@
 
                 <div class="bieu-do-trai">
                     <div class="ten-div">
-                        Thu nhập hôm nay
+                        Thu nhập hôm nay <br>
+                        <span class="thong-tin-them">Thu nhập so với chỉ tiêu</span>
                     </div>
+                    <button id="myBtn" class="three-dot"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                     <div class="chart">
                         <canvas id="bieu-do-ngay" style="width:100%;"></canvas>
                     </div>
@@ -109,17 +113,32 @@
                     </div>
                 </div>
 
-                <div class="bieu-do-phai" id = "top-nguoi-dung">
-                   
+                <div class="bieu-do-phai" id="top-nguoi-dung">
+
                 </div>
-            
+
             </div>
             <div class="footer"></div>
+            <div id="myModal" class="modal">
 
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div style="text-align: center; font-size: 36px;" class="thong-tin-chinh">Cài đặt chỉ tiêu</div>
+                    <div class="cho-nhap thong-tin-chinh"> 
+                        Chỉ tiêu: <input style="border: 1px solid black; height: 30px; width: 500px; padding-left: 8px;" placeholder="Type in here ..." type="text" id = "modal-text" >
+                    </div>
+                    <div class="cac-nut-modal">
+                        <button class="huy-modal" onclick="HuyModal()">Cancel</button>
+                        <button class="chap-nhan" onclick="CaiDatChiTieu()">Apply</button>
+                    </div>
+                   
+                </div>
+
+            </div>
         </body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script>
-            let chitieu = 20000000;
+            let lastChiTieu;
             let preThuNhapThang;
             let preTopSanPham;
             let preThuNhapNgay;
@@ -128,6 +147,7 @@
             let date = new Date(today.getFullYear(), today.getMonth(), "1", "7");
             let days = [];
             let thuNhapThang = [];
+            
             while (date.getMonth() === today.getMonth()) {
                 let s = date.toJSON().slice(0, 10).trim();
                 days.push(s);
@@ -145,9 +165,9 @@
 
             getDataThuNhapThang();
             getDataTopSanPham();
-            getDataThuNhapNgay();
+            getDataThuNhapNgay(20000000);
             getDataDanhMuc();
-            getDataTopSanPham();
+            getDataTopNguoiDung();
 
             setInterval(getDataThuNhapThang, 3000);
             setInterval(getDataTopSanPham, 3000);
@@ -174,7 +194,8 @@
                 });
             }
 
-            function getDataThuNhapNgay() {
+            function getDataThuNhapNgay(chitieu = lastChiTieu,a = false) {
+                
                 $.ajax({
                     type: 'GET',
                     url: 'http://localhost:2511/LeoCris/thunhaphomnay',
@@ -188,7 +209,12 @@
                         } else
                             y2Values.push(chitieu - data);
                         if (JSON.stringify(data) !== JSON.stringify(preThuNhapNgay))
-                            renderBieuDoNgay();
+                            renderBieuDoNgay(chitieu);
+                        if(a){
+                            lastChiTieu = chitieu;
+                            alert(lastChiTieu);
+                            renderBieuDoNgay(chitieu);
+                        }
                         preThuNhapNgay = data;
                     }
                 });
@@ -207,6 +233,7 @@
             function getDataTopNguoiDung() {
                 $.ajax({
                     type: 'GET',
+                    async: false,
                     url: 'http://localhost:2511/LeoCris/topnguoidung',
                     async: false,
                     success: function (data) {
@@ -235,7 +262,7 @@
                 });
             }
 
-            function renderBieuDoNgay() {
+            function renderBieuDoNgay(chitieu) {
                 new Chart("bieu-do-ngay", {
                     type: "doughnut",
                     data: {
@@ -246,7 +273,7 @@
                         }]
                     },
                     options: {
-                        
+
                         tooltips: {
                             callbacks: {
                                 label: function (tooltipItem, data) {
@@ -386,9 +413,9 @@
 
                     html +=
                         "<div class=\"san-pham\">" +
-                        " <div>" +
-                        "1" +
-                        "</div>" +
+                        " <div id = \"stt\" class = \"thong-tin-chinh\" >" +
+                        (i + 1).toString() +
+                        ". </div>" +
                         "<div class=\"chi-tiet thong-tin-chinh\">" +
                         data[i].fullname + "<br>" +
                         "<span class=\"thong-tin-them\">User: #" + data[i].user_id + "</span>" +
@@ -398,6 +425,33 @@
                 }
                 document.getElementById("top-nguoi-dung").innerHTML = html;
             }
-        </script>
+   
+            let modal = document.getElementById("myModal");
+            let btn = document.getElementById("myBtn");
+            let span = document.getElementsByClassName("close")[0];
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+            span.onclick = function () {
+                modal.style.display = "none";
+                chitieu = document.getElementById("modal-text").value;
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
 
+            function CaiDatChiTieu(){
+                let a = document.getElementById("modal-text");
+                getDataThuNhapNgay(a.value,true);
+                let modal = document.getElementById("myModal");
+                modal.style.display = "none"
+            }
+            function HuyModal(){
+                let modal = document.getElementById("myModal");
+                modal.style.display = "none";
+            }
+        </script>
+     
         </html>

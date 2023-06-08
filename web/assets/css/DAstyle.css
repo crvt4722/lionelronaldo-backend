@@ -8,11 +8,27 @@ body{
   background-color: #f2f7f4;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .ten-div{
+  float: left;
+  width: 90%;
+  
   font-size: 24px;
   color: #5d5a68;
   padding-top: 8px;
   padding-left: 18px;
+}
+.three-dot{
+  float: left;
+  width: 10%;
+  text-align: end;
+  font-size: 24px;
+  padding: 8px;
+  color: #5d5a68;
+  background-color: #ffffff;
+}
+.three-dot :hover{
+
 }
 .all-thong-ke{
   width: 80%;
@@ -42,7 +58,7 @@ body{
   width: 50%;
   height: 100%;
   float: left;
-  
+ 
 }
 .ten-tk{
   width: 50%;
@@ -158,4 +174,85 @@ color: rgb(91, 190, 244);
 }
 .footer{
   margin-top: 2000px;
+}
+#stt{
+  padding: 8px;
+}
+.code-div {
+  position: relative;
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  height: 200px;
+}
+.cho-nhap{
+  margin-top: 30px;
+  padding-left: 80px;
+}
+ .modal-text{
+    width: 300px;
+    height: 50px;
+ }
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.cac-nut-modal{
+  
+  margin-left: 150px;
+  margin-top: 24px;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+.huy-modal{
+  width: 50px;
+  height: 30px;
+  background-color: rgb(214, 27, 27);
+  color: #fff;
+  border-radius: 4px;
+}
+.chap-nhan{
+  width: 50px;
+  height: 30px;
+  background-color: rgb(58, 214, 27);
+  color: #fff;
+  border-radius: 4px;
+}
+.chap-nhan:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
+}
+.huy-modal:hover{
+  transform: scale(1.1,1.1);
+  cursor: pointer;
 }
