@@ -1,0 +1,180 @@
+*{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f2f7f4;
+}
+.thanhTrangThai{
+    width: 60%;
+    height: 60px;
+    margin-left: 20%;
+    margin-top: 100px; 
+    box-shadow: 2px 2px 4px 0px #a2b1a6;
+    
+    
+}
+
+.ml-2 {
+    margin-left: 2px;
+}
+.trangThai{
+    width: 25%;
+    height: 100%;
+    float: left;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    
+}
+.trangThai:hover{
+    cursor: pointer;
+    font-size: 20px;
+    color: blueviolet;
+}
+.noiDung{
+    
+    margin-top: 50px;
+    
+}
+.phanDau{
+    width: 70%;
+    margin-left: 15%;
+    height: 50px;
+    box-shadow: 2px 2px 4px 0px #a2b1a6;
+    float: left;
+    
+}
+
+.phanGiua{
+    width: 70%;
+    margin-left: 15%;
+    height: 100px;
+    margin-top: 15px;
+    box-shadow: 2px 2px 4px 0px #a2b1a6;
+    float: left;
+    
+}
+.phanCuoi{
+    width: 80%;
+    margin-left: 10%;
+    height: 150px;
+    box-shadow: 2px 2px 4px 2px #a2b1a6;
+    float: left;
+    bottom: 0;
+    position: fixed;
+    
+}
+.nua{
+    width: 50%;
+    height: 100%;
+    float: left;
+    background-color: white;
+}
+.nuanua{
+    width: 25%;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+.motphantu{
+    width: 25%;
+    background-color: white;
+}
+.cbox{
+    width: 18px;
+    height: 18px;
+    background-color: white;
+}
+.checkbox{
+    width: 25%;
+}
+.anh{
+    width: 15%;
+}
+.ten{
+    width: 35%;
+}
+.moTa{
+    width: 25%;
+}
+.Sp{
+    background-color: white;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.Pc{
+    display: block;
+    background-color: white;
+}
+
+.tren{
+    background-color: white;
+    padding: 8px;
+    width: 100%;
+    height: 30%;
+    margin-top: 30px;
+    font-size: 25px;
+    color: red;
+}
+.duoi{
+    background-color: white;
+    padding: 8px;
+    width: 100%;
+    height: 70%;
+    font-size: 15px;
+    color: gray;
+}
+.nut{
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.mua{
+    width: 150px;
+    height: 50px;
+    font-size: 25px;
+}
+.nut:hover{
+    cursor: pointer;
+    transform: scale(1.1,1.1);
+}
+.anhsp{
+    width: 65px;
+    border-radius: 10px;
+}
+.chuGach{
+    text-decoration: line-through;
+    color: gray;
+    font-size: 14px;
+}
+.anhCXN{
+    width: 15%;
+}
+.moTaCXN{
+    width: 45%;
+}
+.giaCXN{
+    width: 15%;
+    color: red;
+}
+.huyDonCXN{
+    width: 25%;
+}
+.mtCXN{
+    color: gray;
+    font-size: 15px;
+}

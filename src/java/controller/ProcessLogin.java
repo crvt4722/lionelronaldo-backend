@@ -97,6 +97,8 @@ public class ProcessLogin extends HttpServlet {
             session.setAttribute("lastName", lastName);
             session.setAttribute("fullname", fullname);
             session.setAttribute("email", email);
+            session.setAttribute("user_id", String.valueOf(UserDAO.getUserId((String)session.getAttribute("email"))));
+            
             
             Cookie cookie = new Cookie("access_token", AccessToken.generateToken(email));
             response.addCookie(cookie);

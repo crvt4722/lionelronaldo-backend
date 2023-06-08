@@ -4,22 +4,28 @@
  */
 package controller;
 
-import dao.UserDAO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UserOrder;
+import model.TRUC_Order;
 
 /**
  *
- * @author DELL
+ * @author hi
  */
-public class ProcessLogout extends HttpServlet {
+@WebServlet(name = "TRUC_LoadGioHang", urlPatterns = {"/truc_loadlistorder"})
+public class TRUC_LoadLIstOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +39,20 @@ public class ProcessLogout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        System.out.println("Logout");
-        
-        session.removeAttribute("lastName");
-        session.removeAttribute("fullname");
-        session.removeAttribute("email");
-        session.removeAttribute("user_id");
+        try ( PrintWriter out = response.getWriter()) {
+           HttpSession session = request.getSession();
+            String user_id = (String)session.getAttribute("user_id");
+            //if (name == null) response.sendRedirect("dangnhap.jsp");
+            String  trangThai = request.getParameter("trangThai");
+            ArrayList<TRUC_Order> list = TRUC_Order.ListOders(user_id, trangThai);
+            System.out.println(1);
+            System.out.println(list.size());
+            Gson gson = new Gson();
+            String json = gson.toJson(list);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,19 +7,19 @@ package controller;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UserOrder;
 
 /**
  *
- * @author DELL
+ * @author hi
  */
-public class ProcessLogout extends HttpServlet {
+@WebServlet(name = "TRUC_TrangThai", urlPatterns = {"/truc_trangthai"})
+public class TRUC_TrangThai extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +33,15 @@ public class ProcessLogout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        System.out.println("Logout");
-        
-        session.removeAttribute("lastName");
-        session.removeAttribute("fullname");
-        session.removeAttribute("email");
-        session.removeAttribute("user_id");
+        try ( PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+//            session.setAttribute("name", "Vinh");
+//            session.setAttribute("pass", "123");
+            
+            
+            request.getRequestDispatcher("TRUC_TrangThai.jsp").forward(request, response);
+            //response.sendRedirect();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

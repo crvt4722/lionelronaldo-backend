@@ -4,22 +4,22 @@
  */
 package controller;
 
-import dao.UserDAO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.UserOrder;
+import model.TRUC_Order;
 
 /**
  *
- * @author DELL
+ * @author hi
  */
-public class ProcessLogout extends HttpServlet {
+@WebServlet(name = "TRUC_HuyDon", urlPatterns = {"/truc_huydon"})
+public class TRUC_HuyDon extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +33,15 @@ public class ProcessLogout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        System.out.println("Logout");
-        
-        session.removeAttribute("lastName");
-        session.removeAttribute("fullname");
-        session.removeAttribute("email");
-        session.removeAttribute("user_id");
+        try ( PrintWriter out = response.getWriter()) {
+             String  id_order = request.getParameter("id_order");
+            System.out.println(id_order);
+            TRUC_Order.huyDon(id_order);
+            Gson gson = new Gson();
+            String json = gson.toJson("huy oke");
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
