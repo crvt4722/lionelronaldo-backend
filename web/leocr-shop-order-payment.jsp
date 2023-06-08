@@ -322,8 +322,12 @@
             let phuongThucThanhToanElements = document.querySelectorAll('.chon-phuong-thuc-item');
             let thanhToanTrucTuyenElement = document.querySelector('.phuong-thuc-thanh-toan-truc-tuyen');
             let thanhToanKhiNhanhangElement = document.querySelector('.phuong-thuc-thanh-toan-khi-nhan-hang');
-            let thanhToanContainer = [thanhToanKhiNhanhangElement, thanhToanTrucTuyenElement];
+            let thanhToanContainer = [thanhToanTrucTuyenElement, thanhToanKhiNhanhangElement];
 
+
+            phuongThucThanhToanElements[0].style.color = '#038b75';
+            phuongThucThanhToanElements[0].style.border = '1px solid #038b75';
+                    
             phuongThucThanhToanElements.forEach((phuongThuc, index) => {
                 phuongThuc.onclick = function () {
                     phuongThucThanhToanElements.forEach((item) => {
@@ -336,7 +340,7 @@
                     thanhToanContainer.forEach((thanhToan) => {
                         thanhToan.style.display = 'none';
                     })
-                    if (index === 1) {
+                    if (index === 0) {
                         thanhToanContainer[index].style.display = 'flex'
                         formPaymentMethod.value = "thanh toán khi nhận hàng";
                     } else {
