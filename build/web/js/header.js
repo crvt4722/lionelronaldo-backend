@@ -12,7 +12,7 @@ setTimeout(()=>{
         loginBtn.style.display = 'none'
         
         let xhr = new XMLHttpRequest()
-        xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessAuthorization', true)
+        xhr.open('GET', '/LeoCris/ProcessAuthorization', true)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

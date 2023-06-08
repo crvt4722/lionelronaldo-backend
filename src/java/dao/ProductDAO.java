@@ -63,7 +63,7 @@ public class ProductDAO {
                         + "from warehouse as WH, product as P, `order` as O\n"
                         + "where WH.product_id = P.product_id\n"
                         + "and O.warehouse_id = WH.warehouse_id\n"
-                        + "and WH.product_id = %s and O.delivery_status = 'Đã giao'", product.getProductId());
+                        + "and WH.product_id = %s and O.delivery_status = 'Giao hàng thành công'", product.getProductId());
                 PreparedStatement ps = c.prepareStatement(select);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {

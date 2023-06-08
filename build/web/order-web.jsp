@@ -116,7 +116,7 @@
                 "orderTime":orderTime
             })
         function getData(data){
-            fetch('http://localhost:8080/LeoCris/api/orders',  {
+            fetch('/LeoCris/api/orders',  {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -185,14 +185,14 @@
                     td = document.createElement('td')
                     a = document.createElement('a')
                     a.textContent = controll
-                    a.href= 'http://localhost:8080/LeoCris/api/orders/controll/' + element.id + '/' + controll_option
+                    a.href= '/LeoCris/api/orders/controll/' + element.id + '/' + controll_option
                     td.appendChild(a)
                     tr.appendChild(td)
 
                     td = document.createElement('td')
                     a = document.createElement('a')
                     a.textContent = 'Hủy đơn hàng'
-                    a.href= 'http://localhost:8080/LeoCris/api/orders/cancel/' + element.id
+                    a.href= '/LeoCris/api/orders/cancel/' + element.id
                     td.appendChild(a)
                     tr.appendChild(td)
                   }
@@ -211,7 +211,7 @@
         
         function controllPermission(){
             let xhr = new XMLHttpRequest()
-            xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessManagementPermission', true)
+            xhr.open('GET', '/LeoCris/ProcessManagementPermission', true)
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -230,7 +230,7 @@
                 e.preventDefault()
                 console.log('logout')
                 let xhr = new XMLHttpRequest()
-                xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessLogout', true)
+                xhr.open('POST', '/LeoCris/ProcessLogout', true)
                 xhr.setRequestHeader('Content-Type', 'application/json')
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

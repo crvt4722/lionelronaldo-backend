@@ -175,7 +175,7 @@ public class TRUC_OderDAO {
     public static void nhanHang(String id_order) {
         try ( Connection c = openConnection()) {
             System.out.println(id_order);
-            String select = "update lionelronaldo.order set delivery_status = 'Đã giao' WHERE order_id = %s;";
+            String select = "update lionelronaldo.order set delivery_status = 'Giao hàng thành công' WHERE order_id = %s;";
             //System.out.println(id +  ds);
             select = String.format(select, id_order);
             PreparedStatement ps = c.prepareStatement(select);

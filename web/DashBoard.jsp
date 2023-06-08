@@ -160,7 +160,7 @@
         loginBtn.style.display = 'none'
         
         let xhr = new XMLHttpRequest()
-        xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessAuthorization', true)
+        xhr.open('GET', '/LeoCris/ProcessAuthorization', true)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -231,7 +231,7 @@
             function getDataThuNhapThang() {
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8080/LeoCris/thunhapthang',
+                    url: '/LeoCris/thunhapthang',
                     async: false,
                     success: function (data) {
 
@@ -252,7 +252,7 @@
                 
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8080/LeoCris/thunhaphomnay',
+                    url: '/LeoCris/thunhaphomnay',
                     dataType: 'text',
                     async: false,
                     success: function (data) {
@@ -276,7 +276,7 @@
             function getDataTopSanPham() {
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8080/LeoCris/topsanpham',
+                    url: '/LeoCris/topsanpham',
                     async: false,
                     success: function (data) {
                         renderSanPham(data);
@@ -288,7 +288,7 @@
                 $.ajax({
                     type: 'GET',
                     async: false,
-                    url: 'http://localhost:8080/LeoCris/topnguoidung',
+                    url: '/LeoCris/topnguoidung',
                     async: false,
                     success: function (data) {
                         renderNguoiDung(data);
@@ -299,7 +299,7 @@
             function getDataDanhMuc() {
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8080/LeoCris/dabantheodoanhmuc',
+                    url: '/LeoCris/dabantheodoanhmuc',
                     async: false,
                     success: function (data) {
                         lablesDanhMuc = [];
@@ -510,7 +510,7 @@
         <script>
             function controllPermission(){
             let xhr = new XMLHttpRequest()
-            xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessManagementPermission', true)
+            xhr.open('GET', '/LeoCris/ProcessManagementPermission', true)
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -528,7 +528,7 @@
                 e.preventDefault()
                 console.log('logout')
                 let xhr = new XMLHttpRequest()
-                xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessLogout', true)
+                xhr.open('POST', '/LeoCris/ProcessLogout', true)
                 xhr.setRequestHeader('Content-Type', 'application/json')
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

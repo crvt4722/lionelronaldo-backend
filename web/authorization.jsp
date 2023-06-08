@@ -99,7 +99,7 @@
         
         function controllPermission(){
             let xhr = new XMLHttpRequest()
-            xhr.open('GET', 'http://localhost:8080/LeoCris/ProcessAuthorizationPermission', true)
+            xhr.open('GET', '/LeoCris/ProcessAuthorizationPermission', true)
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -118,7 +118,7 @@
                 e.preventDefault()
                 console.log('logout')
                 let xhr = new XMLHttpRequest()
-                xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessLogout', true)
+                xhr.open('POST', '/LeoCris/ProcessLogout', true)
                 xhr.setRequestHeader('Content-Type', 'application/json')
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

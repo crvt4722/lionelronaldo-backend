@@ -156,7 +156,7 @@ function submitSection(){
                 let data = JSON.stringify({"userName": userInput, "idol": player.value})
 
                 let xhr = new XMLHttpRequest()
-                xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessReceiveVote', true)
+                xhr.open('POST', '/LeoCris/ProcessReceiveVote', true)
                 xhr.setRequestHeader('Content-Type', 'application/json')
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

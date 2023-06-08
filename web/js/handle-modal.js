@@ -14,7 +14,7 @@ signupForm.addEventListener('submit', (e) =>{
     console.log(data)
 
     let xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessSignup', true)
+    xhr.open('POST', '/LeoCris/ProcessSignup', true)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -44,7 +44,7 @@ loginForm.addEventListener('submit', (e) =>{
     console.log(data)
 
     let xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessLogin', true)
+    xhr.open('POST', '/LeoCris/ProcessLogin', true)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -113,7 +113,7 @@ modalForm.addEventListener('submit', (e)=>{
     })
 
     let xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessOrder', true)
+    xhr.open('POST', '/LeoCris/ProcessOrder', true)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

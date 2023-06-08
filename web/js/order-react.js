@@ -86,7 +86,7 @@ function Shirt({
                             }
                             console.log('keke')
                             let xhr = new XMLHttpRequest()
-                            xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessCancelOrder', true)
+                            xhr.open('POST', '/LeoCris/ProcessCancelOrder', true)
                             xhr.setRequestHeader('Content-Type', 'application/json')
                             xhr.onreadystatechange = function() {
                                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -138,7 +138,7 @@ const root = ReactDOM.createRoot(document.querySelector('.container'))
 
 function renderReact(){
     let xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessGetUserOrder', true)
+    xhr.open('POST', '/LeoCris/ProcessGetUserOrder', true)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

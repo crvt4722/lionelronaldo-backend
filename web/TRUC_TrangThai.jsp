@@ -115,7 +115,7 @@
                     }
                     function loadListOrder(n) {
                         $.ajax({
-                            url: 'http://localhost:8080/LeoCris/truc_loadlistorder',
+                            url: '/LeoCris/truc_loadlistorder',
                             type: 'GET',
                             data: {trangThai: dss[n - 1]},
                             success: function (data) {
@@ -217,7 +217,7 @@
         
         function huyDon(id) {
             $.ajax({
-                url: 'http://localhost:8080/LeoCris/truc_huydon',
+                url: '/LeoCris/truc_huydon',
                 type: 'GET',
                 //async : false,
                 data: {id_order: id + ""},
@@ -232,7 +232,7 @@
         }
         function nhanHang(id) {
             $.ajax({
-                url: 'http://localhost:8080/LeoCris/truc_nhanhang',
+                url: '/LeoCris/truc_nhanhang',
                 type: 'GET',
                 data: {id_order: id + ""},
                 success: function (data) {

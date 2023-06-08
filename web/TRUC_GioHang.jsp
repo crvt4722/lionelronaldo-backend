@@ -63,7 +63,7 @@
         loadListOrder(1);
         function loadListOrder() {
             $.ajax({
-                url: 'http://localhost:8080/LeoCris/truc_loadlistorder',
+                url: '/LeoCris/truc_loadlistorder',
                 type: 'GET',
                 data: {trangThai: 'Giỏ hàng'},
                 success: function (data) {
@@ -201,7 +201,7 @@
     <script>
         function xoa(id) {
             $.ajax({
-                url: 'http://localhost:8080/LeoCris/truc_xoaorder',
+                url: '/LeoCris/truc_xoaorder',
                 type: 'GET',
                 data: {id_order: id + ""},
                 success: function (data) {
@@ -215,7 +215,7 @@
             for (let i = 0; i < cboxx.length; i++) {
                 if (cboxx[i].checked === true) {
                     $.ajax({
-                        url: 'http://localhost:8080/LeoCris/truc_xoaorder',
+                        url: '/LeoCris/truc_xoaorder',
                         type: 'GET',
                         data: {id_order: cboxx[i].value + ""},
                         success: function (data) {
@@ -233,7 +233,7 @@
             for (let i = 0; i < cboxx.length; i++) {
                 if (cboxx[i].checked === true) {
                     $.ajax({
-                        url: 'http://localhost:8080/LeoCris/truc_xoaorder',
+                        url: '/LeoCris/truc_xoaorder',
                         type: 'GET',
                         data: {id_order: cboxx[i].value + ""},
                         success: function (data) {

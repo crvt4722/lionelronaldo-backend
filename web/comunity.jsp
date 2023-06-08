@@ -268,7 +268,7 @@
         }
         
         
-        let ws = new WebSocket("ws://localhost:8080/LeoCris/chat")
+        let ws = new WebSocket("wss://localhost:8443/LeoCris/chat")
         ws.onmessage = function(event) {
             const mySpan = document.querySelector('.message-box');
             mySpan.innerHTML+="<li>" + event.data+"</li>";
@@ -310,7 +310,7 @@
         function renderMessages(){
             let data = JSON.stringify({"receiver": document.querySelector('.receiver-option').value})
             let xhr = new XMLHttpRequest()
-            xhr.open('POST', 'http://localhost:8080/LeoCris/get-old-messages', true)
+            xhr.open('POST', '/LeoCris/get-old-messages', true)
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -426,7 +426,7 @@
                 e.preventDefault()
                 console.log('logout')
                 let xhr = new XMLHttpRequest()
-                xhr.open('POST', 'http://localhost:8080/LeoCris/ProcessLogout', true)
+                xhr.open('POST', '/LeoCris/ProcessLogout', true)
                 xhr.setRequestHeader('Content-Type', 'application/json')
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -448,7 +448,7 @@
         function longPoll() {
             // Gửi request đến server
             $.ajax({
-              url: "http://localhost:8080/LeoCris/ProcessSendMessage",
+              url: "/LeoCris/ProcessSendMessage",
               type: "POST",
               timeout: 1020, // Thiết lập timeout
               success: function(data) {
