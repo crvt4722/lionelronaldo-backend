@@ -179,7 +179,7 @@
                                         "<div class='chuGach'>₫" + xuLyTien(order.p.originPrice * order.quantity) + "</div>&nbsp;&nbsp;&nbsp;₫" +
                                         xuLyTien(order.p.price * order.quantity) +
                                         "</div>" +
-                                        "<div class='huyDonCXN Sp'><button class='nut' onclick='muaLai(" + order.orderId + ")'>Mua Lại</button></div>" +
+                                        "<div class='huyDonCXN Sp'><a target='blank' href='/LeoCris/product-detail?id=" + order.p.productId + "'><button class='nut' onclick='muaLai(" + order.orderId + ")'>Mua Lại</button></a></div>" +
                                         "</div>";
                             } else if (n === 5) {
                                 html5 +=
@@ -194,7 +194,7 @@
                                         "<div class='chuGach'>₫" + xuLyTien(order.p.originPrice * order.quantity) + "</div>&nbsp;&nbsp;&nbsp;₫" +
                                         xuLyTien(order.p.price * order.quantity) +
                                         "</div>" +
-                                        "<div class='huyDonCXN Sp'><button class='nut2 nut' onclick='muaLai(" + order.orderId + ")'>Mua Lại";
+                                        "<div class='huyDonCXN Sp'><a target='blank' href='/LeoCris/product-detail?id=" + order.p.productId + "'><button class='nut2 nut' onclick='muaLai(" + order.orderId + ")'>Mua Lại</button></a>";
 
                                 if (order.comment === "") {
                                     html5 += '<button class="ml-2 nut nut-chinh danh-gia-btn" onclick="handleResponse(this, ' + order.orderId + ')"> Đánh giá</button>';

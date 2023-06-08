@@ -106,7 +106,7 @@
                             <span class="ml-12">Giao hàng siêu tiết kiệm</span>
                         </div>
                         <div class="hanh-dong__them-vao-gio-hang mt-24">
-                            <form action="" method="GET">
+                            <form action="/LeoCris/add-to-cart" method="GET">
                                 <input hidden type="text" class="chon-size-input" name="size" value="">
                                 <input hidden type="number" name="quantity" class="so-luong-dat-san-pham">
                                 <input hidden type="text" name="productId" class="" value="<%= product.getProductId()%>"> 

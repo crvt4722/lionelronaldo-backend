@@ -83,13 +83,13 @@ public class OrderDAO {
         }
     }
 
-    public static void insertOrder(int userId, int productId, int quantity, String phone, String address, String size, String paymentMethod, int totalAmount) {
+    public static void insertOrder(int userId, int productId, int quantity, String phone, String address, String size, String paymentMethod, int totalAmount, String status) {
 //        System.out.println(userId + " " + quantity + " " + size + " " + phone + " " + address + " " + paymentMethod + " " + totalAmount);
         try ( Connection c = openConnection()) {
 //            updateAvaibleQuantityOfWarehouse(getWarehouseId(productId, size), quantity);
             String insert = String.format("insert into `order`\n"
                     + "values(null, %s, %s, '%s', '%s', '%s', "
-                    + "'Chờ xác nhận', '%s', %s, %s, now())", userId, quantity, phone, address, size, paymentMethod, totalAmount, getWarehouseId(productId, size));
+                    + "'%s', '%s', %s, %s, now())", userId, quantity, phone, address, size, status,paymentMethod, totalAmount, getWarehouseId(productId, size));
             PreparedStatement ps = c.prepareStatement(insert);
             ps.executeUpdate();
             ps.close();

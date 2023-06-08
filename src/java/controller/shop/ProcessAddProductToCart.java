@@ -8,6 +8,7 @@ package controller.shop;
 import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author User
  */
-@WebServlet(name="ProcessPostOrder", urlPatterns={"/post-order"})
-public class ProcessPostOrder extends HttpServlet {
+@WebServlet (urlPatterns = {"/add-to-cart"})
+
+public class ProcessAddProductToCart extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,19 +33,14 @@ public class ProcessPostOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        int userId = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
         int productId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
         String size = request.getParameter("size");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String paymentMethod = request.getParameter("paymentMethod");
-        int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
-        System.out.println(userId + " " + quantity + " " + size + " " + phone + " " + address + " " + paymentMethod + " " + totalAmount);
-        OrderDAO.insertOrder(userId, productId, quantity, phone, address, size, paymentMethod, totalAmount, "Chờ xác nhận");
-        response.sendRedirect("dat-hang-thanh-cong.jsp");
-        
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int userId = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
+        OrderDAO.insertOrder(userId, productId, quantity, "NONE", "NONE", size, "NONE", 0, "Giỏ hàng");
+        request.setAttribute("message", "Đã thêm vào giỏ hàng!");
+        RequestDispatcher dis = request.getRequestDispatcher("/product-detail?id=" + productId);
+        dis.forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
