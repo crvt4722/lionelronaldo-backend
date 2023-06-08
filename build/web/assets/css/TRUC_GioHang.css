@@ -10,16 +10,14 @@
     height: 60px;
     margin-left: 20%;
     margin-top: 100px; 
-    box-shadow: 2px 2px 4px 0px #a2b1a6;
-    
-    
+     box-shadow: 2px 2px 4px 0px #a2b1a6;
 }
 
 .ml-2 {
     margin-left: 2px;
 }
 .trangThai{
-    width: 20%;
+    width: 25%;
     height: 100%;
     float: left;
     font-size: 18px;
@@ -35,13 +33,13 @@
     color: blueviolet;
 }
 .noiDung{
-    width: 70%;
-    margin-left: 15%;
+    
     margin-top: 50px;
     
 }
 .phanDau{
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
     height: 50px;
     box-shadow: 2px 2px 4px 0px #a2b1a6;
     float: left;
@@ -49,7 +47,8 @@
 }
 
 .phanGiua{
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
     height: 100px;
     margin-top: 15px;
     box-shadow: 2px 2px 4px 0px #a2b1a6;
@@ -57,7 +56,8 @@
     
 }
 .phanCuoi{
-    width: 70%;
+    width: 80%;
+    margin-left: 10%;
     height: 150px;
     box-shadow: 2px 2px 4px 2px #a2b1a6;
     float: left;
