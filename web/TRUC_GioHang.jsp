@@ -32,10 +32,10 @@
                             <div class='tren' id='tongTien'>Tổng: ₫0</div><br>
                             <span class='duoi' id='tietKiem'>Tiết kiệm: ₫0</span>
                         </div>
-                        <input name="orderIds" id ="ord" value="1, 6">
-                        <input name="productIds" id ="prd" value="1, 6">
-                        <input name="sizes" id ="s" value="1, 6">
-                        <input name="quantities" id ="qtt" value="1, 6">
+                        <input hidden name="orderIds" id ="ord" value="1, 6">
+                        <input hidden name="productIds" id ="prd" value="1, 6">
+                        <input hidden name="sizes" id ="s" value="1, 6">
+                        <input hidden name="quantities" id ="qtt" value="1, 6">
 
                         <div class='nua Sp'><button type="SUBMIT" class='nut mua'>MUA</button></div>
                     </div>
