@@ -40,10 +40,9 @@ public class OrderDAO {
                     + "limit 1", userId);
             PreparedStatement ps = c.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
-            ArrayList<String> phoneAndAddress = null;
+            ArrayList<String> phoneAndAddress = new ArrayList<>();
 
             if (rs.next()) {
-                phoneAndAddress = new ArrayList<>();
                 phoneAndAddress.add(rs.getString("phone"));
                 phoneAndAddress.add(rs.getString("address"));
             }
@@ -90,8 +89,42 @@ public class OrderDAO {
 //            updateAvaibleQuantityOfWarehouse(getWarehouseId(productId, size), quantity);
             String insert = String.format("insert into `order`\n"
                     + "values(null, %s, %s, '%s', '%s', '%s', "
-                    + "'Chờ xác nhận', '%s', %s, %s, now())", userId, quantity, phone, address, size, paymentMethod, totalAmount, getWarehouseId(productId, size));
+                    + "'cho xac nhan', '%s', %s, %s, now())", userId, quantity, phone, address, size, paymentMethod, totalAmount, getWarehouseId(productId, size));
             PreparedStatement ps = c.prepareStatement(insert);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static int getTotalAmountOfEachOrder(String orderId) {
+        try ( Connection c = openConnection()) {
+            String update = String.format("select round(O.quantity * (P.origin_price - P.sale * P.origin_price / 100)) as totalAmount \n"
+                    + "from product as P, warehouse as WH, `order` as O\n"
+                    + "where P.product_id = WH.product_id\n"
+                    + "and O.warehouse_id = WH.warehouse_id\n"
+                    + "and O.order_id = %s", orderId);
+            PreparedStatement ps = c.prepareStatement(update);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("totalAmount");
+            }
+            return 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static void udpateDeliveryStutus(String status, String phone, String address, String paymentMethod, int totalAmount, String orderId) {
+//        System.out.println(userId + " " + quantity + " " + size + " " + phone + " " + address + " " + paymentMethod + " " + totalAmount);
+        try ( Connection c = openConnection()) {
+//            updateAvaibleQuantityOfWarehouse(getWarehouseId(productId, size), quantity);
+            String update = String.format("update `order`\n"
+                    + "set delivery_status = '%s', phone = \"%s\", address = \"%s\", payment_method = \"%s\", total_amount = %s, order_time = now()\n"
+                    + "where order_id = %s", status, phone, address, paymentMethod, getTotalAmountOfEachOrder(orderId), orderId);
+            PreparedStatement ps = c.prepareStatement(update);
             ps.executeUpdate();
             ps.close();
         } catch (Exception ex) {

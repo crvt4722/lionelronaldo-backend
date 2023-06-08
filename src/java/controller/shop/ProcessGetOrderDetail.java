@@ -5,7 +5,8 @@
 
 package controller.shop;
 
-import dao.OrderDAO;
+import com.google.gson.Gson;
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Product;
 
 /**
  *
  * @author User
  */
-@WebServlet(name="ProcessPostOrder", urlPatterns={"/post-order"})
-public class ProcessPostOrder extends HttpServlet {
+@WebServlet (urlPatterns = {"/api/v1/get-order-detail"})
+public class ProcessGetOrderDetail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,19 +33,13 @@ public class ProcessPostOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        int userId = 1;
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String size = request.getParameter("size");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String paymentMethod = request.getParameter("paymentMethod");
-        int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
-        System.out.println(userId + " " + quantity + " " + size + " " + phone + " " + address + " " + paymentMethod + " " + totalAmount);
-        OrderDAO.insertOrder(userId, productId, quantity, phone, address, size, paymentMethod, totalAmount);
-        response.sendRedirect("dat-hang-thanh-cong.jsp");
-        
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        Product product = ProductDAO.getProductByOrderId(orderId);
+        String json = new Gson().toJson(product);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -31,7 +31,7 @@
             <div class="noiDung" id="trangThai4"></div>
             <div class="noiDung" id="trangThai5"></div>
         </div>
-<!--        <div class="modal modal-comment">
+        <div class="modal modal-comment">
             <div class="danh-gia khung" >
                 <div class="tieu-de-danh-gia">ĐÁNH GIÁ SẢN PHẨM</div>
                 <div class="thong-tin-san-pham df">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
     </body>
     <script src="./javascript/leocr-shop-danh-gia/handle-events.js"></script>
     <script src="./javascript/leocr-shop-danh-gia/handle-modal.js"></script>
@@ -197,9 +197,9 @@
                                         "<div class='huyDonCXN Sp'><button class='nut2 nut' onclick='muaLai(" + order.orderId + ")'>Mua Lại";
 
                                 if (order.comment === "") {
-                                    html5 += '<button class="ml-2 nut2 nut-chinh danh-gia-btn" onclick="handleResponse(this, ' + order.orderId + ')"> Đánh giá</button>';
+                                    html5 += '<button class="ml-2 nut nut-chinh danh-gia-btn" onclick="handleResponse(this, ' + order.orderId + ')"> Đánh giá</button>';
                                 } else {
-                                    html5 += `<button class="ml-2 nut2 nut-chinh">Đã đánh giá</button>`;
+                                    html5 += `<button class="ml-2 nut nut-chinh">Đã đánh giá</button>`;
                                 }
 
 

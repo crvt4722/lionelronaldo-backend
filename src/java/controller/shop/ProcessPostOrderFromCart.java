@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author User
  */
-@WebServlet(name="ProcessPostOrder", urlPatterns={"/post-order"})
-public class ProcessPostOrder extends HttpServlet {
+@WebServlet(name="ProcessPostOrder", urlPatterns={"/post-order-from-cart"})
+public class ProcessPostOrderFromCart extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,15 +33,20 @@ public class ProcessPostOrder extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         int userId = 1;
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String size = request.getParameter("size");
+        
+        String orderIdsString = request.getParameter("orderIdsString");
+        String[] orderIds = orderIdsString.split(",");
+        
+       
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String paymentMethod = request.getParameter("paymentMethod");
         int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
-        System.out.println(userId + " " + quantity + " " + size + " " + phone + " " + address + " " + paymentMethod + " " + totalAmount);
-        OrderDAO.insertOrder(userId, productId, quantity, phone, address, size, paymentMethod, totalAmount);
+        
+        for(String orderId : orderIds){
+            OrderDAO.udpateDeliveryStutus("Chờ xác nhận", phone, address, paymentMethod, totalAmount, orderId);
+        }
+        
         response.sendRedirect("dat-hang-thanh-cong.jsp");
         
     } 

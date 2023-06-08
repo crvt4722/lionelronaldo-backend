@@ -22,8 +22,8 @@ import model.Product;
  *
  * @author User
  */
-@WebServlet (urlPatterns = {"/payment"})
-public class ProcessOrderPayment extends HttpServlet {
+@WebServlet (urlPatterns = {"/ProcessOrderPaymentFromCart"})
+public class ProcessOrderPaymentFromCart extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,9 +35,24 @@ public class ProcessOrderPayment extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        String size = request.getParameter("size");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        response.setContentType("text/html;charset=UTF-8");
+        
+        String orderIdsString = request.getParameter("orderIds");
+        
+        String productIdsString = request.getParameter("productIds");
+        String[] productIds = orderIdsString.split(",");
+        
+        String sizesString = request.getParameter("sizes");
+        String[] sizes = sizesString.split(",");
+        ArrayList<String> sizesList = new ArrayList<>();
+        for(String x : sizes) sizesList.add(x);
+        
+        String quantitiesString = request.getParameter("quantities");
+        String[] quantities = quantitiesString.split(",");
+        ArrayList<String> quantitiesList = new ArrayList<>();
+        for(String x : quantities) quantitiesList.add(x);
+        System.out.println(productIdsString + " " + sizesString + " " + quantitiesString);
+        
         String phone, address;
         
         int userId = 1;
@@ -51,17 +66,27 @@ public class ProcessOrderPayment extends HttpServlet {
             address = "";
         }
         
-        Product product = ProductDAO.getProductById(productId);
+        ArrayList<Product> productsList = new ArrayList<>();
         
-        request.setAttribute("product", product);
-        request.setAttribute("size", size);
-        request.setAttribute("quantity", quantity);
-        String totalPrice = "" + product.getPrice() * quantity;
+        int totalPriceOfOrders = 0;
+        for(int i = 0; i < productIds.length; i++){
+            String productId = productIds[i];
+            Product product = ProductDAO.getProductById(Integer.parseInt(productId));
+            totalPriceOfOrders += product.getPrice() * Integer.parseInt(quantities[i]);
+            productsList.add(product);
+        }
+        
+        
+        request.setAttribute("productsList", productsList);
+        request.setAttribute("sizesList", sizesList);
+        request.setAttribute("quantitiesList", quantitiesList);
+        request.setAttribute("orderIdsString", orderIdsString);
+        String totalPrice = "" + totalPriceOfOrders;
         request.setAttribute("totalPrice", totalPrice);
         request.setAttribute("phone", phone);
         request.setAttribute("address", address);
-        
-        RequestDispatcher dis = request.getRequestDispatcher("leocr-shop-order-payment.jsp");
+//        
+        RequestDispatcher dis = request.getRequestDispatcher("leocr-shop-order-payment-from-cart.jsp");
         dis.forward(request, response);
     } 
 

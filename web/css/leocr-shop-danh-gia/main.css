@@ -1,0 +1,186 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0 120px;
+    margin-top: 120px;
+    min-height: 50px;
+}
+
+.df {
+    display: flex;
+    justify-content: space-between;
+}
+
+.f1 {
+    flex: 1
+}
+
+.f2 {
+    flex: 2
+}
+
+.f6 {
+    flex: 6
+}
+
+.hr {
+    margin: 20px 0;
+    border-top: 1px solid #ccc
+}
+
+.khung-anh {
+    display: block;
+    width: 100%;
+}
+
+.tieu-de {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.tieu-de-danh-gia {
+    text-align: center;
+    color: var(--mau-xanh-dam);
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.tieu-de-nho {
+    color: var(--mau-xanh-dam);
+    font-size: 18px;
+}
+
+
+:root {
+    --mau-bg: #f5f5f5;
+    --mau-chinh: #43d5b0;
+    --mau-xanh-dam: #038b75;
+}
+
+.nut {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.nut-chinh {
+    color: white;
+    background-color: var(--mau-chinh);
+}
+
+.modal-comment {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: FaceTopDown ease 0.5s;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes FaceTopDown {
+    from {
+        opacity: 0;
+        transform: translateY(-500px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.danh-gia {
+    opacity: 1;
+    width: 500px;
+    height: 550px;
+    background-color: #fff;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.khung-input {
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+
+.modal .hanh-dong {
+    display: flex;
+    justify-content: right;
+    margin-right: 20px;
+}
+
+.tro-lai-btn,
+.hoan-thanh-btn {
+    padding: 8px 12px;
+    border: 1px solid #8b8b8b;
+    border-radius: 5px;
+    width: 140px;
+    text-align: center;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.hoan-thanh-btn {
+    color: white;
+    background-color: #038b75;
+}
+
+.phan-comment {}
+
+.phan-comment textarea {
+    height: 120px;
+}
+
+.phan-danh-gia-sao {
+    text-align: center;
+    font-size: 30px;
+    color: #ffc04c;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.phan-loai {
+    margin-top: 10px;
+}
+
+.thong-tin-san-pham {
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+}
+
+.thong-tin-chi-tiet {
+    margin-left: 10px;
+}
+
+.ten-san-pham {
+    font-weight: 600;
+}
+
+.thuong-hieu {
+    font-size: 14px;
+    opacity: 0.7;
+}
