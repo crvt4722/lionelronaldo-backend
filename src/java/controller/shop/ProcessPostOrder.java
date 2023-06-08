@@ -32,7 +32,7 @@ public class ProcessPostOrder extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        int userId = 1;
+        int userId = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
         int productId = Integer.parseInt(request.getParameter("productId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String size = request.getParameter("size");

@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,6 @@ import model.Product;
  *
  * @author User
  */
-@WebServlet (urlPatterns = {"/payment"})
 public class ProcessOrderPayment extends HttpServlet {
    
     /** 
@@ -40,7 +38,7 @@ public class ProcessOrderPayment extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String phone, address;
         
-        int userId = 1;
+        int userId = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
         ArrayList<String> phoneAndAddress = OrderDAO.getPhoneAndAddressOfLastOrder(userId);
         if(phoneAndAddress.get(0) != null){
             phone = phoneAndAddress.get(0);

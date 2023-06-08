@@ -89,7 +89,7 @@ public class OrderDAO {
 //            updateAvaibleQuantityOfWarehouse(getWarehouseId(productId, size), quantity);
             String insert = String.format("insert into `order`\n"
                     + "values(null, %s, %s, '%s', '%s', '%s', "
-                    + "'cho xac nhan', '%s', %s, %s, now())", userId, quantity, phone, address, size, paymentMethod, totalAmount, getWarehouseId(productId, size));
+                    + "'Chờ xác nhận', '%s', %s, %s, now())", userId, quantity, phone, address, size, paymentMethod, totalAmount, getWarehouseId(productId, size));
             PreparedStatement ps = c.prepareStatement(insert);
             ps.executeUpdate();
             ps.close();

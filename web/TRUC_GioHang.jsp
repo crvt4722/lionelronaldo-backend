@@ -22,7 +22,7 @@
             <!--<div class="thanhTrangThai"></div>-->
             <div  class="noiDung" id="trangThai1"></div>
             <div style = 'margin-top : 300px; float: left' ></div>
-            <form method="GET" action="">
+            <form method="GET" action="/LeoCris/payment-from-cart">
                 <div class='phanCuoi' >
                     <div class='nua'>
                         <div class='nua Sp'><input class='cboxAll' type='checkbox' value='1' name='dssp'>&nbsp;&nbsp;Chọn tất cả</div>

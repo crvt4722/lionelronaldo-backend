@@ -42,7 +42,7 @@ public class TRUC_OderDAO {
 
             String select = "SELECT * \n"
                     + "FROM lionelronaldo.order as O, lionelronaldo.product as P, lionelronaldo.warehouse as W\n"
-                    + "WHERE user_id = %s and delivery_status = '%s'  and W.warehouse_id = O.warehouse_id and P.product_id = W.product_id";
+                    + "WHERE user_id = %s and delivery_status = '%s'  and W.warehouse_id = O.warehouse_id and P.product_id = W.product_id order by order_id desc";
             //System.out.println(id +  ds);
             select = String.format(select, id, trangThai);
             PreparedStatement ps = c.prepareStatement(select);
@@ -162,7 +162,7 @@ public class TRUC_OderDAO {
     public static void huyDon(String id_order) {
         try ( Connection c = openConnection()) {
             System.out.println(id_order);
-            String select = "update lionelronaldo.order set delivery_status = 'Đơn đã hủy' WHERE order_id = %s;";
+            String select = "update lionelronaldo.order set delivery_status = 'Đã hủy' WHERE order_id = %s;";
             //System.out.println(id +  ds);
             select = String.format(select, id_order);
             PreparedStatement ps = c.prepareStatement(select);

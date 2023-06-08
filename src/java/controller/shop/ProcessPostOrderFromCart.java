@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author User
  */
-@WebServlet(name="ProcessPostOrder", urlPatterns={"/post-order-from-cart"})
+@WebServlet(name="ProcessPostOrderFromCart", urlPatterns={"/post-order-from-cart"})
 public class ProcessPostOrderFromCart extends HttpServlet {
    
     /** 
@@ -32,7 +32,7 @@ public class ProcessPostOrderFromCart extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        int userId = 1;
+        
         
         String orderIdsString = request.getParameter("orderIdsString");
         String[] orderIds = orderIdsString.split(",");

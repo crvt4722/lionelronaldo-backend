@@ -42,7 +42,7 @@
                 </div>
             </form>
         </div>
-        <div class="main mt90">
+        <div class="main mt30">
             <div class="san-pham-header">
                 <div class="banner">
                     <img src="https://i8.amplience.net/i/jpl/desktop-top-banner-1920x840-home-1-7f239a4e0a6423a22030dcdf43518df9?fmt=webp"

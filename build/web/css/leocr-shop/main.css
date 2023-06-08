@@ -21,6 +21,10 @@
     margin-top: 90px;
 }
 
+.mt30 {
+    margin-top: 30px;
+}
+
 .df {
     display: flex;
     flex-wrap: wrap;
