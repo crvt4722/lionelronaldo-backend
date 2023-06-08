@@ -327,7 +327,7 @@
 
             phuongThucThanhToanElements[0].style.color = '#038b75';
             phuongThucThanhToanElements[0].style.border = '1px solid #038b75';
-                    
+
             phuongThucThanhToanElements.forEach((phuongThuc, index) => {
                 phuongThuc.onclick = function () {
                     phuongThucThanhToanElements.forEach((item) => {
@@ -342,10 +342,11 @@
                     })
                     if (index === 0) {
                         thanhToanContainer[index].style.display = 'flex'
-                        formPaymentMethod.value = "thanh toán khi nhận hàng";
+                        formPaymentMethod.value = "Thanh toán trực tuyến";
                     } else {
                         thanhToanContainer[index].style.display = 'block'
-                        formPaymentMethod.value = "thanh toán trực tuyến";
+                        formPaymentMethod.value = "Thanh toán khi nhận hàng";
+                        
                     }
                 }
             })

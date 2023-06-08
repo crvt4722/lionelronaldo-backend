@@ -98,4 +98,38 @@ public class OrderDAO {
         }
     }
 
+    public static int getTotalAmountOfEachOrder(String orderId) {
+        try ( Connection c = openConnection()) {
+            String update = String.format("select round(O.quantity * (P.origin_price - P.sale * P.origin_price / 100)) as totalAmount \n"
+                    + "from product as P, warehouse as WH, `order` as O\n"
+                    + "where P.product_id = WH.product_id\n"
+                    + "and O.warehouse_id = WH.warehouse_id\n"
+                    + "and O.order_id = %s", orderId);
+            PreparedStatement ps = c.prepareStatement(update);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("totalAmount");
+            }
+            return 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static void udpateDeliveryStutus(String status, String phone, String address, String paymentMethod, int totalAmount, String orderId) {
+//        System.out.println(userId + " " + quantity + " " + size + " " + phone + " " + address + " " + paymentMethod + " " + totalAmount);
+        try ( Connection c = openConnection()) {
+//            updateAvaibleQuantityOfWarehouse(getWarehouseId(productId, size), quantity);
+            String update = String.format("update `order`\n"
+                    + "set delivery_status = '%s', phone = \"%s\", address = \"%s\", payment_method = \"%s\", total_amount = %s, order_time = now()\n"
+                    + "where order_id = %s", status, phone, address, paymentMethod, getTotalAmountOfEachOrder(orderId), orderId);
+            PreparedStatement ps = c.prepareStatement(update);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
