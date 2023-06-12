@@ -54,7 +54,7 @@
             </div>
             <div class="main-menu__item item--auction"><a href="vote.jsp">Who's the best</a></div>
             <div class="main-menu__item item--comunity"><a href="comunity.jsp">Comunity</a></div>
-            <div class="main-menu__item item--shopping"><a href="shopping.jsp">Shopping</a></div>
+            <div class="main-menu__item item--shopping"><a href="shop">Shopping</a></div>
             <div class="main-menu__item item--management"><a href="product.jsp">Product</a></div>
             <div class="main-menu__item item--order"><a href="order-web.jsp">Order</a></div>
             <div class="main-menu__item item--authorization"><a href="authorization.jsp">Authorization</a></div>
@@ -62,7 +62,9 @@
         </div>
 
         <div class="search-login">
-            <input type="text" placeholder="Track your order by username...">
+            <!--<input type="text" placeholder="Track your order by username...">-->
+            <a href="truc_trangthai"><i class="fa-solid fa-truck" style="font-size:18px"></i></a>
+            <a href="truc_giohang"><i class="fa-solid fa-cart-shopping" style="font-size:18px"></i></i></a>
             <!--<a href="order.jsp"><i class="fa-solid fa-user"></i></a>-->
             <div class="login-btn">Login</div>
         </div>

@@ -53,6 +53,11 @@
                         <option value="Quần áo">Quần áo</option>
                         <option value="Mũ">Mũ</option>
                         <option value="Giày">Giày</option>
+                        <option value="Bóng đá">Bóng đá</option>
+                        <option value="Balo">Balo</option>
+                        <option value="Găng tay">Găng tay</option>
+                        <option value="Kính">Kính</option>
+                        <option value="Tất">Tất</option>
                     </select>
                 </div>
                 <div class="row-form">

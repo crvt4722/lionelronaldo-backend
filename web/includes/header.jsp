@@ -36,7 +36,10 @@
         </div>
 
         <div class="search-login">
-            <input type="text" placeholder="Track your order by username...">
+<!--            <input type="text" placeholder="Track your order by username...">-->
+            <a href="truc_trangthai"><i class="fa-solid fa-truck" style="font-size:18px"></i></a>
+            <a href="truc_giohang"><i class="fa-solid fa-cart-shopping" style="font-size:18px"></i></i></a>
+            
             <!--<a href="order.jsp"><i class="fa-solid fa-user"></i></a>-->
             <div class="login-btn">Login</div>
         </div>
