@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Toi Cr</title>
+        <title>Cầu thủ & số liệu thống kê</title>
 
         <link rel="stylesheet" href="./assets/css/footer.css">
         <link rel="stylesheet" href="./assets/css/career.css">
@@ -50,7 +50,7 @@
             </div>
             <div class="main-menu__item"><a href="index.jsp">Home</a></div>
             <div class="main-menu__item item--career">
-                <a href="career.jsp">Stats and jerseys</a>
+                <a href="career.jsp">Stats</a>
             </div>
             <div class="main-menu__item item--auction"><a href="vote.jsp">Who's the best</a></div>
             <div class="main-menu__item item--comunity"><a href="comunity.jsp">Comunity</a></div>

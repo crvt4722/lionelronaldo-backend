@@ -52,11 +52,11 @@ public class ProcessDeleteProduct extends HttpServlet {
                     response.setCharacterEncoding("UTF-8");
                     String json = "{\"productId\": " + id +"}";
                     response.getWriter().write(json);
-                    response.sendRedirect("http://localhost:8080/LeoCris/product.jsp");
+                    response.sendRedirect("/LeoCris/product.jsp");
                 }
                 catch(Exception e){
                     e.printStackTrace();
-                    response.sendRedirect("http://localhost:8080/LeoCris/product.jsp");
+                    response.sendRedirect("/LeoCris/product.jsp");
                 }
             }
         }

@@ -53,11 +53,11 @@ public class ProcessControllOrder extends HttpServlet {
                     response.setCharacterEncoding("UTF-8");
                     String json = "{\"productId\": " + id +"}";
                     response.getWriter().write(json);
-                    response.sendRedirect("http://localhost:8080/LeoCris/order-web.jsp");
+                    response.sendRedirect("/LeoCris/order-web.jsp");
                 }
                 catch(Exception e){
                     e.printStackTrace();
-                    response.sendRedirect("http://localhost:8080/LeoCris/order-web.jsp");
+                    response.sendRedirect("/LeoCris/order-web.jsp");
                 }
             }
         }

@@ -476,7 +476,7 @@ public class UserDAO {
             ps.setInt(1, id);
             ps.execute();
             
-            delete = "DELETE FROM keyword WHERE  product_id = ?";
+            delete = "DELETE FROM keywords WHERE  product_id = ?";
             ps = c.prepareStatement(delete);
             ps.setInt(1, id);
             ps.execute();
@@ -605,7 +605,7 @@ public class UserDAO {
         try (Connection c = openConnection()){                        
             for (String keyword: keywords) {
                 keyword = keyword.strip();
-                String insert = "INSERT INTO keyword(product_id, name) VALUES (?,?)";
+                String insert = "INSERT INTO keywords(product_id, name) VALUES (?,?)";
                 PreparedStatement ps = c.prepareStatement(insert);
                 ps.setInt(1, productID);
                 ps.setString(2, keyword);
@@ -620,7 +620,7 @@ public class UserDAO {
     
     public static boolean updateKeyWords(int productID, String [] keywords){
         try (Connection c = openConnection()){                        
-            String delete = "DELETE FROM keyword WHERE  product_id = ?";
+            String delete = "DELETE FROM keywords WHERE  product_id = ?";
             PreparedStatement ps = c.prepareStatement(delete);
             ps.setInt(1, productID);
             ps.execute();

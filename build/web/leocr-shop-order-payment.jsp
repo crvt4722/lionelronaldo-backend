@@ -292,7 +292,10 @@
             let updateUserName = document.querySelector('.cap-nhat-ten input');
 
             // xử lý nếu phone và address bằng NULL
-            if (userPhone.innerText.trim().length === 0) {
+//            if (userPhone.innerText.trim().length === 0) {
+//                modal.classList.add('open');
+//            }
+            if (userPhone.innerText.trim().length === 0 || userPhone.innerText.trim() === "NONE") {
                 modal.classList.add('open');
             }
 

@@ -11,12 +11,24 @@ html{
     clear: both;
 }
 
-#header{
+.header{
+    top:0;
+    right: 0;
     position: fixed;
     width: 100%;
     /* position: fixed; */
     z-index: 100;
 }
+#header{
+    top:0;
+    right: 0;
+    position: fixed;
+    width: 100%;
+    /* position: fixed; */
+    z-index: 100;
+}
+
+
 
 .header-wrapper{
     height: 45px;
@@ -216,6 +228,7 @@ html{
     min-height: 63rem;
     max-height: 100rem;
     position: relative;
+    margin-top: 117px;
     border-top: 1px solid #808080;
     /* display: none; */
 }

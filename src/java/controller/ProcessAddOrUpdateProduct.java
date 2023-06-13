@@ -58,7 +58,8 @@ public class ProcessAddOrUpdateProduct extends HttpServlet {
         if (id != null  && id.equals("")==false ){
             int ID = Integer.parseInt(id);
             if (keywords.equals("")==false) UserDAO.updateKeyWords(ID, keywords.split("!"));
-            if(files.length > 0) UserDAO.updateProductImage(ID, files);
+            String firstImage = files[0];
+            if(firstImage.length() > 0) UserDAO.updateProductImage(ID, files);
             if(quantity.equals("")==false && size.equals("")==false){
                 int quantityX = Integer.parseInt(quantity);
                 UserDAO.addWareHouse(ID, size, quantityX);
