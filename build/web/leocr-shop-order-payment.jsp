@@ -17,10 +17,18 @@
         <title>Thanh toán</title>
         <link rel="stylesheet" href="./css/leocr-shop-order-payment/main.css">
         <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
+        
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/base.css">
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/main.css">
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/footer.css">
+        <link rel="stylesheet" type="text/css" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
+        <script src="./includes/include.js"></script>
+        
 
     </head>
 
     <body>
+        <div class="header" w3-include-html="./includes/header.jsp"></div>
         <div class="main">
             <!-- thanh-toan-header: begin -->
             <div class="thanh-toan-header">
@@ -265,6 +273,11 @@
             </div>
             <!-- Modal thay đổi địa chỉ -->
         </div>
+                    <footer class="footer-distributed" w3-include-html="./includes/footer.html"> </footer>
+                <script src="./js/header.js"> </script>
+                <script>
+                    includeHTML();
+                </script>
         <script>
             let formDatHang = document.querySelector(".form-dat-hang");
             // let formQuantity = formDatHang.querySelector('[name="quantity"]');

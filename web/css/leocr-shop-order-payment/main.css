@@ -9,8 +9,9 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: #ffffff;
     margin: 0 120px;
-    margin-top: 120px;
+    margin-top: 150px;
     min-height: 50px;
+    font-size: 14px !important;
 }
 
 .banner-nho {
@@ -96,7 +97,7 @@
 
 .tieu-de {
     font-weight: 400;
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .pb-20 {
@@ -139,14 +140,14 @@
 }
 
 .thanh-toan-header h3 {
-    font-size: 30px;
+    font-size: 30px !important;
     font-weight: 500;
     padding-bottom: 30px;
 }
 
 .tieu-de-nho {
     color: var(--mau-xanh-dam);
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 .dia-chi-khach-hang a {
@@ -232,7 +233,7 @@
 .loi-nhan-container input {
     padding: 8px;
     margin-right: 15px;
-    font-size: 16px;
+    font-size: 16px !important;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 70%;
@@ -240,7 +241,7 @@
 
 option,
 select {
-    font-size: 16px;
+    font-size: 16px !important ;
     padding: 10px;
 }
 
@@ -251,7 +252,7 @@ select {
 
 .tong-tien-khach-tra {
     padding-right: 10px;
-    font-size: 20px;
+    font-size: 20px !important;
     text-align: right;
     color: var(--mau-xanh-dam);
 }
@@ -276,7 +277,7 @@ select {
 .hinh-thuc-thanh-toan input,
 .hinh-thuc-thanh-toan select {
     padding: 8px 10px;
-    font-size: 16px;
+    font-size: 16px !important;
     border: 1px solid #32a923;
     width: 100%;
     border-radius: 5px;
@@ -284,7 +285,7 @@ select {
 }
 
 .hinh-thuc-thanh-toan .tieu-de {
-    font-size: 16px;
+    font-size: 16px !important;
 
 }
 
@@ -311,7 +312,7 @@ select {
 }
 
 .khach-hang-tra {
-    font-size: 30px;
+    font-size: 30px !important ;
     color: var(--mau-xanh-dam)
 }
 
@@ -347,6 +348,7 @@ select {
     display: none;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
 }
 
 @keyframes FaceTopDown {
@@ -381,7 +383,7 @@ select {
 
 .khung-input {
     padding: 8px 10px;
-    font-size: 16px;
+    font-size: 16px !important;
     border: 1px solid #ccc;
     width: 100%;
     border-radius: 5px;

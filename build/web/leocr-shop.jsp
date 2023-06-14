@@ -31,7 +31,7 @@
 
     <body>
         <div class="header" w3-include-html="./includes/header.jsp"></div>
-        <div id="nav">
+        <div id="nav" style  = "margin-top:117px">
             <form method="GET" action="/LeoCris/products">
                 <div class="tim-kiem-container">
                     <div class="thanh-tim-kiem">

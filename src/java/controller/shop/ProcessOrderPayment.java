@@ -40,7 +40,7 @@ public class ProcessOrderPayment extends HttpServlet {
         
         int userId = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
         ArrayList<String> phoneAndAddress = OrderDAO.getPhoneAndAddressOfLastOrder(userId);
-        if(phoneAndAddress.get(0) != null){
+        if(phoneAndAddress != null){
             phone = phoneAndAddress.get(0);
             address = phoneAndAddress.get(1);
         }

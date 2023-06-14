@@ -45,8 +45,9 @@ public class OrderDAO {
             if (rs.next()) {
                 phoneAndAddress.add(rs.getString("phone"));
                 phoneAndAddress.add(rs.getString("address"));
+                return phoneAndAddress;
             }
-            return phoneAndAddress;
+            return null;
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -12,12 +12,17 @@
         <link rel="stylesheet" href="./css/leocr-shop-danh-gia/main.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><!-- comment -->
         <script src="https://kit.fontawesome.com/f0add9272d.js"></script>
-        
+<!--        
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/base.css">
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/main.css">
+        <link rel="stylesheet" type="text/css"  type="text/css" href="./assets/css/footer.css">
+        <link rel="stylesheet" type="text/css" href="./assets/fonts/fontawesome-free-6.3.0-web/css/all.min.css">
+        <script src="./includes/include.js"></script>-->
         
     </head>
 
     <body>
-
+<!--<div class="header" w3-include-html="./includes/header.jsp"></div>-->
         <div >
             <!--<div class="thanhTrangThai"></div>-->
             <div  class="noiDung" id="trangThai1"></div>
@@ -43,7 +48,11 @@
                 </div>
             </form>
         </div>
-
+<!--<footer class="footer-distributed" w3-include-html="./includes/footer.html"> </footer>
+                <script src="./js/header.js"> </script>
+                <script>
+                    includeHTML();
+                </script>-->
     </body>
     <script>
         function xuLyTien(n) {
